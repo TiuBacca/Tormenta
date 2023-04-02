@@ -73,14 +73,19 @@ public class Personagem {
 	private Double tamanho;
 
 	public Personagem() {
+		this.habilidade = new Habilidade();
+		this.tendencia = new Tendencia();
+		this.raca = new Raca();
+		this.classe = new Classe();
+		
 		this.nivel = 1;
-		this.vontade = Habilidade.getModificador(this.habilidade.getSabedoria());
-		this.reflexo = Habilidade.getModificador(this.habilidade.getDestreza());
-		this.fortitude = Habilidade.getModificador(this.habilidade.getConstituicao());
+		this.vontade = Habilidade.getModificador(habilidade.getSabedoria());
+		this.reflexo = Habilidade.getModificador(habilidade.getDestreza());
+		this.fortitude = Habilidade.getModificador(habilidade.getConstituicao());
 
 		ClasseArmadura classeArmadura = new ClasseArmadura();
-		classeArmadura.setTotal(classeArmadura.getTotal() + this.nivel % 2
-				+ Habilidade.getModificador(this.getHabilidade().getDestreza()));
+		classeArmadura.setTotal(
+				classeArmadura.getTotal() + this.nivel % 2 + Habilidade.getModificador(getHabilidade().getDestreza()));
 
 		this.classeArmadura = classeArmadura;
 		this.vida = new Vida();
