@@ -6,9 +6,11 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -25,6 +27,10 @@ public class Personagem {
 	@GeneratedValue
 	@Column(name = "id", nullable = false, updatable = false)
 	private Long id;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "id_usuario")
+	private Usuario usuario;
 
 	@Column(name = "nome", nullable = false, updatable = true)
 	private String nome;
@@ -77,7 +83,7 @@ public class Personagem {
 		this.tendencia = new Tendencia();
 		this.raca = new Raca();
 		this.classe = new Classe();
-		
+
 		this.nivel = 1;
 		this.vontade = Habilidade.getModificador(habilidade.getSabedoria());
 		this.reflexo = Habilidade.getModificador(habilidade.getDestreza());

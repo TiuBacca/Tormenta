@@ -65,6 +65,10 @@ public class PersonagemServiceImpl implements PersonagemService {
 			sb.append(" AND raca.id = :idRaca");
 		}
 
+		if (Objects.nonNull(request.getIdUsuario()) && request.getIdUsuario() != 0) {
+			sb.append(" AND p.usuario.id = :usuario ");
+		}
+
 		TypedQuery<PersonagemResponse> query = util.getEntityManager().createQuery(sb.toString(),
 				PersonagemResponse.class);
 
@@ -73,6 +77,10 @@ public class PersonagemServiceImpl implements PersonagemService {
 		}
 		if (Objects.nonNull(request.getIdClasse())) {
 			query.setParameter("idClasse", request.getIdClasse());
+		}
+		if (Objects.nonNull(request.getIdUsuario()) && request.getIdUsuario() != 0) {
+			query.setParameter("usuario", request.getIdUsuario());
+
 		}
 
 		return query.getResultList();

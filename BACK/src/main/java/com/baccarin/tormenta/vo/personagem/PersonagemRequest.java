@@ -29,4 +29,6 @@ public class PersonagemRequest {
 	private Integer nivel;
 	private Double tamanho;
 
+	private Long idUsuario;
+
 }
