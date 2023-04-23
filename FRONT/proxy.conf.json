@@ -1,0 +1,7 @@
+{
+    "/tormenta/*":{
+        "target":"http://localhost:8008",
+        "secure":false,
+        "LogLevel":"debug"
+    }
+}

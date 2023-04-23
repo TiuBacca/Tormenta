@@ -1,0 +1,70 @@
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+
+import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app.component';
+
+
+import { CommonModule } from '@angular/common';
+
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { LoaderModule } from './components/loader/loader.module';
+import { LoaderInterceptor } from './components/loader/loader.interceptor';
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { HeaderComponent } from './components/header/header.component';
+import { NavComponent } from './components/nav/nav.component';
+import { HomeComponent } from './pages/home/home.component';
+
+import { LoginComponent } from './pages/login/login.component';
+// import { NgxSpinnerModule } from "ngx-spinner";
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { Interceptor } from './app.interceptor.module';
+import { DuasCasasAposPonto } from './components/pipes/DuasCasasAposPonto.pipe';
+import { NumericOnlyDirective } from './components/diretivas/numeric-only.directive';
+import { NumericOnlyDirective2 } from './components/diretivas/numeric-only2.directive';
+import { NgxMaskModule } from 'ngx-mask';
+
+
+
+@NgModule({
+  declarations: [
+    AppComponent,
+
+    HeaderComponent,
+    NavComponent,
+    HomeComponent,
+
+    LoginComponent,
+    DuasCasasAposPonto,
+    NumericOnlyDirective,
+    NumericOnlyDirective2
+  ],
+  imports: [
+    BrowserModule,
+    BrowserAnimationsModule,
+    AppRoutingModule,
+    FormsModule,
+    ReactiveFormsModule,
+    CommonModule,
+    HttpClientModule,
+    LoaderModule,
+    NgxPaginationModule,
+    NgMultiSelectDropDownModule.forRoot(),
+    Interceptor,
+    NgxMaskModule.forRoot({
+      dropSpecialCharacters: true
+    })
+  ],
+  exports: [
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule
+  ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  providers: [{ provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true}],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }
