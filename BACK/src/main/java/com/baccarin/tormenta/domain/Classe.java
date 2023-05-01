@@ -2,6 +2,9 @@ package com.baccarin.tormenta.domain;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+
+import com.baccarin.tormenta.vo.classe.ClasseRequest;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -27,7 +30,17 @@ public class Classe {
 
 	@Column(name = "nome", nullable = false, updatable = true)
 	private String nome;
-	
-    @OneToMany(mappedBy = "classe")
-    private List<HablidadeClasse> habilidades = new ArrayList<>();
+
+	@OneToMany(mappedBy = "classe")
+	private List<HablidadeClasse> habilidades = new ArrayList<>();
+
+	public Classe(ClasseRequest request) {
+		if (Objects.nonNull(request.getNome())) {
+			this.nome = request.getNome();
+		}
+
+		if (Objects.nonNull(request.getId())) {
+			this.id = request.getId();
+		}
+	}
 }
