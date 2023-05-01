@@ -1,18 +1,22 @@
 package com.baccarin.tormenta.vo.raca;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class RacaRequest {
+@Builder
+public class RacaResponse {
 
 	private Long id;
 	private String nome;
-	private List<HablidadeRacaResponse> habilidades = new ArrayList<>();
+
+	public RacaResponse(String nome) {
+		this.nome = nome;
+	}
+
+	
 }
