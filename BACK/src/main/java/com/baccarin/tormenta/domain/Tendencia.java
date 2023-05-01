@@ -1,5 +1,9 @@
 package com.baccarin.tormenta.domain;
 
+import java.util.Objects;
+
+import com.baccarin.tormenta.vo.tendencia.TendenciaRequest;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -20,7 +24,18 @@ public class Tendencia {
 	@GeneratedValue
 	@Column(name = "id", nullable = false, updatable = false)
 	private Long id;
-	
+
 	@Column(name = "descricao", nullable = false, updatable = true)
 	private String descricao;
+
+	public Tendencia(TendenciaRequest request) {
+
+		if (Objects.nonNull(request.getId())) {
+			this.id = request.getId();
+		}
+
+		if (Objects.nonNull(request.getDescricao())) {
+			this.descricao = request.getDescricao();
+		}
+	}
 }
