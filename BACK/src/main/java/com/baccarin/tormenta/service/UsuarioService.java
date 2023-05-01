@@ -11,6 +11,6 @@ public interface UsuarioService {
 
 	void removerUsuario(UsuarioRequest request) throws Exception;
 
-	void salvarUsuario(UsuarioRequest request);
+	void salvarUsuario(UsuarioRequest request) throws Exception;
 
 }

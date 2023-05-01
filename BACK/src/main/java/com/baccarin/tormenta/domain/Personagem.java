@@ -32,6 +32,7 @@ public class Personagem {
 	@JoinColumn(name = "id_usuario")
 	private Usuario usuario;
 
+
 	@Column(name = "nome", nullable = false, updatable = true)
 	private String nome;
 

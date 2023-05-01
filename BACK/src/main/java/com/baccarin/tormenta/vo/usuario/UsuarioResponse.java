@@ -15,9 +15,16 @@ public class UsuarioResponse {
 	private String nome;
 	private String email;
 
+		
+	public UsuarioResponse(String nome) {
+		this.nome = nome;
+	}
+	
 	public UsuarioResponse(String nome, String email) {
 		this.nome = nome;
 		this.email = email;
 	}
+
+
 
 }

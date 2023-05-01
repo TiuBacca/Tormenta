@@ -6,6 +6,8 @@ import java.util.Objects;
 import org.springframework.stereotype.Service;
 
 import com.baccarin.tormenta.domain.Usuario;
+import com.baccarin.tormenta.exception.RegistroDuplicadoException;
+import com.baccarin.tormenta.exception.RegistroIncompletoException;
 import com.baccarin.tormenta.exception.RegistroNaoEncontradoException;
 import com.baccarin.tormenta.exception.RegistrosAssociadosException;
 import com.baccarin.tormenta.repository.UsuarioRepository;
@@ -17,7 +19,7 @@ import com.baccarin.tormenta.vo.personagem.PersonagemResponse;
 import com.baccarin.tormenta.vo.usuario.UsuarioRequest;
 import com.baccarin.tormenta.vo.usuario.UsuarioResponse;
 
-import jakarta.persistence.TypedQuery;
+import jakarta.persistence.Query;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 
@@ -36,7 +38,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 
 		StringBuilder sb = new StringBuilder();
 		sb.append(
-				" select new com.baccarin.tormenta.vo.usuario.UsuarioResponse (u.nome, u.email) FROM Usuario u where u.id > 0  ");
+				" select new com.baccarin.tormenta.vo.usuario.UsuarioResponse (u.nome) FROM Usuario u where u.id > 0  ");
 
 		if (Objects.nonNull(request.getId()) && request.getId() != 0) {
 			sb.append(" AND u.id = :id ");
@@ -50,7 +52,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 			sb.append(" AND u.email ilike :email ");
 		}
 
-		TypedQuery<UsuarioResponse> query = util.getEntityManager().createQuery(sb.toString(), UsuarioResponse.class);
+		Query query = util.getEntityManager().createQuery(sb.toString());
 
 		if (Objects.nonNull(request.getId()) && request.getId() != 0) {
 			query.setParameter("id", request.getId());
@@ -61,16 +63,62 @@ public class UsuarioServiceImpl implements UsuarioService {
 		}
 
 		if (Objects.nonNull(request.getEmail()) && !request.getEmail().isBlank()) {
-			query.setParameter("email", "%" + request.getEmail() + "%");
+			query.setParameter("email", Util.criptografar(request.getEmail()));
 		}
 
-		return query.getResultList();
+		List<UsuarioResponse> lista = query.getResultList();
+		
+		return lista;
 	}
 
 	@Override
 	public void removerUsuario(UsuarioRequest request) throws Exception {
+		validaExcluirUsuario(request);
+		usuarioRepository.deleteById(request.getId());
 
-		Usuario user = usuarioRepository.findById(request.getId())
+	}
+
+	@Override
+	public void salvarUsuario(UsuarioRequest request) throws Exception {
+		validarSalvarUsuario(request);
+		usuarioRepository.save(new Usuario(request));
+	}
+
+	private void validarSalvarUsuario(UsuarioRequest request) throws Exception {
+
+		if (Objects.nonNull(request.getId())) {
+			usuarioRepository.findById(request.getId())
+					.orElseThrow(() -> new RegistroNaoEncontradoException("Usuário não encontrado."));
+			if (Objects.nonNull(request.getEmail())) {
+				throw new RegistroIncompletoException("Impossível atualizar o e-mail do usuário.");
+			}
+
+		} else {
+
+			if (Objects.isNull(request.getNome()) || request.getNome().isBlank()) {
+				throw new RegistroIncompletoException("Atributo nome faltando para salvar usuário.");
+			} else {
+				List<UsuarioResponse> usersNomeDuplicado = buscarListaUsuariosByFiltro(
+						UsuarioRequest.builder().email(request.getEmail()).build());
+
+				if (Objects.nonNull(usersNomeDuplicado) && !usersNomeDuplicado.isEmpty()) {
+					throw new RegistroDuplicadoException("E-mail ja cadastrado.");
+				}
+			}
+
+			if (Objects.isNull(request.getEmail()) || request.getEmail().isBlank()) {
+				throw new RegistroIncompletoException("Atributo e-mail faltando para salvar usuário.");
+			}
+
+			if (Objects.isNull(request.getSenha()) || request.getSenha().isBlank()) {
+				throw new RegistroIncompletoException("Atributo senha faltando para salvar usuário.");
+			}
+		}
+
+	}
+
+	private void validaExcluirUsuario(UsuarioRequest request) throws Exception {
+		usuarioRepository.findById(request.getId())
 				.orElseThrow(() -> new RegistroNaoEncontradoException("Não foi encontrado o usuário informado."));
 
 		List<PersonagemResponse> personagensAssociados = personagemService
@@ -79,15 +127,5 @@ public class UsuarioServiceImpl implements UsuarioService {
 			throw new RegistrosAssociadosException(
 					"Existem personagens associados a este usuário. Remover todos registros antes de remover o usuário.");
 		}
-
-		usuarioRepository.delete(user);
-
 	}
-
-	@Override
-	public void salvarUsuario(UsuarioRequest request) {
-		// TODO Auto-generated method stub
-
-	}
-
 }
