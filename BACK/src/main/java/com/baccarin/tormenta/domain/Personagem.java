@@ -2,6 +2,7 @@ package com.baccarin.tormenta.domain;
 
 import com.baccarin.tormenta.enums.Sexo;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -15,7 +16,6 @@ import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
@@ -31,7 +31,6 @@ public class Personagem {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_usuario")
 	private Usuario usuario;
-
 
 	@Column(name = "nome", nullable = false, updatable = true)
 	private String nome;
@@ -52,16 +51,18 @@ public class Personagem {
 	@JoinColumn(name = "id_tendencia", nullable = false)
 	private Tendencia tendencia;
 
-	@OneToOne
-	@JoinColumn(name = "id_vida", nullable = false)
-	private Vida vida;
+	@Column(name = "pontos_vida_totais")
+	private Integer pontosVidaTotais;
 
-	@OneToOne
-	@JoinColumn(name = "id_habilidade", nullable = false)
+	@Column(name = "pontos_vida_atuais")
+	private Integer pontosVidaAtuais;
+
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "habilidade_id", referencedColumnName = "id", nullable = true)
 	private Habilidade habilidade;
 
-	@OneToOne
-	@JoinColumn(name = "id_classe_armadura", nullable = false)
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "id_classe_armadura", referencedColumnName = "id", nullable = true)
 	private ClasseArmadura classeArmadura;
 
 	@Column(name = "fortitude")
@@ -95,7 +96,6 @@ public class Personagem {
 				classeArmadura.getTotal() + this.nivel % 2 + Habilidade.getModificador(getHabilidade().getDestreza()));
 
 		this.classeArmadura = classeArmadura;
-		this.vida = new Vida();
 	}
 
 }

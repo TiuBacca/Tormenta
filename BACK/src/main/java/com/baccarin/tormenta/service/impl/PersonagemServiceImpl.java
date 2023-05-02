@@ -11,7 +11,6 @@ import com.baccarin.tormenta.domain.Habilidade;
 import com.baccarin.tormenta.domain.Personagem;
 import com.baccarin.tormenta.domain.Raca;
 import com.baccarin.tormenta.domain.Tendencia;
-import com.baccarin.tormenta.domain.Vida;
 import com.baccarin.tormenta.enums.Sexo;
 import com.baccarin.tormenta.exception.RegistroNaoEncontradoException;
 import com.baccarin.tormenta.repository.ClasseArmaduraRepository;
@@ -25,7 +24,6 @@ import com.baccarin.tormenta.util.Util;
 import com.baccarin.tormenta.vo.personagem.PersonagemRequest;
 import com.baccarin.tormenta.vo.personagem.PersonagemResponse;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.TypedQuery;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -124,11 +122,6 @@ public class PersonagemServiceImpl implements PersonagemService {
 			personagem.setTendencia(tendencia);
 		}
 
-		if (Objects.nonNull(request.getVida())) {
-			Vida novaVida = new Vida(request.getVida().getPontosTotais(), request.getVida().getPontosAtuais());
-			personagem.setVida(novaVida);
-		}
-
 		if ((Objects.nonNull(request.getFortitude()) && request.getFortitude() != 0)) {
 			personagem.setFortitude(request.getFortitude());
 		}
@@ -149,8 +142,8 @@ public class PersonagemServiceImpl implements PersonagemService {
 			personagem.setTamanho(request.getTamanho());
 		}
 
-		if (Objects.nonNull(request.getHabilidade()) && request.getHabilidade().getIdHabilidade() != 0) {
-			Habilidade habilidade = habilidadeRepository.findById(request.getHabilidade().getIdHabilidade())
+		if (Objects.nonNull(request.getHabilidade()) && request.getHabilidade().getId() != 0) {
+			Habilidade habilidade = habilidadeRepository.findById(request.getHabilidade().getId())
 					.orElse(new Habilidade());
 			if (Objects.nonNull(request.getHabilidade().getForca()) && request.getHabilidade().getForca() != 0) {
 				habilidade.setForca(request.getHabilidade().getForca());

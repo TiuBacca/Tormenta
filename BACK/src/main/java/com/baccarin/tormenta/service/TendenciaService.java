@@ -7,9 +7,9 @@ import com.baccarin.tormenta.vo.tendencia.TendenciaResponse;
 
 public interface TendenciaService {
 
-	void salvarClasse(TendenciaRequest request) throws Exception;
+	void salvarTendencia(TendenciaRequest request) throws Exception;
 
-	void excluirClasse(TendenciaRequest request) throws Exception;
+	void excluirTendencia(TendenciaRequest request) throws Exception;
 
 	List<TendenciaResponse> buscarListaTendencias();
 

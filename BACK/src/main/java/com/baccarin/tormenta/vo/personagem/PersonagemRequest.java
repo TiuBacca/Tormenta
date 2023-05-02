@@ -1,5 +1,7 @@
 package com.baccarin.tormenta.vo.personagem;
 
+import com.baccarin.tormenta.vo.habilidade.HabilidadeRequest;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -19,7 +21,6 @@ public class PersonagemRequest {
 	private String nome;
 	private String sexo;
 
-	private VidaRequest vida;
 	private HabilidadeRequest habilidade;
 	private ClasseArmaduraRequest classeArmadura;
 

@@ -1,13 +1,17 @@
 package com.baccarin.tormenta.domain;
 
+import java.util.Objects;
+
+import com.baccarin.tormenta.vo.habilidade.HabilidadeRequest;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
@@ -20,6 +24,9 @@ public class Habilidade {
 	@Column(name = "id", nullable = false, updatable = false)
 	private Long id;
 
+    @OneToOne(mappedBy = "habilidade")
+    private Personagem personagem;
+    
 	@Column(name = "forca")
 	private Integer forca;
 
@@ -53,6 +60,35 @@ public class Habilidade {
 		this.inteligencia = 10;
 		this.sabedoria = 10;
 		this.carisma = 10;
+	}
+
+	public Habilidade(HabilidadeRequest request) {
+		this();
+
+		if (Objects.nonNull(request.getForca())) {
+			this.forca = request.getForca();
+		}
+
+		if (Objects.nonNull(request.getDestreza())) {
+			this.destreza = request.getDestreza();
+		}
+
+		if (Objects.nonNull(request.getConstituicao())) {
+			this.constituicao = request.getConstituicao();
+		}
+
+		if (Objects.nonNull(request.getInteligencia())) {
+			this.inteligencia = request.getInteligencia();
+		}
+
+		if (Objects.nonNull(request.getSabedoria())) {
+			this.sabedoria = request.getSabedoria();
+		}
+
+		if (Objects.nonNull(request.getCarisma())) {
+			this.carisma = request.getCarisma();
+		}
+
 	}
 
 }

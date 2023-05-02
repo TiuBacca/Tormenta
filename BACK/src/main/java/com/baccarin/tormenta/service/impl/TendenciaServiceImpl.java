@@ -25,13 +25,13 @@ public class TendenciaServiceImpl implements TendenciaService {
 	private final TendenciaRepository tendenciaRepository;
 
 	@Override
-	public void salvarClasse(TendenciaRequest request) throws Exception {
+	public void salvarTendencia(TendenciaRequest request) throws Exception {
 		validaSalvar(request);
 		tendenciaRepository.save(new Tendencia(request));
 	}
 
 	@Override
-	public void excluirClasse(TendenciaRequest request) throws Exception {
+	public void excluirTendencia(TendenciaRequest request) throws Exception {
 		validaExcluir(request);
 		tendenciaRepository.deleteById(request.getId());
 	}

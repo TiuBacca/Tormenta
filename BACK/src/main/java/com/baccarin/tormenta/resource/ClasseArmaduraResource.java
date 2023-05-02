@@ -5,7 +5,6 @@ import java.util.Objects;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,57 +14,57 @@ import com.baccarin.tormenta.exception.RegistroComRelacionamentoException;
 import com.baccarin.tormenta.exception.RegistroDuplicadoException;
 import com.baccarin.tormenta.exception.RegistroIncompletoException;
 import com.baccarin.tormenta.exception.RegistroNaoEncontradoException;
-import com.baccarin.tormenta.service.TendenciaService;
+import com.baccarin.tormenta.service.ClasseArmaduraService;
 import com.baccarin.tormenta.vo.ResponseGenerico;
-import com.baccarin.tormenta.vo.tendencia.TendenciaRequest;
-import com.baccarin.tormenta.vo.tendencia.TendenciaResponse;
+import com.baccarin.tormenta.vo.classeArmadura.ClasseArmaduraRequest;
+import com.baccarin.tormenta.vo.classeArmadura.ClasseArmaduraResponse;
 
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping("tormenta/tendencia")
+@RequestMapping("tormenta/classeArmadura")
 @RequiredArgsConstructor
-public class TendenciaResource {
-	
-	private final TendenciaService tendenciaService;
+public class ClasseArmaduraResource {
+
+	private final ClasseArmaduraService classeArmaduraService;
 
 	@PostMapping(path = "salvar")
-	public ResponseEntity<ResponseGenerico> salvarTendencia(@RequestBody TendenciaRequest request) {
+	public ResponseEntity<ResponseGenerico> salvarClasseArmadura(@RequestBody ClasseArmaduraRequest request) {
 		try {
-			tendenciaService.salvarTendencia(request);
-			return new ResponseEntity<ResponseGenerico>(new ResponseGenerico("Tendência salva com sucesso."),
+			classeArmaduraService.salvarClasseArmadura(request);
+			return new ResponseEntity<ResponseGenerico>(new ResponseGenerico("Classe Armadura salva com sucesso."),
 					HttpStatus.OK);
 		} catch (RegistroIncompletoException | RegistroDuplicadoException e) {
 			return new ResponseEntity<ResponseGenerico>(new ResponseGenerico(e.getMessage()),
 					HttpStatus.INTERNAL_SERVER_ERROR);
 		} catch (Exception e) {
-			return new ResponseEntity<ResponseGenerico>(new ResponseGenerico("Erro ao salvar tendência."),
+			return new ResponseEntity<ResponseGenerico>(new ResponseGenerico("Erro ao salvar classe armadura."),
 					HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 
 	@PostMapping(path = "excluir")
-	public ResponseEntity<ResponseGenerico> excluirTendencia(@RequestBody TendenciaRequest request) {
+	public ResponseEntity<ResponseGenerico> excluirClasseArmadura(@RequestBody ClasseArmaduraRequest request) {
 		try {
-			tendenciaService.excluirTendencia(request);
-			return new ResponseEntity<ResponseGenerico>(new ResponseGenerico("Tendência excluida com sucesso."),
+			classeArmaduraService.excluirClasseArmadura(request);
+			return new ResponseEntity<ResponseGenerico>(new ResponseGenerico("Classe Armadura excluida com sucesso."),
 					HttpStatus.OK);
 		} catch (RegistroNaoEncontradoException | RegistroComRelacionamentoException e) {
 			return new ResponseEntity<ResponseGenerico>(new ResponseGenerico(e.getMessage()),
 					HttpStatus.INTERNAL_SERVER_ERROR);
 		} catch (Exception e) {
-			return new ResponseEntity<ResponseGenerico>(new ResponseGenerico("Erro ao excluir tendência."),
+			return new ResponseEntity<ResponseGenerico>(new ResponseGenerico("Erro ao excluir classe armadura."),
 					HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 
-	@GetMapping(path = "buscaLista")
-	public ResponseEntity<List<TendenciaResponse>> buscarListaTendencias() throws Exception {
-		List<TendenciaResponse> tendencias = tendenciaService.buscarListaTendencias();
-		if (Objects.nonNull(tendencias) && !tendencias.isEmpty()) {
-			return new ResponseEntity<List<TendenciaResponse>>(tendencias, HttpStatus.OK);
+	@PostMapping(path = "busca/byPersonagem")
+	public ResponseEntity<ClasseArmaduraResponse> buscarClasseArmaduraByPersonagemId(@RequestBody ClasseArmaduraRequest request) throws Exception {
+		ClasseArmaduraResponse classe = classeArmaduraService.buscarClasseArmaduraByPersonagemId(request);
+		if (Objects.nonNull(classe)) {
+			return new ResponseEntity<ClasseArmaduraResponse>(classe, HttpStatus.OK);
 		}
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
-	
+
 }

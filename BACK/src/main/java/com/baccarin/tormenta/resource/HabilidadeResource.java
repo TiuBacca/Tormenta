@@ -15,57 +15,57 @@ import com.baccarin.tormenta.exception.RegistroComRelacionamentoException;
 import com.baccarin.tormenta.exception.RegistroDuplicadoException;
 import com.baccarin.tormenta.exception.RegistroIncompletoException;
 import com.baccarin.tormenta.exception.RegistroNaoEncontradoException;
-import com.baccarin.tormenta.service.TendenciaService;
+import com.baccarin.tormenta.service.HabilidadeService;
 import com.baccarin.tormenta.vo.ResponseGenerico;
-import com.baccarin.tormenta.vo.tendencia.TendenciaRequest;
-import com.baccarin.tormenta.vo.tendencia.TendenciaResponse;
+import com.baccarin.tormenta.vo.habilidade.HabilidadeRequest;
+import com.baccarin.tormenta.vo.habilidade.HabilidadeResponse;
 
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping("tormenta/tendencia")
+@RequestMapping("tormenta/habilidade")
 @RequiredArgsConstructor
-public class TendenciaResource {
+public class HabilidadeResource {
 	
-	private final TendenciaService tendenciaService;
+	private final HabilidadeService habilidadeService;
 
 	@PostMapping(path = "salvar")
-	public ResponseEntity<ResponseGenerico> salvarTendencia(@RequestBody TendenciaRequest request) {
+	public ResponseEntity<ResponseGenerico> salvarHabilidade(@RequestBody HabilidadeRequest request) {
 		try {
-			tendenciaService.salvarTendencia(request);
-			return new ResponseEntity<ResponseGenerico>(new ResponseGenerico("Tendência salva com sucesso."),
+			habilidadeService.salvarHabilidade(request);
+			return new ResponseEntity<ResponseGenerico>(new ResponseGenerico("Habilidade salva com sucesso."),
 					HttpStatus.OK);
 		} catch (RegistroIncompletoException | RegistroDuplicadoException e) {
 			return new ResponseEntity<ResponseGenerico>(new ResponseGenerico(e.getMessage()),
 					HttpStatus.INTERNAL_SERVER_ERROR);
 		} catch (Exception e) {
-			return new ResponseEntity<ResponseGenerico>(new ResponseGenerico("Erro ao salvar tendência."),
+			return new ResponseEntity<ResponseGenerico>(new ResponseGenerico("Erro ao salvar habilidade."),
 					HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 
 	@PostMapping(path = "excluir")
-	public ResponseEntity<ResponseGenerico> excluirTendencia(@RequestBody TendenciaRequest request) {
+	public ResponseEntity<ResponseGenerico> excluirHabilidade(@RequestBody HabilidadeRequest request) {
 		try {
-			tendenciaService.excluirTendencia(request);
-			return new ResponseEntity<ResponseGenerico>(new ResponseGenerico("Tendência excluida com sucesso."),
+			habilidadeService.excluirHabilidade(request);
+			return new ResponseEntity<ResponseGenerico>(new ResponseGenerico("Habilidade excluida com sucesso."),
 					HttpStatus.OK);
 		} catch (RegistroNaoEncontradoException | RegistroComRelacionamentoException e) {
 			return new ResponseEntity<ResponseGenerico>(new ResponseGenerico(e.getMessage()),
 					HttpStatus.INTERNAL_SERVER_ERROR);
 		} catch (Exception e) {
-			return new ResponseEntity<ResponseGenerico>(new ResponseGenerico("Erro ao excluir tendência."),
+			return new ResponseEntity<ResponseGenerico>(new ResponseGenerico("Erro ao excluir habilidade."),
 					HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 
 	@GetMapping(path = "buscaLista")
-	public ResponseEntity<List<TendenciaResponse>> buscarListaTendencias() throws Exception {
-		List<TendenciaResponse> tendencias = tendenciaService.buscarListaTendencias();
+	public ResponseEntity<List<HabilidadeResponse>> buscarListaHabilidades() throws Exception {
+		List<HabilidadeResponse> tendencias = habilidadeService.buscarListaHabilidades();
 		if (Objects.nonNull(tendencias) && !tendencias.isEmpty()) {
-			return new ResponseEntity<List<TendenciaResponse>>(tendencias, HttpStatus.OK);
+			return new ResponseEntity<List<HabilidadeResponse>>(tendencias, HttpStatus.OK);
 		}
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
-	
+
 }

@@ -9,9 +9,14 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class PersonagemResponse {
 
-	private Long idPersonagem;
+	private Long id;
 	private String nome;
 	private String descricaoClasse;
 	private String descricaoRaca;
+	
+	public PersonagemResponse(Long id, String nome) {
+		this.id = id;
+		this.nome = nome;
+	}
 	
 }
