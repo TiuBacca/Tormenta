@@ -2,16 +2,15 @@ package com.baccarin.tormenta.service.impl;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
-import com.baccarin.tormenta.domain.Classe;
 import com.baccarin.tormenta.domain.ClasseArmadura;
 import com.baccarin.tormenta.domain.Habilidade;
 import com.baccarin.tormenta.domain.Personagem;
-import com.baccarin.tormenta.domain.Raca;
-import com.baccarin.tormenta.domain.Tendencia;
 import com.baccarin.tormenta.enums.Sexo;
+import com.baccarin.tormenta.exception.RegistroIncompletoException;
 import com.baccarin.tormenta.exception.RegistroNaoEncontradoException;
 import com.baccarin.tormenta.repository.ClasseArmaduraRepository;
 import com.baccarin.tormenta.repository.ClasseRepository;
@@ -19,10 +18,15 @@ import com.baccarin.tormenta.repository.HabilidadeRepository;
 import com.baccarin.tormenta.repository.PersonagemRepository;
 import com.baccarin.tormenta.repository.RacaRepository;
 import com.baccarin.tormenta.repository.TendenciaRepository;
+import com.baccarin.tormenta.repository.UsuarioRepository;
+import com.baccarin.tormenta.resource.PersonagemFiltro;
 import com.baccarin.tormenta.service.PersonagemService;
 import com.baccarin.tormenta.util.Util;
+import com.baccarin.tormenta.vo.classe.ClasseRequest;
 import com.baccarin.tormenta.vo.personagem.PersonagemRequest;
 import com.baccarin.tormenta.vo.personagem.PersonagemResponse;
+import com.baccarin.tormenta.vo.raca.RacaRequest;
+import com.baccarin.tormenta.vo.usuario.UsuarioRequest;
 
 import jakarta.persistence.TypedQuery;
 import jakarta.transaction.Transactional;
@@ -39,6 +43,7 @@ public class PersonagemServiceImpl implements PersonagemService {
 	private final TendenciaRepository tendenciaRepository;
 	private final HabilidadeRepository habilidadeRepository;
 	private final ClasseArmaduraRepository classeArmaduraRepository;
+	private final UsuarioRepository usuarioRepository;
 
 	private final Util util;
 
@@ -48,36 +53,41 @@ public class PersonagemServiceImpl implements PersonagemService {
 	}
 
 	@Override
-	public List<PersonagemResponse> buscaListaPersonagemByFiltro(PersonagemRequest request) throws Exception {
+	public List<PersonagemResponse> buscaListaPersonagemByFiltro(PersonagemFiltro request) throws Exception {
 
 		StringBuilder sb = new StringBuilder();
 
 		sb.append(" select new com.baccarin.tormenta.vo.personagem.PersonagemResponse"
 				+ " ( p.id, p.nome, classe.nome, raca.nome) from Personagem p join p.classe classe join p.raca raca where p.id > 0 ");
 
-		if (Objects.nonNull(request.getIdClasse())) {
-			sb.append(" AND classe.id = :idClasse");
+		if (Objects.nonNull(request.getClasses()) && !request.getClasses().isEmpty()) {
+			sb.append(" AND classe.id in ( :idsClasse ) ");
 		}
 
-		if (Objects.nonNull(request.getIdRaca())) {
-			sb.append(" AND raca.id = :idRaca");
+		if (Objects.nonNull(request.getRacas()) && !request.getRacas().isEmpty()) {
+			sb.append(" AND raca.id in ( :idsRacas )");
 		}
 
-		if (Objects.nonNull(request.getIdUsuario()) && request.getIdUsuario() != 0) {
-			sb.append(" AND p.usuario.id = :usuario ");
+		if (Objects.nonNull(request.getUsuarios()) && !request.getUsuarios().isEmpty()) {
+			sb.append(" AND p.usuario.id in ( :idsUsuarios )");
 		}
 
 		TypedQuery<PersonagemResponse> query = util.getEntityManager().createQuery(sb.toString(),
 				PersonagemResponse.class);
 
-		if (Objects.nonNull(request.getIdRaca())) {
-			query.setParameter("idRaca", request.getIdRaca());
+		if (Objects.nonNull(request.getClasses()) && !request.getClasses().isEmpty()) {
+			query.setParameter("idsClasse",
+					request.getClasses().stream().map(ClasseRequest::getId).collect(Collectors.toList()));
 		}
-		if (Objects.nonNull(request.getIdClasse())) {
-			query.setParameter("idClasse", request.getIdClasse());
+
+		if (Objects.nonNull(request.getRacas()) && !request.getRacas().isEmpty()) {
+			query.setParameter("idsRacas",
+					request.getRacas().stream().map(RacaRequest::getId).collect(Collectors.toList()));
 		}
-		if (Objects.nonNull(request.getIdUsuario()) && request.getIdUsuario() != 0) {
-			query.setParameter("usuario", request.getIdUsuario());
+
+		if (Objects.nonNull(request.getUsuarios()) && !request.getUsuarios().isEmpty()) {
+			query.setParameter("idsUsuarios",
+					request.getUsuarios().stream().map(UsuarioRequest::getId).collect(Collectors.toList()));
 
 		}
 
@@ -92,8 +102,14 @@ public class PersonagemServiceImpl implements PersonagemService {
 	}
 
 	@Override
-	public void salvarPersonagem(PersonagemRequest request) throws RegistroNaoEncontradoException {
-		Personagem personagem = repository.findById(request.getId()).orElse(new Personagem());
+	public void salvarPersonagem(PersonagemRequest request) throws Exception {
+		validaSalvar(request);
+
+		Personagem personagem = new Personagem();
+		if (Objects.nonNull(request.getId())) {
+			personagem = repository.findById(request.getId())
+					.orElseThrow(() -> new RegistroNaoEncontradoException("Personagem não encontrado."));
+		}
 
 		if (Objects.nonNull(request.getNome()) && !request.getNome().isBlank()) {
 			personagem.setNome(request.getNome());
@@ -105,21 +121,15 @@ public class PersonagemServiceImpl implements PersonagemService {
 		}
 
 		if (Objects.nonNull(request.getIdRaca()) && request.getIdRaca() != 0) {
-			Raca raca = racaRepository.findById(request.getIdRaca())
-					.orElseThrow(() -> new RegistroNaoEncontradoException("Raça não encontrada!"));
-			personagem.setRaca(raca);
+			personagem.setRaca(racaRepository.findById(request.getIdRaca()).get());
 		}
 
 		if (Objects.nonNull(request.getIdClasse()) && request.getIdClasse() != 0) {
-			Classe classe = classeRepository.findById(request.getIdClasse())
-					.orElseThrow(() -> new RegistroNaoEncontradoException("Classe não encontrada!"));
-			personagem.setClasse(classe);
+			personagem.setClasse(classeRepository.findById(request.getIdClasse()).get());
 		}
 
 		if (Objects.nonNull(request.getIdTendencia()) && request.getIdTendencia() != 0) {
-			Tendencia tendencia = tendenciaRepository.findById(request.getIdTendencia())
-					.orElseThrow(() -> new RegistroNaoEncontradoException("Tendencia não encontrada!"));
-			personagem.setTendencia(tendencia);
+			personagem.setTendencia(tendenciaRepository.findById(request.getIdTendencia()).get());
 		}
 
 		if ((Objects.nonNull(request.getFortitude()) && request.getFortitude() != 0)) {
@@ -142,9 +152,13 @@ public class PersonagemServiceImpl implements PersonagemService {
 			personagem.setTamanho(request.getTamanho());
 		}
 
-		if (Objects.nonNull(request.getHabilidade()) && request.getHabilidade().getId() != 0) {
-			Habilidade habilidade = habilidadeRepository.findById(request.getHabilidade().getId())
-					.orElse(new Habilidade());
+		if (Objects.nonNull(request.getHabilidade())) {
+			Habilidade habilidade = new Habilidade();
+			if (Objects.nonNull(request.getHabilidade().getId())) {
+				habilidade = habilidadeRepository.findById(request.getHabilidade().getId())
+						.orElseThrow(() -> new RegistroNaoEncontradoException("Habilidade não encontrada."));
+			}
+
 			if (Objects.nonNull(request.getHabilidade().getForca()) && request.getHabilidade().getForca() != 0) {
 				habilidade.setForca(request.getHabilidade().getForca());
 			}
@@ -174,10 +188,15 @@ public class PersonagemServiceImpl implements PersonagemService {
 			personagem.setHabilidade(habilidade);
 		}
 
-		if (Objects.nonNull(request.getClasseArmadura()) && request.getClasseArmadura().getIdClasseArmadura() != 0) {
-			ClasseArmadura classeArmadura = classeArmaduraRepository
-					.findById(request.getClasseArmadura().getIdClasseArmadura()).orElse(new ClasseArmadura());
+		if (Objects.nonNull(request.getClasseArmadura())) {
 
+			ClasseArmadura classeArmadura = new ClasseArmadura();
+
+			if (Objects.nonNull(request.getClasseArmadura().getId())) {
+				classeArmadura = classeArmaduraRepository.findById(request.getClasseArmadura().getId())
+						.orElseThrow(() -> new RegistroNaoEncontradoException("Classe Armadura não encontrada."));
+			} 
+			
 			if (Objects.nonNull(request.getClasseArmadura().getBonusArmadura())
 					&& request.getClasseArmadura().getBonusArmadura() != 0) {
 				classeArmadura.setBonusArmadura(request.getClasseArmadura().getBonusArmadura());
@@ -200,8 +219,65 @@ public class PersonagemServiceImpl implements PersonagemService {
 			personagem.setClasseArmadura(classeArmadura);
 		}
 
+		personagem.setUsuario(usuarioRepository.findById(request.getIdUsuario()).get());
+
 		repository.save(personagem);
 
 	}
 
+	private void validaSalvar(PersonagemRequest request) throws Exception {
+		if (Objects.nonNull(request.getId())) {
+			repository.findById(request.getId())
+					.orElseThrow(() -> new RegistroNaoEncontradoException("Personagem não encontrado."));
+		} else {
+			if (Objects.isNull(request.getNome()) || request.getNome().isBlank()) {
+				throw new RegistroIncompletoException("Atributo nome faltando para salvar personagem.");
+			}
+
+			if (Objects.isNull(request.getSexo())) {
+				throw new RegistroIncompletoException("Atributo sexo faltando para salvar personagem.");
+			}
+
+			if (Objects.nonNull(request.getIdRaca()) && request.getIdRaca() != 0) {
+				racaRepository.findById(request.getIdRaca())
+						.orElseThrow(() -> new RegistroNaoEncontradoException("Raça não encontrada!"));
+			} else {
+				throw new RegistroIncompletoException("Atributo raça faltando para salvar personagem.");
+			}
+
+			if (Objects.nonNull(request.getIdClasse()) && request.getIdClasse() != 0) {
+				classeRepository.findById(request.getIdClasse())
+						.orElseThrow(() -> new RegistroNaoEncontradoException("Classe não encontrada!"));
+			} else {
+				throw new RegistroIncompletoException("Atributo classe faltando para salvar personagem.");
+			}
+
+			if (Objects.nonNull(request.getIdTendencia()) && request.getIdTendencia() != 0) {
+				tendenciaRepository.findById(request.getIdTendencia())
+						.orElseThrow(() -> new RegistroNaoEncontradoException("Tendencia não encontrada!"));
+			} else {
+				throw new RegistroIncompletoException("Atributo tendência faltando para salvar personagem.");
+			}
+
+			if (Objects.nonNull(request.getHabilidade()) && Objects.nonNull(request.getHabilidade().getId())) {
+				habilidadeRepository.findById(request.getHabilidade().getId())
+						.orElseThrow(() -> new RegistroNaoEncontradoException("Habilidade não encontrada."));
+			}
+
+			if (Objects.nonNull(request.getClasseArmadura())
+					&& Objects.nonNull(request.getClasseArmadura().getId())) {
+				classeArmaduraRepository.findById(request.getClasseArmadura().getId())
+						.orElseThrow(() -> new RegistroNaoEncontradoException("Classe Armadura não encontrada."));
+
+			}
+
+			if (Objects.nonNull(request.getIdUsuario())) {
+				usuarioRepository.findById(request.getIdUsuario())
+						.orElseThrow(() -> new RegistroNaoEncontradoException("Usuário não encontrado."));
+			} else {
+				throw new RegistroIncompletoException("Atributo usuário faltando para salvar personagem.");
+			}
+		}
+
+	}
 }

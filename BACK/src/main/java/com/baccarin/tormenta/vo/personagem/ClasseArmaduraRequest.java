@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @Builder
 public class ClasseArmaduraRequest {
 
-	private Long idClasseArmadura;
+	private Long id;
 	private Integer bonusArmadura;
 	private Integer bonusEscudo;
 	private Integer outros;

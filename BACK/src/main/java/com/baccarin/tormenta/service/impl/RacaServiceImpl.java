@@ -11,15 +11,14 @@ import com.baccarin.tormenta.exception.RegistroDuplicadoException;
 import com.baccarin.tormenta.exception.RegistroIncompletoException;
 import com.baccarin.tormenta.exception.RegistroNaoEncontradoException;
 import com.baccarin.tormenta.repository.RacaRepository;
+import com.baccarin.tormenta.resource.PersonagemFiltro;
 import com.baccarin.tormenta.service.PersonagemService;
 import com.baccarin.tormenta.service.RacaService;
 import com.baccarin.tormenta.util.Util;
-import com.baccarin.tormenta.vo.personagem.PersonagemRequest;
 import com.baccarin.tormenta.vo.personagem.PersonagemResponse;
 import com.baccarin.tormenta.vo.raca.RacaFiltro;
 import com.baccarin.tormenta.vo.raca.RacaRequest;
 import com.baccarin.tormenta.vo.raca.RacaResponse;
-import com.baccarin.tormenta.vo.usuario.UsuarioResponse;
 
 import jakarta.persistence.Query;
 import jakarta.transaction.Transactional;
@@ -84,8 +83,10 @@ public class RacaServiceImpl implements RacaService {
 	private void validarExcluirRaca(RacaRequest request) throws Exception {
 
 		if (Objects.nonNull(request.getId())) {
+			PersonagemFiltro filtro = new PersonagemFiltro();
+			filtro.getRacas().add(RacaRequest.builder().id(request.getId()).build());
 			List<PersonagemResponse> personagensComRacaInformada = personagemService
-					.buscaListaPersonagemByFiltro(PersonagemRequest.builder().idRaca(request.getId()).build());
+					.buscaListaPersonagemByFiltro(filtro);
 			if (personagensComRacaInformada.isEmpty()) {
 				racaRepository.findById(request.getId())
 						.orElseThrow(() -> new RegistroNaoEncontradoException("Raça não encontrada."));

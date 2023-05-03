@@ -1,6 +1,7 @@
 package com.baccarin.tormenta.domain;
 
 import java.util.Objects;
+import java.util.Random;
 
 import com.baccarin.tormenta.vo.habilidade.HabilidadeRequest;
 
@@ -24,9 +25,9 @@ public class Habilidade {
 	@Column(name = "id", nullable = false, updatable = false)
 	private Long id;
 
-    @OneToOne(mappedBy = "habilidade")
-    private Personagem personagem;
-    
+	@OneToOne(mappedBy = "habilidade")
+	private Personagem personagem;
+
 	@Column(name = "forca")
 	private Integer forca;
 
@@ -54,12 +55,13 @@ public class Habilidade {
 	}
 
 	public Habilidade() {
-		this.forca = 10;
-		this.destreza = 10;
-		this.constituicao = 10;
-		this.inteligencia = 10;
-		this.sabedoria = 10;
-		this.carisma = 10;
+		Random random = new Random();
+		this.forca = random.nextInt(21);
+		this.destreza = random.nextInt(21);
+		this.constituicao = random.nextInt(21);
+		this.inteligencia = random.nextInt(21);
+		this.sabedoria = random.nextInt(21);
+		this.carisma = random.nextInt(21);
 	}
 
 	public Habilidade(HabilidadeRequest request) {

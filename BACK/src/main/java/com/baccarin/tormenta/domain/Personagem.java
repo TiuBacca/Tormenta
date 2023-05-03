@@ -81,6 +81,7 @@ public class Personagem {
 	private Double tamanho;
 
 	public Personagem() {
+		
 		this.habilidade = new Habilidade();
 		this.tendencia = new Tendencia();
 		this.raca = new Raca();

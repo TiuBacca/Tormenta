@@ -11,6 +11,7 @@ import com.baccarin.tormenta.exception.RegistroIncompletoException;
 import com.baccarin.tormenta.exception.RegistroNaoEncontradoException;
 import com.baccarin.tormenta.exception.RegistrosAssociadosException;
 import com.baccarin.tormenta.repository.UsuarioRepository;
+import com.baccarin.tormenta.resource.PersonagemFiltro;
 import com.baccarin.tormenta.service.PersonagemService;
 import com.baccarin.tormenta.service.UsuarioService;
 import com.baccarin.tormenta.util.Util;
@@ -67,7 +68,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 		}
 
 		List<UsuarioResponse> lista = query.getResultList();
-		
+
 		return lista;
 	}
 
@@ -121,8 +122,9 @@ public class UsuarioServiceImpl implements UsuarioService {
 		usuarioRepository.findById(request.getId())
 				.orElseThrow(() -> new RegistroNaoEncontradoException("Não foi encontrado o usuário informado."));
 
-		List<PersonagemResponse> personagensAssociados = personagemService
-				.buscaListaPersonagemByFiltro(PersonagemRequest.builder().idUsuario(request.getId()).build());
+		PersonagemFiltro filtro = new PersonagemFiltro();
+		filtro.getUsuarios().add(UsuarioRequest.builder().id(request.getId()).build());
+		List<PersonagemResponse> personagensAssociados = personagemService.buscaListaPersonagemByFiltro(filtro);
 		if (!personagensAssociados.isEmpty()) {
 			throw new RegistrosAssociadosException(
 					"Existem personagens associados a este usuário. Remover todos registros antes de remover o usuário.");
