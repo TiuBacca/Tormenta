@@ -1,6 +1,5 @@
 package com.baccarin.tormenta.resource;
 
-import java.util.List;
 import java.util.Objects;
 
 import org.springframework.http.HttpStatus;
@@ -14,6 +13,7 @@ import com.baccarin.tormenta.exception.RegistroComRelacionamentoException;
 import com.baccarin.tormenta.exception.RegistroDuplicadoException;
 import com.baccarin.tormenta.exception.RegistroIncompletoException;
 import com.baccarin.tormenta.exception.RegistroNaoEncontradoException;
+import com.baccarin.tormenta.exception.RegistrosAssociadosException;
 import com.baccarin.tormenta.service.ClasseArmaduraService;
 import com.baccarin.tormenta.vo.ResponseGenerico;
 import com.baccarin.tormenta.vo.classeArmadura.ClasseArmaduraRequest;
@@ -49,7 +49,7 @@ public class ClasseArmaduraResource {
 			classeArmaduraService.excluirClasseArmadura(request);
 			return new ResponseEntity<ResponseGenerico>(new ResponseGenerico("Classe Armadura excluida com sucesso."),
 					HttpStatus.OK);
-		} catch (RegistroNaoEncontradoException | RegistroComRelacionamentoException e) {
+		} catch (RegistrosAssociadosException | RegistroNaoEncontradoException | RegistroComRelacionamentoException e) {
 			return new ResponseEntity<ResponseGenerico>(new ResponseGenerico(e.getMessage()),
 					HttpStatus.INTERNAL_SERVER_ERROR);
 		} catch (Exception e) {

@@ -12,15 +12,12 @@ public class ClasseArmaduraRequest {
 
 	private Long id;
 	private Long idPersonagem;
-	private Integer bonusArmadura;
-	private Integer bonusEscudo;
-	private Integer outros;
-	private Integer total;
+	private int bonusArmadura;
+	private int bonusEscudo;
+	private int outros;
+	private int total;
 
 	public ClasseArmaduraRequest() {
-		this.bonusArmadura = 0;
-		this.bonusEscudo = 0;
-		this.outros = 0;
 		this.total = 10;
 	}
 

@@ -61,8 +61,8 @@ public class PersonagemResource {
 	public ResponseEntity<List<PersonagemResponse>> buscarListaPersonagensByFiltro(
 			@RequestBody PersonagemFiltro request) throws Exception {
 		List<PersonagemResponse> personagens = service.buscaListaPersonagemByFiltro(request);
-		if (Objects.nonNull(personagens) && personagens.isEmpty()) {
-			return new ResponseEntity<List<PersonagemResponse>>(personagens, HttpStatus.NO_CONTENT);
+		if (Objects.nonNull(personagens) && !personagens.isEmpty()) {
+			return new ResponseEntity<List<PersonagemResponse>>(personagens, HttpStatus.OK);
 		}
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}

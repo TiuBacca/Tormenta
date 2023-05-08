@@ -11,9 +11,9 @@ import com.baccarin.tormenta.vo.classeArmadura.ClasseArmaduraResponse;
 @Repository
 public interface ClasseArmaduraRepository extends JpaRepository<ClasseArmadura, Long> {
 
-	@Query(" select new com.baccarin.tormenta.vo.classeArmadura.ClasseArmaduraResponse (ca.id , ca.total) from ClasseArmadura  ca "
+	@Query(" select new com.baccarin.tormenta.vo.classeArmadura.ClasseArmaduraResponse (ca.id , ca.personagem.id, ca.personagem.nome,"
+			+ " ca.bonusArmadura, ca.bonusEscudo, ca.outros, ca.total ) from ClasseArmadura  ca "
 			+ "where ca.personagem.id =:idPersonagem")
 	ClasseArmaduraResponse buscarClasseArmaduraByPersonagemId(@Param("idPersonagem") Long idPersonagem);
 
-	
 }

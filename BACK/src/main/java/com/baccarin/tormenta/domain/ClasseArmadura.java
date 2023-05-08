@@ -47,7 +47,11 @@ public class ClasseArmadura {
 	}
 
 	public ClasseArmadura(ClasseArmaduraRequest request) {
-		this();
+		this.total = 10;
+
+		if (Objects.nonNull(request.getId())) {
+			this.id = request.getId();
+		}
 
 		if (Objects.nonNull(request.getBonusArmadura())) {
 			this.bonusArmadura = request.getBonusArmadura();

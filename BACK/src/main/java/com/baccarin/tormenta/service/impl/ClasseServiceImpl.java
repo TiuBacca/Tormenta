@@ -42,7 +42,7 @@ public class ClasseServiceImpl implements ClasseService {
 	}
 
 	private void validaSalvarClasse(ClasseRequest request) throws Exception {
-		if (Objects.isNull(request.getNome()) || request.getNome().isBlank()) {
+		if ( Objects.isNull(request.getNome()) || request.getNome().isBlank()) {
 			throw new RegistroIncompletoException("Atributo nome faltando para salvar classe.");
 		} else {
 			List<ClasseResponse> lista = classeRepository.buscarListaClassesByNome(request.getNome());

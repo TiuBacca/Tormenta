@@ -1,5 +1,6 @@
 package com.baccarin.tormenta.vo.personagem;
 
+import com.baccarin.tormenta.vo.classeArmadura.ClasseArmaduraRequest;
 import com.baccarin.tormenta.vo.habilidade.HabilidadeRequest;
 
 import lombok.AllArgsConstructor;

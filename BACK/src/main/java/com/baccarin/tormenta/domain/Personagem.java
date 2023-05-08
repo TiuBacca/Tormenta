@@ -58,11 +58,11 @@ public class Personagem {
 	private Integer pontosVidaAtuais;
 
 	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "habilidade_id", referencedColumnName = "id", nullable = true)
+	@JoinColumn(name = "habilidade_id", referencedColumnName = "id", nullable = true, unique = true)
 	private Habilidade habilidade;
 
 	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "id_classe_armadura", referencedColumnName = "id", nullable = true)
+	@JoinColumn(name = "id_classe_armadura", referencedColumnName = "id", nullable = true, unique = true)
 	private ClasseArmadura classeArmadura;
 
 	@Column(name = "fortitude")

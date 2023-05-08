@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import com.baccarin.tormenta.domain.ClasseArmadura;
 import com.baccarin.tormenta.domain.Personagem;
 import com.baccarin.tormenta.exception.RegistroIncompletoException;
+import com.baccarin.tormenta.exception.RegistroNaoEncontradoException;
 import com.baccarin.tormenta.exception.RegistrosAssociadosException;
 import com.baccarin.tormenta.repository.ClasseArmaduraRepository;
 import com.baccarin.tormenta.repository.PersonagemRepository;
@@ -25,16 +26,17 @@ public class ClasseArmaduraServiceImpl implements ClasseArmaduraService {
 	private final ClasseArmaduraRepository classeArmaduraRepository;
 	private final PersonagemRepository personagemRepository;
 
-
 	@Override
 	public void salvarClasseArmadura(ClasseArmaduraRequest request) throws Exception {
 		validaSalvar(request);
 		Personagem personagem = personagemRepository.findById(request.getIdPersonagem()).get();
+		request.setId(personagem.getClasseArmadura().getId());
 		ClasseArmadura classe = new ClasseArmadura(request);
+
 		classe.setPersonagem(personagem);
-		
+
 		classeArmaduraRepository.save(classe);
-		
+
 	}
 
 	@Override
@@ -63,7 +65,10 @@ public class ClasseArmaduraServiceImpl implements ClasseArmaduraService {
 		if (Objects.isNull(request.getId())) {
 			throw new RegistroIncompletoException("Atributo id faltando para excluir classe armadura.");
 		} else {
-			ClasseArmaduraResponse resp = classeArmaduraRepository.buscarClasseArmaduraByPersonagemId(request.getIdPersonagem());
+			ClasseArmadura classe = classeArmaduraRepository.findById(request.getId())
+					.orElseThrow(() -> new RegistroNaoEncontradoException("Classe armadura não encontrada."));
+			ClasseArmaduraResponse resp = classeArmaduraRepository
+					.buscarClasseArmaduraByPersonagemId(classe.getPersonagem().getId());
 			if (Objects.nonNull(resp)) {
 				throw new RegistrosAssociadosException(
 						"Impossível excluir uma classe armadura com um personagem relacionado.");

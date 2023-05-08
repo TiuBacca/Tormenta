@@ -72,8 +72,16 @@ public class PersonagemServiceImpl implements PersonagemService {
 			sb.append(" AND p.usuario.id in ( :idsUsuarios )");
 		}
 
+		if (Objects.nonNull(request.getId()) && request.getId() != 0) {
+			sb.append(" AND p.id = :idPersonagem ");
+		}
+
 		TypedQuery<PersonagemResponse> query = util.getEntityManager().createQuery(sb.toString(),
 				PersonagemResponse.class);
+
+		if (Objects.nonNull(request.getId()) && request.getId() != 0) {
+			query.setParameter("idPersonagem", request.getId());
+		}
 
 		if (Objects.nonNull(request.getClasses()) && !request.getClasses().isEmpty()) {
 			query.setParameter("idsClasse",
@@ -195,8 +203,8 @@ public class PersonagemServiceImpl implements PersonagemService {
 			if (Objects.nonNull(request.getClasseArmadura().getId())) {
 				classeArmadura = classeArmaduraRepository.findById(request.getClasseArmadura().getId())
 						.orElseThrow(() -> new RegistroNaoEncontradoException("Classe Armadura não encontrada."));
-			} 
-			
+			}
+
 			if (Objects.nonNull(request.getClasseArmadura().getBonusArmadura())
 					&& request.getClasseArmadura().getBonusArmadura() != 0) {
 				classeArmadura.setBonusArmadura(request.getClasseArmadura().getBonusArmadura());
@@ -264,8 +272,7 @@ public class PersonagemServiceImpl implements PersonagemService {
 						.orElseThrow(() -> new RegistroNaoEncontradoException("Habilidade não encontrada."));
 			}
 
-			if (Objects.nonNull(request.getClasseArmadura())
-					&& Objects.nonNull(request.getClasseArmadura().getId())) {
+			if (Objects.nonNull(request.getClasseArmadura()) && Objects.nonNull(request.getClasseArmadura().getId())) {
 				classeArmaduraRepository.findById(request.getClasseArmadura().getId())
 						.orElseThrow(() -> new RegistroNaoEncontradoException("Classe Armadura não encontrada."));
 

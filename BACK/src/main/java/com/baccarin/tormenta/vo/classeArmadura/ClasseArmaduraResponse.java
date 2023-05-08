@@ -10,8 +10,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 public class ClasseArmaduraResponse {
+
 	private Long id;
+	
 	private Long idPersonagem;
+	private String nomePersonagem;
+	
 	private Integer bonusArmadura;
 	private Integer bonusEscudo;
 	private Integer outros;
