@@ -20,7 +20,7 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     this.homeService.buscaListaPersonagensDoUsuarioLogado("teste@teste.com").subscribe(
       (response) => {
-        this.listaPersonagens = response;
+        this.listaPersonagens = response.slice(0,5);
       }
     );
 

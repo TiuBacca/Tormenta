@@ -1,31 +1,38 @@
+
 .tamMinCard{
     min-height: 500px !important;
 } 
+
+.custom-item {
+    display: flex;
+    flex-direction: column;
+    /* Outros estilos para os itens da sequência */
+}
+
+.pagetitle h1 {
+    color: rgb(109, 37, 37);
+}
+
 .espaco {
-    /* padding: 0px 0px 10px 0px !important; */
     padding: 10px;
 }
+
 .subTitulo {
     font-size: 1.2rem;
     font-weight: 600;
-    color: rgb(0, 23, 85);
+    color: rgb(109, 37, 37);
     text-align: center;
 }
 
 
-
-
-
-
-body{
-    margin-top:20px;
-    background:#FBFDFF
-}
 .cbp_tmtimeline {
-    margin: 0;
-    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.cbp_tmtimeline li {
+    flex-basis: 20%; /* Ou qualquer outro valor para ajustar o tamanho de cada item */
     list-style: none;
-    position: relative
 }
 
 .cbp_tmtimeline:before {
@@ -46,7 +53,8 @@ body{
 .cbp_tmtimeline>li:first-child .cbp_tmtime span.large {
     color: #444;
     font-size: 17px !important;
-    font-weight: 700
+    font-weight: 700;
+    
 }
 
 .cbp_tmtimeline>li:first-child .cbp_tmicon {
@@ -225,7 +233,7 @@ body{
 .bg-green {
     /* background-color: #50d38a !important; */
      background-color: rgb(0, 23, 85) !important;
-    color: #fff;
+    color: #fff; 
 }
 
 .bg-blush {

@@ -17,7 +17,7 @@ public interface PersonagemRepository extends JpaRepository<Personagem, Long> {
 	List<PersonagemResponse> findListTodosPersonagens();
 
 	@Query(" select new  com.baccarin.tormenta.vo.personagem.PersonagemResponse ( p.id, p.nome, classe.nome, raca.nome)"
-			+ "	 from Personagem p join p.classe classe join p.raca raca where p.usuario.email like :email")
+			+ "	 from Personagem p join p.classe classe join p.raca raca where p.usuario.email like :email order by p.id asc p.nome asc")
 	List<PersonagemResponse> findByUsuarioEmail(@Param("email") String email);
 
 }
