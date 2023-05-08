@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import com.baccarin.tormenta.domain.ClasseArmadura;
@@ -37,7 +38,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class PersonagemServiceImpl implements PersonagemService {
 
-	private final PersonagemRepository repository;
+	private final PersonagemRepository personagemRepository;
 	private final RacaRepository racaRepository;
 	private final ClasseRepository classeRepository;
 	private final TendenciaRepository tendenciaRepository;
@@ -49,7 +50,7 @@ public class PersonagemServiceImpl implements PersonagemService {
 
 	@Override
 	public List<PersonagemResponse> buscaListaTodosPersonagem() {
-		return repository.findListTodosPersonagens();
+		return personagemRepository.findListTodosPersonagens();
 	}
 
 	@Override
@@ -104,9 +105,9 @@ public class PersonagemServiceImpl implements PersonagemService {
 
 	@Override
 	public void excluirPersonagem(PersonagemRequest request) throws Exception {
-		Personagem personagem = repository.findById(request.getId())
+		Personagem personagem = personagemRepository.findById(request.getId())
 				.orElseThrow(() -> new RegistroNaoEncontradoException("Personagem não encontrado!"));
-		repository.delete(personagem);
+		personagemRepository.delete(personagem);
 	}
 
 	@Override
@@ -115,7 +116,7 @@ public class PersonagemServiceImpl implements PersonagemService {
 
 		Personagem personagem = new Personagem();
 		if (Objects.nonNull(request.getId())) {
-			personagem = repository.findById(request.getId())
+			personagem = personagemRepository.findById(request.getId())
 					.orElseThrow(() -> new RegistroNaoEncontradoException("Personagem não encontrado."));
 		}
 
@@ -229,16 +230,16 @@ public class PersonagemServiceImpl implements PersonagemService {
 
 		personagem.setUsuario(usuarioRepository.findById(request.getIdUsuario()).get());
 
-		repository.save(personagem);
+		personagemRepository.save(personagem);
 
 	}
 
 	private void validaSalvar(PersonagemRequest request) throws Exception {
 		if (Objects.nonNull(request.getId())) {
-			repository.findById(request.getId())
+			personagemRepository.findById(request.getId())
 					.orElseThrow(() -> new RegistroNaoEncontradoException("Personagem não encontrado."));
 		} else {
-			if (Objects.isNull(request.getNome()) || request.getNome().isBlank()) {
+			if (StringUtils.isBlank(request.getNome())) {
 				throw new RegistroIncompletoException("Atributo nome faltando para salvar personagem.");
 			}
 
@@ -286,5 +287,15 @@ public class PersonagemServiceImpl implements PersonagemService {
 			}
 		}
 
+	}
+
+	@Override
+	public List<PersonagemResponse> buscarListaPersonagensByEmail(UsuarioRequest request) throws Exception {
+
+		if (StringUtils.isBlank(request.getEmail())) {
+			throw new RegistroIncompletoException("Necessário informar o e-mail do usuário.");
+		}
+
+		return personagemRepository.findByUsuarioEmail(Util.criptografar(request.getEmail()));
 	}
 }

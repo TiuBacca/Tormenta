@@ -44,16 +44,16 @@
                       <label for="floatingSelect">E-mail</label>
                       <div class="input-group">
                         <input style="background-color: rgba(255, 255, 255, 0.5);" type="email" class="form-control" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"
-                          #emai="ngModel" name="email" [(ngModel)]="data.email" required>
+                          #email="ngModel" name="email" [(ngModel)]="data.email" required>
                       </div>
 
                       <label for="floatingSelect">Senha</label>
                       <div class="input-group">
                         <input style="background-color: rgba(255, 255, 255, 0.5);" type="password" class="form-control"
-                          #emai="ngModel" name="senha" [(ngModel)]="data.senha" required>
+                          #senha="ngModel" name="senha" [(ngModel)]="data.senha" required>
                       </div>
 
-                      <p class="err" *ngIf="emai.invalid && emai.touched">
+                      <p class="err" *ngIf="email.invalid && email.touched ">
                         Insira um e-mail válido.
                       </p>
                     </div>
@@ -63,7 +63,7 @@
 
                     <div class="col-12">
                       <button  class="btn btn-danger w-100" type="button" (click)="acessarSistema(data)"
-                        [disabled]="!emai.valid">Acessar</button>
+                        [disabled]="!email.valid">Acessar</button>
                     </div>
 
                     <div class="pt-4 pb-2">

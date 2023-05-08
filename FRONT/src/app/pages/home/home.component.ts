@@ -11,13 +11,16 @@ export class HomeComponent implements OnInit {
 
   // data = '03/02/2023'
   // hora = '12:00'
-  retornoCincoUltimosOrcamentos: any;
-  constructor(private _homeService: HomeService, public router: Router) { }
+
+  listaPersonagens: any; 
+
+  constructor(private homeService: HomeService, public router: Router) { }
+
 
   ngOnInit(): void {
-    this._homeService.listaCincoUltimosOrcamentosService().subscribe(
+    this.homeService.buscaListaPersonagensDoUsuarioLogado("teste@teste.com").subscribe(
       (response) => {
-        this.retornoCincoUltimosOrcamentos = response;
+        this.listaPersonagens = response;
       }
     );
 

@@ -28,31 +28,13 @@ export class LoginComponent implements OnInit {
   }
 
 
-  acessarSistema(data: any){
-
-    this.loginService.logarSistema(this.data).subscribe(
+  acessarSistema(login: any){
+    console.log(login)
+    this.loginService.logarSistema(login).subscribe(
       (response) => {
         if (response) {
           sessionStorage.setItem('token', response.token);
-          this.router.navigate(['/login']);
-
-          /*
-          const Toast = Swal.mixin({
-            toast: true,
-            position: 'top-end',
-            showConfirmButton: false,
-            timer: 3000,
-            timerProgressBar: true,
-            didOpen: (toast) => {
-              toast.addEventListener('mouseenter', Swal.stopTimer)
-              toast.addEventListener('mouseleave', Swal.resumeTimer)
-            }
-          })
-
-          Toast.fire({
-            icon: 'success',
-            title: "E-mail validado com sucesso!"
-          })*/
+          this.router.navigate(['/home']);
         }
       }
     );

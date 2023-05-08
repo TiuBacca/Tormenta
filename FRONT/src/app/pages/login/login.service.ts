@@ -8,24 +8,21 @@ import Swal from 'sweetalert2';
 @Injectable({
   providedIn: 'root'
 })
+
 export class LoginService {
 
   baseUrl = environment.baseUrl;
 
   constructor(private http: HttpClient, public router: Router) { }
 
-
-
-  logarSistema(data: any): Observable<any> {
-    return this.http.post<any>(`${this.baseUrl}/validaLogin`,{email:data.email}).pipe(
+  logarSistema(login: any): Observable<any> {
+    return this.http.post<any>(`${this.baseUrl}/acesso/login`,login).pipe(
       map((response) => response),
-      catchError(async (error) => this.erroHandler(error,data))
+      catchError(async (error) => this.erroHandler(error,login))
     );
   }
 
-
   erroHandler(error: any, data:any): any {
-    //console.log(error);      
     if (error.status == 504) {
       const Toast = Swal.mixin({
         toast: true,

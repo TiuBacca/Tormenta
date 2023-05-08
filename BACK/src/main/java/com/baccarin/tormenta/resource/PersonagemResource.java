@@ -17,6 +17,7 @@ import com.baccarin.tormenta.service.PersonagemService;
 import com.baccarin.tormenta.vo.ResponseGenerico;
 import com.baccarin.tormenta.vo.personagem.PersonagemRequest;
 import com.baccarin.tormenta.vo.personagem.PersonagemResponse;
+import com.baccarin.tormenta.vo.usuario.UsuarioRequest;
 
 import lombok.RequiredArgsConstructor;
 
@@ -61,6 +62,17 @@ public class PersonagemResource {
 	public ResponseEntity<List<PersonagemResponse>> buscarListaPersonagensByFiltro(
 			@RequestBody PersonagemFiltro request) throws Exception {
 		List<PersonagemResponse> personagens = service.buscaListaPersonagemByFiltro(request);
+		if (Objects.nonNull(personagens) && !personagens.isEmpty()) {
+			return new ResponseEntity<List<PersonagemResponse>>(personagens, HttpStatus.OK);
+		}
+		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+	}
+	
+	
+	@PostMapping(path = "buscaLista/byEmail")
+	public ResponseEntity<List<PersonagemResponse>> buscarListaPersonagensByEmail(
+			@RequestBody UsuarioRequest request) throws Exception {
+		List<PersonagemResponse> personagens = service.buscarListaPersonagensByEmail(request);
 		if (Objects.nonNull(personagens) && !personagens.isEmpty()) {
 			return new ResponseEntity<List<PersonagemResponse>>(personagens, HttpStatus.OK);
 		}

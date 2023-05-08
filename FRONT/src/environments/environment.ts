@@ -4,7 +4,7 @@
 
 export const environment = {
   baseUrl: '/tormenta',
-  dominio: 'http://localhost:4200',
+  dominio: 'http://localhost:8080',
   production: false
 };
 

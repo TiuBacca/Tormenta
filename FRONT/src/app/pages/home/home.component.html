@@ -12,8 +12,7 @@
                     <div class="card-body tamMinCard">
                         <div class="espaco"></div>
                         <div class="row">
-                            <p class="subTitulo">5 últimos orçamentos / Tempo aguardando orçamento.</p>
-                            <!-- <p class="subTitulo informacoes">Página em desenvolvimento!</p> -->
+                            <p class="subTitulo">Personagens</p>
                             <div class="container">
                                 <div class="row">
                                     <div class="col-md-12">
@@ -27,69 +26,15 @@
                                                 <div class="col-md-10">
                                                     <ul class="cbp_tmtimeline">
 
-                                                        <li *ngFor="let retorno of retornoCincoUltimosOrcamentos" class="click" (click)="atalho(retorno)">
-                                                            <time class="cbp_tmtime"><span>{{retorno.data | date: 'HH:mm'}}</span>
-                                                                <span>{{retorno.data | date: 'dd/MM/yyyy'}}</span></time>
+                                                        <li *ngFor="let retorno of listaPersonagens" class="click" (click)="atalho(retorno)">
                                                             <div class="cbp_tmicon bg-green"> <i
                                                                     class="bi bi-file-earmark-text-fill"></i></div>
                                                             <div class="cbp_tmlabel">
-                                                                <h2><a href="javascript:void(0);">{{retorno.nomeCliente}}</a>
-                                                                </h2>
-                                                                <p><strong>{{retorno.time}}</strong></p>
+                                                                <h2>{{retorno.nome}}</h2>
+                                                                <h2>{{retorno.descricaoClasse}}</h2>
+                                                                <h2>{{retorno.descricaoRaca}}</h2>
                                                             </div>
                                                         </li>
-
-                                                        <!-- <li>
-                                                            <time class="cbp_tmtime"><span>01:22 PM</span>
-                                                                <span>03/02/2023</span></time>
-                                                            <div class="cbp_tmicon bg-green"> <i
-                                                                    class="bi bi-file-earmark-text-fill"></i></div>
-                                                            <div class="cbp_tmlabel">
-                                                                <h2><a href="javascript:void(0);">Sabium Sistemas</a>
-                                                                </h2>
-                                                                <p><strong>Demandas Internas</strong></p>
-                                                            </div>
-                                                        </li>
-
-
-                                                        <li>
-                                                            <time class="cbp_tmtime"><span>01:22 PM</span>
-                                                                <span>03/02/2023</span></time>
-                                                            <div class="cbp_tmicon bg-green"> <i
-                                                                    class="bi bi-file-earmark-text-fill"></i></div>
-                                                            <div class="cbp_tmlabel">
-                                                                <h2><a href="javascript:void(0);">Sabium Sistemas</a>
-                                                                </h2>
-                                                                <p><strong>Demandas Internas</strong></p>
-                                                            </div>
-                                                        </li>
-
-
-                                                        <li>
-                                                            <time class="cbp_tmtime"><span>01:22 PM</span>
-                                                                <span>03/02/2023</span></time>
-                                                            <div class="cbp_tmicon bg-green"> <i
-                                                                    class="bi bi-file-earmark-text-fill"></i></div>
-                                                            <div class="cbp_tmlabel">
-                                                                <h2><a href="javascript:void(0);">Sabium Sistemas</a>
-                                                                </h2>
-                                                                <p><strong>Demandas Internas</strong></p>
-                                                            </div>
-                                                        </li>
-
-
-                                                        <li>
-                                                            <time class="cbp_tmtime"><span>01:22 PM</span>
-                                                                <span>03/02/2023</span></time>
-                                                            <div class="cbp_tmicon bg-green"> <i
-                                                                    class="bi bi-file-earmark-text-fill"></i></div>
-                                                            <div class="cbp_tmlabel">
-                                                                <h2><a href="javascript:void(0);">Sabium Sistemas</a>
-                                                                </h2>
-                                                                <p><strong>Demandas Internas</strong></p>
-                                                            </div>
-                                                        </li> -->
-
                                                     </ul>
                                                 </div>
                                             </div>

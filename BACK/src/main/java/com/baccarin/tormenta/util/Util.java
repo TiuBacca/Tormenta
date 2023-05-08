@@ -7,6 +7,9 @@ import java.sql.Connection;
 
 import org.springframework.context.annotation.Configuration;
 
+import com.baccarin.tormenta.vo.login.LoginRequest;
+import com.baccarin.tormenta.vo.login.LoginResponse;
+
 import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 
@@ -16,6 +19,10 @@ public class Util {
 
 	private final EntityManager em;
 
+	public String gerarToken(LoginRequest request) {
+		return "ajustar serviço para gerar token";
+	}
+
 	public Connection getConnection() {
 		return em.unwrap(Connection.class);
 	}
@@ -23,7 +30,6 @@ public class Util {
 	public EntityManager getEntityManager() {
 		return this.em;
 	}
-
 	
     public static String criptografar(String texto) {
         try {
@@ -43,4 +49,6 @@ public class Util {
         }
         return sb.toString();
     }
+
+
 }

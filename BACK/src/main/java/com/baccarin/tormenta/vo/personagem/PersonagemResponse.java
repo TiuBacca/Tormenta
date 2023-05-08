@@ -14,9 +14,11 @@ public class PersonagemResponse {
 	private String descricaoClasse;
 	private String descricaoRaca;
 	
+	
 	public PersonagemResponse(Long id, String nome) {
 		this.id = id;
 		this.nome = nome;
 	}
+
 	
 }
