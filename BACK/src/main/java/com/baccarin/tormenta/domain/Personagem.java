@@ -51,11 +51,11 @@ public class Personagem {
 	@JoinColumn(name = "id_tendencia", nullable = false)
 	private Tendencia tendencia;
 
-	@Column(name = "pontos_vida_totais")
-	private Integer pontosVidaTotais;
+	@Column(name = "vida_total")
+	private Integer vidaTotal;
 
-	@Column(name = "pontos_vida_atuais")
-	private Integer pontosVidaAtuais;
+	@Column(name = "vida_atual")
+	private Integer vidaAtual;
 
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "habilidade_id", referencedColumnName = "id", nullable = true, unique = true)

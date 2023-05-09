@@ -5,11 +5,13 @@ import java.util.Objects;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.baccarin.tormenta.enums.Sexo;
 import com.baccarin.tormenta.exception.RegistroComRelacionamentoException;
 import com.baccarin.tormenta.exception.RegistroIncompletoException;
 import com.baccarin.tormenta.exception.RegistroNaoEncontradoException;
@@ -78,5 +80,13 @@ public class PersonagemResource {
 		}
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
+	
+	
+	@GetMapping(path = "buscaLista/sexo")
+	public ResponseEntity<List<String>> buscaListaSexo(){
+		List<String> lista = Sexo.obterDescricoesSexo();
+		return new ResponseEntity<List<String>>(lista, HttpStatus.OK);
+	}
+	
 
 }

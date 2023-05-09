@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<app-header></app-header>
+<app-nav></app-nav>
+
+
+<head>
+
+  <!-- Favicons -->
+  <link href="assets/img/favicon.png" rel="icon">
+  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.gstatic.com" rel="preconnect">
+  <link
+    href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+    rel="stylesheet">
+
+</head>
+
+<body>
+
+  <main>
+    <div class="container">
+
+      <section class="min-vh-100 max-vh-100 d-flex flex-column align-items-center justify-content-center">
+        <div class="container">
+          <form class="row g-12 needs-validation">
+
+            <div class="col-md-6">
+              <label for="floatingSelect">Usuários</label>
+              <ng-multiselect-dropdown id="comboUsuarios" [placeholder]="'Selecione'"
+                [settings]="dropdownSettingsUsuarios" [data]="listaUsuarios" (onSelect)="selecionarUsuario($event)"
+                [(ngModel)]="selectedItemsUsuarios">
+              </ng-multiselect-dropdown>
+            </div>
+
+            <div class="col-md-6">
+              <label for="floatingSelect">Classes</label>
+              <ng-multiselect-dropdown id="comboClasses" [placeholder]="'Selecione'"
+                [settings]="dropdownSettingsUsuarios" [data]="listaClasses" (onSelect)="selecionarUsuario($event)"
+                [(ngModel)]="selectedItemsUsuarios">
+              </ng-multiselect-dropdown>
+            </div>
+
+            <div class="espaco"></div>
+
+            <div class="col-md-4">
+              <label for="floatingSelect">Raças</label>
+              <ng-multiselect-dropdown id="comboRacas" [placeholder]="'Selecione'" [settings]="dropdownSettingsUsuarios"
+                [data]="listaRacas" (onSelect)="selecionarUsuario($event)" [(ngModel)]="selectedItemsUsuarios">
+              </ng-multiselect-dropdown>
+            </div>
+
+            <div class="col-md-4">
+              <label for="floatingSelect">Tendências</label>
+              <ng-multiselect-dropdown id="comboTendencias" [placeholder]="'Selecione'"
+                [settings]="dropdownSettingsUsuarios" [data]="listaTendencias" (onSelect)="selecionarUsuario($event)"
+                [(ngModel)]="selectedItemsUsuarios">
+              </ng-multiselect-dropdown>
+            </div>
+
+            <div class="col-md-4">
+              <label for="floatingSelect">Sexos</label>
+              <ng-multiselect-dropdown id="comboSexos" [placeholder]="'Selecione'" [settings]="dropdownSettingsUsuarios"
+                [data]="listaSexos" (onSelect)="selecionarUsuario($event)" [(ngModel)]="selectedItemsUsuarios">
+              </ng-multiselect-dropdown>
+            </div>
+
+          </form>
+
+          <div class="col-md-3 mt" style="white-space: nowrap;">
+            <label for="floatingSelect">&nbsp;&nbsp;</label>
+            <div class="mb-3">
+              <button type="button" id="botaoFiltrar" (click)="executarPesquisaByFiltro()" class="btn btn-primary"><i
+                  class="bi bi-search"></i>&nbsp;Filtrar</button>
+
+              <label for="floatingSelect">&nbsp;&nbsp;</label>
+              <button type="button" id="botaoLimpar" class="btn btn-secondary" (click)="limparFiltros()"><i
+                  class="bi bi-brush"></i>&nbsp;Limpar</button>
+            </div>
+          </div>
+
+          <div class="espacoGrande"></div>
+
+          <div id="tabelaResponsiva">
+            <table class="table table-bordered" id="excel-table">
+              <thead>
+                <tr>
+                  <th scope="col">Nome</th>
+                  <th scope="col">Classe</th>
+                  <th scope="col">Raça</th>
+                  <th scope="col">Fortitude</th>
+                  <th scope="col">Reflexo</th>
+                  <th scope="col">Vontade</th>
+                  <th scope="col">Nível</th>
+                  <th scope="col">Vida atual</th>
+                  <th scope="col">% vida atual</th>
+                  <th scope="col">Ações</th>
+
+                </tr>
+              </thead>
+              <tbody>
+                <tr
+                  *ngFor="let personagem of listaPersonagens  | paginate: {itemsPerPage: 10, currentPage: paginaInicial, id:'2' }; let i = index">
+                  <td>{{personagem.nome}}</td>
+                  <td>{{personagem.descricaoClasse}}</td>
+                  <td>{{personagem.descricaoRaca}}</td>
+                  <td>{{personagem.fortitude}}</td>
+                  <td>{{personagem.reflexo}}</td>
+                  <td>{{personagem.vontade}}</td>
+                  <td>{{personagem.nivel}}</td>
+                  <td>{{personagem.vidaAtual}}</td>
+                  <td
+                    [ngStyle]="{'color': (personagem.vidaTotal ? personagem.vidaAtual / personagem.vidaTotal * 100 : personagem.vidaAtual / 1) > 50 ? 'green' : 'red'}">
+                    {{(personagem.vidaTotal ? personagem.vidaAtual / personagem.vidaTotal * 100 : personagem.vidaAtual /
+                    1) | number: '1.2-2' }} %
+                  </td>
+
+                  <!-- <td
+                    style="min-width: 100px !important; max-width: 100px !important; text-align: center; white-space: nowrap;">
+                     <a class="visualizar margemVisualizar" title="Visualizar"
+                                (click)="openModalMovimentoOrcamentario('Visualizar',retorno)">
+                                <i class="bi bi-eye"></i>
+                            </a> 
+                    <a class="dados" title="Dados" (click)="openModalMovimentoOrcamentario('Editar',retorno)">
+                      <i class="bi bi-file-text"></i>
+                    </a>
+  
+                    <a *ngIf="retorno.idOrcamentoDados != null" class="estimativa" title="Estimativa"
+                      (click)="openModalEstimativa(retorno)">
+                      <i class="bi bi-calculator-fill"></i>
+                    </a>
+  
+                    <a *ngIf="idPerfilPermissao2!=1 && retorno.idOrcamentoDados != null" class="orcamento"
+                      title="Orçamento" (click)="openModalOrcamento2(retorno)">
+                      <i class="bi bi-currency-dollar"></i>
+                    </a> 
+                  </td>
+                   -->
+                </tr>
+              </tbody>
+            </table>
+            <pagination-controls (pageChange)="paginaInicial = $event" previousLabel="Anterior" nextLabel="Próxima"
+              id="2">
+            </pagination-controls>
+          </div>
+
+
+        </div>
+      </section>
+    </div>
+  </main>
+</body>
+
+</html>

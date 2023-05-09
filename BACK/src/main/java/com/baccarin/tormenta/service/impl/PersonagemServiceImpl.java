@@ -59,7 +59,9 @@ public class PersonagemServiceImpl implements PersonagemService {
 		StringBuilder sb = new StringBuilder();
 
 		sb.append(" select new com.baccarin.tormenta.vo.personagem.PersonagemResponse"
-				+ " ( p.id, p.nome, classe.nome, raca.nome) from Personagem p join p.classe classe join p.raca raca where p.id > 0 ");
+				+ " ( p.id, p.nome, classe.nome, raca.nome, p.fortitude, p.reflexo,"
+				+ " p.vontade, p.nivel , p.vidaAtual, p.vidaTotal) "
+				+ " from Personagem p join p.classe classe join p.raca raca where p.id > 0 ");
 
 		if (Objects.nonNull(request.getClasses()) && !request.getClasses().isEmpty()) {
 			sb.append(" AND classe.id in ( :idsClasse ) ");
@@ -234,6 +236,16 @@ public class PersonagemServiceImpl implements PersonagemService {
 
 	}
 
+	@Override
+	public List<PersonagemResponse> buscarListaPersonagensByEmail(UsuarioRequest request) throws Exception {
+
+		if (StringUtils.isBlank(request.getEmail())) {
+			throw new RegistroIncompletoException("Necessário informar o e-mail do usuário.");
+		}
+
+		return personagemRepository.findByUsuarioEmail(Util.criptografar(request.getEmail()));
+	}
+
 	private void validaSalvar(PersonagemRequest request) throws Exception {
 		if (Objects.nonNull(request.getId())) {
 			personagemRepository.findById(request.getId())
@@ -289,13 +301,4 @@ public class PersonagemServiceImpl implements PersonagemService {
 
 	}
 
-	@Override
-	public List<PersonagemResponse> buscarListaPersonagensByEmail(UsuarioRequest request) throws Exception {
-
-		if (StringUtils.isBlank(request.getEmail())) {
-			throw new RegistroIncompletoException("Necessário informar o e-mail do usuário.");
-		}
-
-		return personagemRepository.findByUsuarioEmail(Util.criptografar(request.getEmail()));
-	}
 }

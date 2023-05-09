@@ -16,9 +16,7 @@ import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { HeaderComponent } from './components/header/header.component';
 import { NavComponent } from './components/nav/nav.component';
-import { HomeComponent } from './pages/home/home.component';
 
-import { LoginComponent } from './pages/login/login.component';
 // import { NgxSpinnerModule } from "ngx-spinner";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { Interceptor } from './app.interceptor.module';
@@ -27,7 +25,9 @@ import { NumericOnlyDirective } from './components/diretivas/numeric-only.direct
 import { NumericOnlyDirective2 } from './components/diretivas/numeric-only2.directive';
 import { NgxMaskModule } from 'ngx-mask';
 
-
+import { HomeComponent } from './pages/home/home.component';
+import { PersonagemComponent } from './pages/personagem/personagem.component';
+import { LoginComponent } from './pages/login/login.component';
 
 @NgModule({
   declarations: [
@@ -35,12 +35,13 @@ import { NgxMaskModule } from 'ngx-mask';
 
     HeaderComponent,
     NavComponent,
-    HomeComponent,
-
-    LoginComponent,
     DuasCasasAposPonto,
     NumericOnlyDirective,
-    NumericOnlyDirective2
+    NumericOnlyDirective2,
+
+    LoginComponent,
+    HomeComponent,
+    PersonagemComponent
   ],
   imports: [
     BrowserModule,
