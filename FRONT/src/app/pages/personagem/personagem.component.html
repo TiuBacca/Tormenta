@@ -7,10 +7,6 @@
 
 <head>
 
-  <!-- Favicons -->
-  <link href="assets/img/favicon.png" rel="icon">
-  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
-
   <!-- Google Fonts -->
   <link href="https://fonts.gstatic.com" rel="preconnect">
   <link
@@ -19,10 +15,7 @@
 
 </head>
 
-<body>
-
-  <main>
-    <div class="container">
+<body >
 
       <section class="min-vh-100 max-vh-100 d-flex flex-column align-items-center justify-content-center">
         <div class="container">
@@ -31,7 +24,9 @@
             <div class="col-md-6">
               <label for="floatingSelect">Usuários</label>
               <ng-multiselect-dropdown id="comboUsuarios" [placeholder]="'Selecione'"
-                [settings]="dropdownSettingsUsuarios" [data]="listaUsuarios" (onSelect)="selecionarUsuario($event)"
+                [settings]="dropdownSettingsUsuarios" [data]="listaUsuarios"
+                [(ngModel)]="selectedItemsUsuarios"
+                (onSelect)="selecionarUsuario($event)"
                 [(ngModel)]="selectedItemsUsuarios">
               </ng-multiselect-dropdown>
             </div>
@@ -39,8 +34,8 @@
             <div class="col-md-6">
               <label for="floatingSelect">Classes</label>
               <ng-multiselect-dropdown id="comboClasses" [placeholder]="'Selecione'"
-                [settings]="dropdownSettingsUsuarios" [data]="listaClasses" (onSelect)="selecionarUsuario($event)"
-                [(ngModel)]="selectedItemsUsuarios">
+                [settings]="dropdownSettingsClasses" [data]="listaClasses" (onSelect)="selecionarClasse($event)"
+                [(ngModel)]="selectedItemsClasses">
               </ng-multiselect-dropdown>
             </div>
 
@@ -48,23 +43,23 @@
 
             <div class="col-md-4">
               <label for="floatingSelect">Raças</label>
-              <ng-multiselect-dropdown id="comboRacas" [placeholder]="'Selecione'" [settings]="dropdownSettingsUsuarios"
-                [data]="listaRacas" (onSelect)="selecionarUsuario($event)" [(ngModel)]="selectedItemsUsuarios">
+              <ng-multiselect-dropdown id="comboRacas" [placeholder]="'Selecione'" [settings]="dropdownSettingsRacas"
+                [data]="listaRacas" (onSelect)="selecionarRaca($event)" [(ngModel)]="selectedItemsRacas">
               </ng-multiselect-dropdown>
             </div>
 
             <div class="col-md-4">
               <label for="floatingSelect">Tendências</label>
               <ng-multiselect-dropdown id="comboTendencias" [placeholder]="'Selecione'"
-                [settings]="dropdownSettingsUsuarios" [data]="listaTendencias" (onSelect)="selecionarUsuario($event)"
-                [(ngModel)]="selectedItemsUsuarios">
+                [settings]="dropdownSettingsTendencias" [data]="listaTendencias" (onSelect)="selecionarTendencia($event)"
+                [(ngModel)]="selectedItemsTendencias">
               </ng-multiselect-dropdown>
             </div>
 
             <div class="col-md-4">
               <label for="floatingSelect">Sexos</label>
-              <ng-multiselect-dropdown id="comboSexos" [placeholder]="'Selecione'" [settings]="dropdownSettingsUsuarios"
-                [data]="listaSexos" (onSelect)="selecionarUsuario($event)" [(ngModel)]="selectedItemsUsuarios">
+              <ng-multiselect-dropdown id="comboSexos" [placeholder]="'Selecione'" [settings]="dropdownSettingsSexos"
+                [data]="listaSexos" (onSelect)="selecionarSexo($event)" [(ngModel)]="selectedItemsSexos">
               </ng-multiselect-dropdown>
             </div>
 
@@ -150,8 +145,8 @@
 
         </div>
       </section>
-    </div>
-  </main>
+   
+ 
 </body>
 
 </html>

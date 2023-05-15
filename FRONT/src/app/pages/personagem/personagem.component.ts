@@ -45,6 +45,13 @@ export class PersonagemComponent implements OnInit {
 
   constructor(private personagemService: PersonagemService, public router: Router) { }
 
+  ngOnInit(): void {
+
+    this.inicializaCombos();
+    this.inicializaDropDowns();
+  }
+
+
   executarPesquisaByFiltro(){
 
     const data = {
@@ -55,7 +62,7 @@ export class PersonagemComponent implements OnInit {
       racas: this.selectedItemsRacas,
       tendencias: this.selectedItemsTendencias
     }
-
+    console.log(data)
     this.personagemService.executarPesquisaByFiltro(data).subscribe((response) => {
       this.listaPersonagens = response;
     });
@@ -70,6 +77,18 @@ export class PersonagemComponent implements OnInit {
   }
 
   selecionarUsuario(usuario: any) {
+  }
+
+  selecionarClasse(classe: any) {
+  }
+
+  selecionarRaca(raca: any) {
+  }
+
+  selecionarSexo(sexo: any) {
+  }
+
+  selecionarTendencia(tendencia: any) {
   }
 
   buscaUsuarios() {
@@ -117,13 +136,6 @@ export class PersonagemComponent implements OnInit {
     this.inicializaDropDownsTendencias();
     this.inicializaDropDownsSexos();
   }
-  
-  ngOnInit(): void {
-
-    this.inicializaCombos();
-    this.inicializaDropDowns();
-  }
-
 
   inicializaDropDownsUsuarios() {
     this.selectedItemsUsuarios = [];
@@ -175,7 +187,7 @@ export class PersonagemComponent implements OnInit {
     this.dropdownSettingsTendencias = {
       singleSelection: false,
       idField: 'id',
-      textField: 'nome',
+      textField: 'descricao',
       selectAllText: 'Selecionar todos',
       unSelectAllText: 'Desmarcar todos',
       itemsShowLimit: 1,
