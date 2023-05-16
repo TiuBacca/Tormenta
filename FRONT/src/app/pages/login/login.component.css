@@ -1,18 +1,17 @@
-.orie{
-    color:red;
+.orie {
+    color: red;
 }
 
-.espacoEntreInputs{
+.espacoEntreInputs {
     margin-top: 10px !important;
 }
 
-.err{
+.err {
     color: red;
-    /* margin-top: -10px !important; */
     font-size: 0.8em !important;
 }
 
-.informacoes{
+.informacoes {
     color: red;
     font-size: 0.8em !important;
 }
@@ -21,8 +20,8 @@ body {
     background-image: url('/assets/img/icon-tormenta.jpg');
     background-size: cover;
     background-repeat: no-repeat;
-  }
+}
 
-  .vermelho {
+.vermelho {
     color: red;
-  }
+}

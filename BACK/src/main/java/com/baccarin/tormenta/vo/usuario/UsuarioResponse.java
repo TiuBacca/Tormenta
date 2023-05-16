@@ -19,9 +19,15 @@ public class UsuarioResponse {
 	public UsuarioResponse(String nome) {
 		this.nome = nome;
 	}
+
+	public UsuarioResponse(Long id, String nome) {
+		this(nome);
+		this.id = id;
+	}
+
 	
 	public UsuarioResponse(String nome, String email) {
-		this.nome = nome;
+		this(nome);
 		this.email = email;
 	}
 

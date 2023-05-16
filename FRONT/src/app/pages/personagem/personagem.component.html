@@ -1,152 +1,185 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-
 <app-header></app-header>
 <app-nav></app-nav>
 
 
-<head>
 
-  <!-- Google Fonts -->
-  <link href="https://fonts.gstatic.com" rel="preconnect">
-  <link
-    href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
-    rel="stylesheet">
+<main id="main" class="main">
 
-</head>
+  <section>
+    <div class="espaco"></div>
+    <form class="row g-12 needs-validation">
 
-<body >
+      <div class="col-md-6">
+        <label for="floatingSelect">Usuários</label>
+        <ng-multiselect-dropdown id="comboUsuarios" [placeholder]="'Selecione'" [settings]="dropdownSettingsUsuarios"
+          [data]="listaUsuarios" [(ngModel)]="selectedItemsUsuarios" (onSelect)="selecionarUsuario($event)"
+          [(ngModel)]="selectedItemsUsuarios" [ngModelOptions]="{standalone: true}">
+        </ng-multiselect-dropdown>
+      </div>
 
-      <section class="min-vh-100 max-vh-100 d-flex flex-column align-items-center justify-content-center">
-        <div class="container">
-          <form class="row g-12 needs-validation">
+      <div class="col-md-6">
+        <label for="floatingSelect">Classes</label>
+        <ng-multiselect-dropdown id="comboClasses" [placeholder]="'Selecione'" [settings]="dropdownSettingsClasses"
+          [data]="listaClasses" (onSelect)="selecionarClasse($event)" [(ngModel)]="selectedItemsClasses"
+          [ngModelOptions]="{standalone: true}">
+        </ng-multiselect-dropdown>
+      </div>
 
-            <div class="col-md-6">
-              <label for="floatingSelect">Usuários</label>
-              <ng-multiselect-dropdown id="comboUsuarios" [placeholder]="'Selecione'"
-                [settings]="dropdownSettingsUsuarios" [data]="listaUsuarios"
-                [(ngModel)]="selectedItemsUsuarios"
-                (onSelect)="selecionarUsuario($event)"
-                [(ngModel)]="selectedItemsUsuarios">
-              </ng-multiselect-dropdown>
+      <div class="espaco"></div>
+
+      <div class="col-md-4">
+        <label for="floatingSelect">Raças</label>
+        <ng-multiselect-dropdown id="comboRacas" [placeholder]="'Selecione'" [settings]="dropdownSettingsRacas"
+          [data]="listaRacas" (onSelect)="selecionarRaca($event)" [(ngModel)]="selectedItemsRacas"
+          [ngModelOptions]="{standalone: true}">
+        </ng-multiselect-dropdown>
+      </div>
+
+      <div class="col-md-4">
+        <label for="floatingSelect">Tendências</label>
+        <ng-multiselect-dropdown id="comboTendencias" [placeholder]="'Selecione'"
+          [settings]="dropdownSettingsTendencias" [data]="listaTendencias" (onSelect)="selecionarTendencia($event)"
+          [(ngModel)]="selectedItemsTendencias" [ngModelOptions]="{standalone: true}">
+        </ng-multiselect-dropdown>
+      </div>
+
+      <div class="col-md-4">
+        <label for="floatingSelect">Sexos</label>
+        <ng-multiselect-dropdown id="comboSexos" [placeholder]="'Selecione'" [settings]="dropdownSettingsSexos"
+          [data]="listaSexos" (onSelect)="selecionarSexo($event)" [(ngModel)]="selectedItemsSexos"
+          [ngModelOptions]="{standalone: true}">
+        </ng-multiselect-dropdown>
+      </div>
+
+    </form>
+
+    <div class="col-md-3 mt" style="white-space: nowrap;">
+      <label for="floatingSelect">&nbsp;&nbsp;</label>
+      <div class="mb-3">
+        <button type="button" id="botaoFiltrar" (click)="executarPesquisaByFiltro()" class="btn btn-primary"><i
+            class="bi bi-search"></i>&nbsp;Filtrar</button>
+
+        <label for="floatingSelect">&nbsp;&nbsp;</label>
+        <button type="button" id="botaoLimpar" class="btn btn-secondary" (click)="limparFiltros()"><i
+            class="bi bi-brush"></i>&nbsp;Limpar</button>
+      </div>
+    </div>
+
+    <div class="espacoGrande"></div>
+
+
+    <table class="table table-bordered" id="excel-table">
+      <thead>
+        <tr>
+          <th scope="col" style="text-align: center">Nome</th>
+          <th scope="col" style="text-align: center">Classe</th>
+          <th scope="col" style="text-align: center">Raça</th>
+          <th scope="col" style="text-align: center">Fortitude</th>
+          <th scope="col" style="text-align: center">Reflexo</th>
+          <th scope="col" style="text-align: center">Vontade</th>
+          <th scope="col" style="text-align: center">Nível</th>
+          <th scope="col" style="text-align: center">Vida atual</th>
+          <th scope="col" style="text-align: center">% vida atual</th>
+          <th scope="col" style="text-align: center">Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          *ngFor="let personagem of listaPersonagens  | paginate: {itemsPerPage: 10, currentPage: paginaInicial, id:'2' }; let i = index">
+          <td style="text-align: center">{{personagem.nome}}</td>
+          <td style="text-align: center">{{personagem.descricaoClasse}}</td>
+          <td style="text-align: center">{{personagem.descricaoRaca}}</td>
+          <td style="text-align: center">{{personagem.fortitude}}</td>
+          <td style="text-align: center">{{personagem.reflexo}}</td>
+          <td style="text-align: center">{{personagem.vontade}}</td>
+          <td style="text-align: center">{{personagem.nivel}}</td>
+          <td style="text-align: center">{{personagem.vidaAtual}}</td>
+          <td style="text-align: center"
+            [ngStyle]="{'color': (personagem.vidaTotal ? personagem.vidaAtual / personagem.vidaTotal * 100 : personagem.vidaAtual / 1) > 50 ? 'green' : 'red'}">
+            {{(personagem.vidaTotal ? personagem.vidaAtual / personagem.vidaTotal * 100 : personagem.vidaAtual /
+            1) | number: '1.2-2' }} %
+          </td>
+
+          <td
+            style="min-width: 100px !important; max-width: 100px !important; text-align: center; white-space: nowrap; cursor: pointer;">
+
+            <a title="Editar" (click)="editarPersonagem(personagem.id)">
+              <i class="bi bi-pencil-fill" style="font-size: 25px; margin-right: 15px"></i>
+            </a>
+
+            <a title="Excluir" (click)="excluirPersonagem(personagem.id)">
+              <i class="bi bi-trash-fill" style="font-size: 25px; margin-right: 15px"></i>
+            </a>
+
+            <a title="Upar" (click)="uparNivel(personagem.id)">
+              <i class="bi bi-arrow-up-circle-fill" style="font-size: 25px; margin-right: 15px"></i>
+            </a>
+
+            <a title="Baixar ficha" (click)="baixarFicha(personagem.id)">
+              <i class="bi bi-cloud-arrow-down-fill" style="font-size: 25px;"></i>
+            </a>
+          </td>
+
+        </tr>
+      </tbody>
+    </table>
+    <pagination-controls (pageChange)="paginaInicial = $event" previousLabel="Anterior" nextLabel="Próxima" id="2">
+    </pagination-controls>
+
+  </section>
+
+
+</main>
+
+
+
+<!--Modal novo/editar agrupador INICIO-->
+<div class="modal fade modalCriarFundo" id="modalNovoEditarAgrupador" data-bs-backdrop="static" data-bs-keyboard="false"
+    tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="card-title">agrupador</h5>
+                <a type="button" class="btn-close" data-bs-dismiss="modal" (click)="teste()"
+                    aria-label="Close"></a>
             </div>
+            <div class="modal-body">
 
-            <div class="col-md-6">
-              <label for="floatingSelect">Classes</label>
-              <ng-multiselect-dropdown id="comboClasses" [placeholder]="'Selecione'"
-                [settings]="dropdownSettingsClasses" [data]="listaClasses" (onSelect)="selecionarClasse($event)"
-                [(ngModel)]="selectedItemsClasses">
-              </ng-multiselect-dropdown>
+                <div class="espaco"></div>
+                <!--Corpo do elemento de estimativa INICIO-->
+                <div class="elemento">
+                    <div class="row align-items-start">
+                        <div class="col" style="min-width: 250px; max-width: 1250px;">
+                            <label>Descrição
+                            </label>
+                            <input type="text" class="form-control" [(ngModel)]="teste"
+                                id="exampleInputEmail1" aria-describedby="emailHelp" #descEditNov="ngModel" required>
+                        </div>
+
+                    </div>
+                    <div class="row align-items-center">
+
+                    </div>
+                    <div class="row align-items-end">
+
+                    </div>
+                </div>
+                <!--Corpo do elemento de estimativa FIM-->
+
             </div>
-
-            <div class="espaco"></div>
-
-            <div class="col-md-4">
-              <label for="floatingSelect">Raças</label>
-              <ng-multiselect-dropdown id="comboRacas" [placeholder]="'Selecione'" [settings]="dropdownSettingsRacas"
-                [data]="listaRacas" (onSelect)="selecionarRaca($event)" [(ngModel)]="selectedItemsRacas">
-              </ng-multiselect-dropdown>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" (click)="teste()"
+                    data-bs-dismiss="modal">Cancelar</button>
+                <div>
+                    <button type="submit" titile="Notificar cliente" class="btn btn-success"
+                        (click)="teste()" >Criar</button>
+                </div>
+                <div>
+                    <button type="submit" titile="Notificar cliente" class="btn btn-success"
+                        (click)="teste()">Editar</button>
+                </div>
             </div>
-
-            <div class="col-md-4">
-              <label for="floatingSelect">Tendências</label>
-              <ng-multiselect-dropdown id="comboTendencias" [placeholder]="'Selecione'"
-                [settings]="dropdownSettingsTendencias" [data]="listaTendencias" (onSelect)="selecionarTendencia($event)"
-                [(ngModel)]="selectedItemsTendencias">
-              </ng-multiselect-dropdown>
-            </div>
-
-            <div class="col-md-4">
-              <label for="floatingSelect">Sexos</label>
-              <ng-multiselect-dropdown id="comboSexos" [placeholder]="'Selecione'" [settings]="dropdownSettingsSexos"
-                [data]="listaSexos" (onSelect)="selecionarSexo($event)" [(ngModel)]="selectedItemsSexos">
-              </ng-multiselect-dropdown>
-            </div>
-
-          </form>
-
-          <div class="col-md-3 mt" style="white-space: nowrap;">
-            <label for="floatingSelect">&nbsp;&nbsp;</label>
-            <div class="mb-3">
-              <button type="button" id="botaoFiltrar" (click)="executarPesquisaByFiltro()" class="btn btn-primary"><i
-                  class="bi bi-search"></i>&nbsp;Filtrar</button>
-
-              <label for="floatingSelect">&nbsp;&nbsp;</label>
-              <button type="button" id="botaoLimpar" class="btn btn-secondary" (click)="limparFiltros()"><i
-                  class="bi bi-brush"></i>&nbsp;Limpar</button>
-            </div>
-          </div>
-
-          <div class="espacoGrande"></div>
-
-          <div id="tabelaResponsiva">
-            <table class="table table-bordered" id="excel-table">
-              <thead>
-                <tr>
-                  <th scope="col">Nome</th>
-                  <th scope="col">Classe</th>
-                  <th scope="col">Raça</th>
-                  <th scope="col">Fortitude</th>
-                  <th scope="col">Reflexo</th>
-                  <th scope="col">Vontade</th>
-                  <th scope="col">Nível</th>
-                  <th scope="col">Vida atual</th>
-                  <th scope="col">% vida atual</th>
-                  <th scope="col">Ações</th>
-
-                </tr>
-              </thead>
-              <tbody>
-                <tr
-                  *ngFor="let personagem of listaPersonagens  | paginate: {itemsPerPage: 10, currentPage: paginaInicial, id:'2' }; let i = index">
-                  <td>{{personagem.nome}}</td>
-                  <td>{{personagem.descricaoClasse}}</td>
-                  <td>{{personagem.descricaoRaca}}</td>
-                  <td>{{personagem.fortitude}}</td>
-                  <td>{{personagem.reflexo}}</td>
-                  <td>{{personagem.vontade}}</td>
-                  <td>{{personagem.nivel}}</td>
-                  <td>{{personagem.vidaAtual}}</td>
-                  <td
-                    [ngStyle]="{'color': (personagem.vidaTotal ? personagem.vidaAtual / personagem.vidaTotal * 100 : personagem.vidaAtual / 1) > 50 ? 'green' : 'red'}">
-                    {{(personagem.vidaTotal ? personagem.vidaAtual / personagem.vidaTotal * 100 : personagem.vidaAtual /
-                    1) | number: '1.2-2' }} %
-                  </td>
-
-                  <!-- <td
-                    style="min-width: 100px !important; max-width: 100px !important; text-align: center; white-space: nowrap;">
-                     <a class="visualizar margemVisualizar" title="Visualizar"
-                                (click)="openModalMovimentoOrcamentario('Visualizar',retorno)">
-                                <i class="bi bi-eye"></i>
-                            </a> 
-                    <a class="dados" title="Dados" (click)="openModalMovimentoOrcamentario('Editar',retorno)">
-                      <i class="bi bi-file-text"></i>
-                    </a>
-  
-                    <a *ngIf="retorno.idOrcamentoDados != null" class="estimativa" title="Estimativa"
-                      (click)="openModalEstimativa(retorno)">
-                      <i class="bi bi-calculator-fill"></i>
-                    </a>
-  
-                    <a *ngIf="idPerfilPermissao2!=1 && retorno.idOrcamentoDados != null" class="orcamento"
-                      title="Orçamento" (click)="openModalOrcamento2(retorno)">
-                      <i class="bi bi-currency-dollar"></i>
-                    </a> 
-                  </td>
-                   -->
-                </tr>
-              </tbody>
-            </table>
-            <pagination-controls (pageChange)="paginaInicial = $event" previousLabel="Anterior" nextLabel="Próxima"
-              id="2">
-            </pagination-controls>
-          </div>
-
-
         </div>
-      </section>
-   
- 
-</body>
-
-</html>
+    </div>
+</div>
+<!--Modal novo/editar agrupador FIM-->

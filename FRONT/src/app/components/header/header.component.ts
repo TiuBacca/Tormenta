@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { HeaderService } from './header.service';
 
 @Component({
   selector: 'app-header',
@@ -8,43 +7,16 @@ import { HeaderService } from './header.service';
 })
 export class HeaderComponent implements OnInit {
 
-  idPerfilPermissao:any;
-  permissoes: any;
-  permissao:any;
-  user:any
+  user: any
 
-  constructor(private _headerService: HeaderService) { }
+  constructor() { }
 
   ngOnInit(): void {
     document.body.classList.toggle('toggle-sidebar');
-    this.permissoes = sessionStorage.getItem('idPerfilPermissao');
-    this.user = sessionStorage.getItem('nomeUsuario');
-    if(sessionStorage.getItem('nomeUsuario') == null){
-      this.user = sessionStorage.getItem('email');
-    }else{
-      this.user = sessionStorage.getItem('nomeUsuario');
-    }
-    
-    if (this.permissoes == 1) {
-      this.permissao = "Estimativa"
-      sessionStorage.setItem('permissao', this.permissao);
-    }
-    if (this.permissoes == 2) {
-      this.permissao = "Orçamento"
-      sessionStorage.setItem('permissao', this.permissao);
-    }
-    if (this.permissoes == 3) {
-      this.permissao = "Orçamento e Cobrança"
-      sessionStorage.setItem('permissao', this.permissao);
-    }
-    if (this.permissoes == 4) {
-      this.permissao = "Administrador"
-      sessionStorage.setItem('permissao', this.permissao);
-    }
+    this.user = sessionStorage.getItem('usuario');
   }
 
   toggleSidebar() {
-    //Ativar class toggle-sidebar no body
     document.body.classList.toggle('toggle-sidebar');
   }
 

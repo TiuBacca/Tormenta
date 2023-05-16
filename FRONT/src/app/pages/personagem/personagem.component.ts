@@ -62,10 +62,35 @@ export class PersonagemComponent implements OnInit {
       racas: this.selectedItemsRacas,
       tendencias: this.selectedItemsTendencias
     }
-    console.log(data)
+    
     this.personagemService.executarPesquisaByFiltro(data).subscribe((response) => {
-      this.listaPersonagens = response;
+      if(response){
+        this.listaPersonagens = response;
+      } else {
+        this.listaPersonagens = [];
+      }
+ 
     });
+  }
+
+  teste(){
+    
+  }
+
+  editarPersonagem(idPersonagem: number){
+
+  }
+
+  excluirPersonagem(idPersonagem: number){
+
+  }
+
+  uparNivel(idPersonagem: number){
+
+  }
+
+  baixarFicha(idPersonagem: number){
+
   }
 
   limparFiltros(){
@@ -74,6 +99,7 @@ export class PersonagemComponent implements OnInit {
     this.selectedItemsClasses = [];
     this.selectedItemsRacas = [];
     this.selectedItemsTendencias = [];
+    this.listaPersonagens = [];
   }
 
   selecionarUsuario(usuario: any) {
@@ -212,12 +238,6 @@ export class PersonagemComponent implements OnInit {
     };
   }
 
-  atalho(retorno: any) {
-    sessionStorage.setItem('atalhoHome', retorno.issueKeyJira);
-    setTimeout(() => {
-      this.router.navigate(['orcamentos']);
-    }, 500);
 
-  }
 
 }

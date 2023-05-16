@@ -39,7 +39,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 
 		StringBuilder sb = new StringBuilder();
 		sb.append(
-				" select new com.baccarin.tormenta.vo.usuario.UsuarioResponse (u.nome) FROM Usuario u where u.id > 0  ");
+				" select new com.baccarin.tormenta.vo.usuario.UsuarioResponse (u.id, u.nome) FROM Usuario u where u.id > 0  ");
 
 		if (Objects.nonNull(request.getId()) && request.getId() != 0) {
 			sb.append(" AND u.id = :id ");
