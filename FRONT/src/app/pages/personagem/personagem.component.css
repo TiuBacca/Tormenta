@@ -47,3 +47,31 @@
     opacity: 1;
 }
 
+.btn-close-custom {
+    font-size: 35px; /* Defina o tamanho do ícone desejado */
+  }
+
+.icone:hover {
+    size: 10px;
+    margin-top: -10px;
+}
+
+.icone:hover::after {
+    content: "Mensagem em evidência";
+    display: block;
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: black;
+    color: white;
+    padding: 15px;
+    border-radius: 5px;
+    z-index: 999;
+  }
+
+.icone {
+    width: 40px;
+    height: 40px;
+    margin-right: 15px;
+}

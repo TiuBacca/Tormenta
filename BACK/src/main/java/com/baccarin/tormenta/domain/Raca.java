@@ -6,6 +6,7 @@ import java.util.List;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
@@ -23,12 +24,15 @@ import lombok.NoArgsConstructor;
 public class Raca {
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id", nullable = false, updatable = false)
 	private Long id;
 
 	@Column(name = "nome", unique = true, nullable = false, updatable = true)
 	private String nome;
+	
+	@Column(name = "descricao")
+	private String descricao;
 	
     @OneToMany(mappedBy = "raca")
     private List<HablidadeRaca> habilidades = new ArrayList<>();

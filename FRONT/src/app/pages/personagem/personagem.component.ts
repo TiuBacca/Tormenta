@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { PersonagemService } from './personagem.service';
 import { Router } from '@angular/router';
 
+declare var window: any;
+
 @Component({
   selector: 'app-home',
   templateUrl: './personagem.component.html',
@@ -9,8 +11,13 @@ import { Router } from '@angular/router';
 })
 export class PersonagemComponent implements OnInit {
 
+  modalVisualizarPersonagem: any;
+  modalUparPersonagem: any;
+
   usuarioLogado = sessionStorage.getItem('usuario');
+
   paginaInicial = 1;
+  paginaInicialTabelaPericias = 1;
 
   data = {
     id: 0,
@@ -21,7 +28,13 @@ export class PersonagemComponent implements OnInit {
     tendencias: {}
   }
 
+  personagem = {
+    id: 0,
+    nome: ""
+  }
+
   listaPersonagens: any;
+  listaPericias: any[] = [];
 
   listaUsuarios: any;
   dropdownSettingsUsuarios: any;
@@ -35,6 +48,11 @@ export class PersonagemComponent implements OnInit {
   dropdownSettingsClasses: any;
   selectedItemsClasses: any;
 
+  selectedItemClasseModalEditar: any;
+  dropdownSettingsClasseModalEditar: any;
+  selectedItemClassesModalEditar: any;
+
+
   listaRacas: any;
   dropdownSettingsRacas: any;
   selectedItemsRacas: any;
@@ -43,16 +61,37 @@ export class PersonagemComponent implements OnInit {
   dropdownSettingsTendencias: any;
   selectedItemsTendencias: any;
 
-  constructor(private personagemService: PersonagemService, public router: Router) { }
+  exibirModalEditarPersonagem: boolean = false;
+
+
+  constructor(
+    private personagemService: PersonagemService,
+    public router: Router) { }
+
+
 
   ngOnInit(): void {
-
     this.inicializaCombos();
     this.inicializaDropDowns();
+    this.inicilizaModais();
   }
 
+  teste() {
 
-  executarPesquisaByFiltro(){
+  }
+
+  inicilizaModais() {
+    this.modalVisualizarPersonagem = new window.bootstrap.Modal(
+      document.getElementById('modalVisualizarPersonagem')
+    );
+
+    this.modalUparPersonagem = new window.bootstrap.Modal(
+      document.getElementById('modalUparPersonagem')
+    );
+
+  }
+
+  executarPesquisaByFiltro() {
 
     const data = {
       id: 0,
@@ -62,38 +101,24 @@ export class PersonagemComponent implements OnInit {
       racas: this.selectedItemsRacas,
       tendencias: this.selectedItemsTendencias
     }
-    
+
     this.personagemService.executarPesquisaByFiltro(data).subscribe((response) => {
-      if(response){
+      if (response) {
         this.listaPersonagens = response;
       } else {
         this.listaPersonagens = [];
       }
- 
+
     });
   }
 
-  teste(){
-    
-  }
 
-  editarPersonagem(idPersonagem: number){
+
+  baixarFicha(idPersonagem: number) {
 
   }
 
-  excluirPersonagem(idPersonagem: number){
-
-  }
-
-  uparNivel(idPersonagem: number){
-
-  }
-
-  baixarFicha(idPersonagem: number){
-
-  }
-
-  limparFiltros(){
+  limparFiltros() {
     this.selectedItemsUsuarios = [];
     this.selectedItemsSexos = [];
     this.selectedItemsClasses = [];
@@ -224,7 +249,7 @@ export class PersonagemComponent implements OnInit {
   }
 
   inicializaDropDownsSexos() {
-    this.selectedItemsSexos= [];
+    this.selectedItemsSexos = [];
     this.dropdownSettingsSexos = {
       singleSelection: false,
       idField: 'id',
@@ -236,6 +261,38 @@ export class PersonagemComponent implements OnInit {
       searchPlaceholderText: 'Pesquisar',
       noDataAvailablePlaceholderText: 'Nenhum registro encontrado'
     };
+  }
+
+
+  excluirPersonagem(idPersonagem: any) {
+
+  }
+  // MODAL EDITAR
+
+
+
+  openModalVisualizarPersonagem(personagem: any) {
+    this.modalVisualizarPersonagem.show();
+    this.listaPericias = [];
+    const data = {
+      descricao: "descricao",
+      grad: 2,
+      modificador: {
+        descricao: "destreza"
+      },
+      outros: 1
+    };
+
+    for (let i = 0; i < 22; i++) {
+      this.listaPericias.push(data)
+    }
+
+
+  }
+
+
+  openModalUparPersonagem(personagem: any) {
+    this.modalUparPersonagem.show();
   }
 
 

@@ -29,6 +29,7 @@ import { HomeComponent } from './pages/home/home.component';
 import { PersonagemComponent } from './pages/personagem/personagem.component';
 import { LoginComponent } from './pages/login/login.component';
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -42,6 +43,7 @@ import { LoginComponent } from './pages/login/login.component';
     LoginComponent,
     HomeComponent,
     PersonagemComponent
+
   ],
   imports: [
     BrowserModule,

@@ -1,17 +1,14 @@
 package com.baccarin.tormenta.domain;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-
-import com.baccarin.tormenta.vo.classe.ClasseRequest;
+import com.baccarin.tormenta.enums.TipoArmadura;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -21,8 +18,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "classe", schema = "tormenta", uniqueConstraints = {})
-public class Classe {
+@Table(name = "armadura", schema = "item", uniqueConstraints = {})
+public class Armadura {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,21 +28,18 @@ public class Classe {
 
 	@Column(name = "nome", nullable = false, updatable = true)
 	private String nome;
-	
-	@Column(name = "descricao")
+
+	@Column(name = "descricao", nullable = false, updatable = true)
 	private String descricao;
+
+	@Enumerated(EnumType.STRING)
+	@Column(name = "tipo")
+	private TipoArmadura tipoArmadura;
 	
-
-	@OneToMany(mappedBy = "classe")
-	private List<HablidadeClasse> habilidades = new ArrayList<>();
-
-	public Classe(ClasseRequest request) {
-		if (Objects.nonNull(request.getNome())) {
-			this.nome = request.getNome();
-		}
-
-		if (Objects.nonNull(request.getId())) {
-			this.id = request.getId();
-		}
-	}
+	@Column(name = "caracteristica", nullable = false, updatable = true)
+	private String caracteristica;
+	
+	@Column(name = "beneficios", nullable = false, updatable = true)
+	private String beneficios;
+	
 }

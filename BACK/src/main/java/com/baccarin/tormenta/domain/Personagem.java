@@ -79,6 +79,7 @@ public class Personagem {
 
 	@Column(name = "tamanho")
 	private Double tamanho;
+	
 
 	public Personagem() {
 		

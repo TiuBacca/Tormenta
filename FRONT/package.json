@@ -19,6 +19,7 @@
     "@angular/platform-browser-dynamic": "^14.2.0",
     "@angular/router": "^14.2.0",
     "ng-multiselect-dropdown": "^0.3.9",
+    "ngx-bootstrap": "^10.2.0",
     "ngx-loading": "^14.0.0",
     "ngx-mask": "^11.1.4",
     "ngx-pagination": "^6.0.3",

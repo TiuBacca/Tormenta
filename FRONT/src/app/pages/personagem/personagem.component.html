@@ -1,8 +1,6 @@
 <app-header></app-header>
 <app-nav></app-nav>
 
-
-
 <main id="main" class="main">
 
   <section>
@@ -50,7 +48,6 @@
           [ngModelOptions]="{standalone: true}">
         </ng-multiselect-dropdown>
       </div>
-
     </form>
 
     <div class="col-md-3 mt" style="white-space: nowrap;">
@@ -103,15 +100,15 @@
           <td
             style="min-width: 100px !important; max-width: 100px !important; text-align: center; white-space: nowrap; cursor: pointer;">
 
-            <a title="Editar" (click)="editarPersonagem(personagem.id)">
-              <i class="bi bi-pencil-fill" style="font-size: 25px; margin-right: 15px"></i>
+            <a title="Visualizar" (click)="openModalVisualizarPersonagem(personagem.id)">
+              <i class="bi bi-eye-fill" style="font-size: 25px; margin-right: 15px"></i>
             </a>
 
             <a title="Excluir" (click)="excluirPersonagem(personagem.id)">
               <i class="bi bi-trash-fill" style="font-size: 25px; margin-right: 15px"></i>
             </a>
 
-            <a title="Upar" (click)="uparNivel(personagem.id)">
+            <a title="Upar" (click)="openModalUparPersonagem(personagem.id)">
               <i class="bi bi-arrow-up-circle-fill" style="font-size: 25px; margin-right: 15px"></i>
             </a>
 
@@ -132,54 +129,149 @@
 </main>
 
 
-
 <!--Modal novo/editar agrupador INICIO-->
-<div class="modal fade modalCriarFundo" id="modalNovoEditarAgrupador" data-bs-backdrop="static" data-bs-keyboard="false"
-    tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-xl modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="card-title">agrupador</h5>
-                <a type="button" class="btn-close" data-bs-dismiss="modal" (click)="teste()"
-                    aria-label="Close"></a>
+<div class="modal fade modalCriarFundo" id="modalVisualizarPersonagem" data-bs-backdrop="static"
+  data-bs-keyboard="false" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2> Visualizar Personagem </h2>
+        <a type="button" class="btn-close btn-close-custom" data-bs-dismiss="modal" aria-label="Close"></a>
+      </div>
+
+      <div class="modal-body">
+
+        <div class="espaco"></div>
+        <form class="row g-12 needs-validation">
+          <div class="col-md-3">
+            <div class="col" style="min-width: 250px; max-width: 1250px;">
+              <label>Nome</label>
+              <input type="text" class="form-control" [(ngModel)]="personagem.nome" disabled="true">
             </div>
-            <div class="modal-body">
+          </div>
 
-                <div class="espaco"></div>
-                <!--Corpo do elemento de estimativa INICIO-->
-                <div class="elemento">
-                    <div class="row align-items-start">
-                        <div class="col" style="min-width: 250px; max-width: 1250px;">
-                            <label>Descrição
-                            </label>
-                            <input type="text" class="form-control" [(ngModel)]="teste"
-                                id="exampleInputEmail1" aria-describedby="emailHelp" #descEditNov="ngModel" required>
-                        </div>
-
-                    </div>
-                    <div class="row align-items-center">
-
-                    </div>
-                    <div class="row align-items-end">
-
-                    </div>
-                </div>
-                <!--Corpo do elemento de estimativa FIM-->
-
+          <div class="col-md-3">
+            <div class="col" style="min-width: 250px; max-width: 1250px;">
+              <label>Classe</label>
+              <input type="text" class="form-control" [(ngModel)]="personagem.nome" disabled="true">
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" (click)="teste()"
-                    data-bs-dismiss="modal">Cancelar</button>
-                <div>
-                    <button type="submit" titile="Notificar cliente" class="btn btn-success"
-                        (click)="teste()" >Criar</button>
-                </div>
-                <div>
-                    <button type="submit" titile="Notificar cliente" class="btn btn-success"
-                        (click)="teste()">Editar</button>
-                </div>
+          </div>
+
+          <div class="col-md-3">
+            <div class="col" style="min-width: 250px; max-width: 1250px;">
+              <label>Raça</label>
+              <input type="text" class="form-control" [(ngModel)]="personagem.nome" disabled="true">
             </div>
+          </div>
+
+          <div class="col-md-1">
+            <div class="col">
+              <label>Fortitude</label>
+              <input type="number" class="form-control" [(ngModel)]="personagem.nome" disabled="true">
+            </div>
+          </div>
+
+          <div class="col-md-1">
+            <div class="col">
+              <label>Reflexo</label>
+              <input type="number" class="form-control" [(ngModel)]="personagem.nome" disabled="true">
+            </div>
+          </div>
+
+          <div class="col-md-1">
+            <div class="col">
+              <label>Vontade</label>
+              <input type="number" class="form-control" [(ngModel)]="personagem.nome" disabled="true">
+            </div>
+          </div>
+
+        </form>
+
+        <div class="espaco"></div>
+
+        <div class="row g-12 needs-validation">
+          <div class="col-md-2 d-flex align-items-center justify-content-between">
+
+            <a title="Corpo-a-Corpo" (click)="openModalVisualizarPersonagem(personagem.id)">
+              <img class="icone" src="assets/img/icone/espadas.png" alt="Ícone">
+            </a>
+
+            <a title="A distância" (click)="openModalVisualizarPersonagem(personagem.id)">
+              <img class="icone" src="assets/img/icone/arco-e-flecha.png" alt="Ícone">
+            </a>
+
+            <a title="Armas" (click)="openModalVisualizarPersonagem(personagem.id)">
+              <img class="icone" src="assets/img/icone/armas.png" alt="Ícone">
+            </a>
+
+            <a title="Armaduras" (click)="openModalVisualizarPersonagem(personagem.id)">
+              <img class="icone" src="assets/img/icone/armaduras.png" alt="Ícone">
+            </a>
+
+            <a title="Escudos" (click)="openModalVisualizarPersonagem(personagem.id)">
+              <img class="icone" src="assets/img/icone/escudo.png" alt="Ícone">
+            </a>
+
+
+            <a title="Habilidades" (click)="openModalVisualizarPersonagem(personagem.id)">
+              <img class="icone" src="assets/img/icone/habilidade.png" alt="Ícone">
+            </a>
+
+            <a title="Perícias" (click)="openModalVisualizarPersonagem(personagem.id)">
+              <img class="icone" src="assets/img/icone/pericias.png" alt="Ícone">
+            </a>
+
+
+            <a title="Magias" (click)="openModalVisualizarPersonagem(personagem.id)">
+              <img class="icone" src="assets/img/icone/magias.png" alt="Ícone">
+            </a>
+
+          </div>
         </div>
+
+
+        <div class="espaco"></div>
+
+
+        <table class="table table-bordered" id="excel-table">
+
+
+          <thead>
+
+            <tr>
+              <td colspan="9" style="text-align: center; font-weight: bold; font-size: 20px;"> Perícias </td>
+            </tr>
+
+            <tr>
+              <th scope="col" style="text-align: center">Descrição</th>
+              <th scope="col" style="text-align: center">Graduação</th>
+              <th scope="col" style="text-align: center">Modificador</th>
+              <th scope="col" style="text-align: center">Outros</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              *ngFor="let pericia of listaPericias  | paginate: {itemsPerPage: 10, currentPage: paginaInicialTabelaPericias, id:'tabelaPericia' }; let i = index">
+              <td style="text-align: center">{{pericia.descricao}}</td>
+              <td style="text-align: center">{{pericia.grad}}</td>
+              <td style="text-align: center">{{pericia.modificador.descricao}}</td>
+              <td style="text-align: center">{{pericia.outros}}</td>
+            </tr>
+          </tbody>
+        </table>
+        <pagination-controls (pageChange)="paginaInicialTabelaPericias = $event" previousLabel="Anterior"
+          nextLabel="Próxima" id="tabelaPericia">
+        </pagination-controls>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+
+        <div>
+          <button type="submit" titile="Notificar cliente" class="btn btn-success" (click)="teste()">Editar</button>
+        </div>
+      </div>
     </div>
+  </div>
 </div>
 <!--Modal novo/editar agrupador FIM-->

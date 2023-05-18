@@ -1,0 +1,15 @@
+package com.baccarin.tormenta.vo.item;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+public class ItemFiltro {
+
+	private Long idPersonagem;
+}
