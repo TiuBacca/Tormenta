@@ -18,7 +18,7 @@ import com.baccarin.tormenta.vo.item.ItemFiltro;
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping("armadura")
+@RequestMapping("tormenta/armadura")
 @RequiredArgsConstructor
 public class ArmaduraResource {
 

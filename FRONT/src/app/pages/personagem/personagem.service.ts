@@ -73,6 +73,33 @@ export class PersonagemService {
     );
   }
 
+  buscarListaArmas(idPersonagem: number): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/arma/buscaLista`).pipe(
+      map((response) => response),
+      catchError(async (error) => this.erroHandler(error))
+    );
+  }
+
+  buscarListaArmaduras(idPersonagem: number): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/armadura/buscaLista`).pipe(
+      map((response) => response),
+      catchError(async (error) => this.erroHandler(error))
+    );
+  }
+
+  buscarListaEscudos(idPersonagem: number): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/escudo/buscaLista`).pipe(
+      map((response) => response),
+      catchError(async (error) => this.erroHandler(error))
+    );
+  }
+
+  buscarListaInfoCorpoCorpo(idPersonagem: number): Observable<any> {
+    return this.http.post<any>(`${this.baseUrl}/personagem/infoCorpoACorpo`, {}).pipe(
+      map((response) => response),
+      catchError(async (error) => this.erroHandler(error))
+    );
+  }
 
   erroHandler(error: any): any {
     if (error.status == 504) {

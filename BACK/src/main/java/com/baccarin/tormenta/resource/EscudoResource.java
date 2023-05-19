@@ -18,7 +18,7 @@ import com.baccarin.tormenta.vo.item.ItemFiltro;
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping("escudo")
+@RequestMapping("tormenta/escudo")
 @RequiredArgsConstructor
 public class EscudoResource {
 

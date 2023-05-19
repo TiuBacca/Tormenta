@@ -13,11 +13,27 @@ export class PersonagemComponent implements OnInit {
 
   modalVisualizarPersonagem: any;
   modalUparPersonagem: any;
+  modalArmas: any;
+  modalArmaduras: any;
+  modalEscudos: any;
+  modalCorpoCorpo: any;
+
 
   usuarioLogado = sessionStorage.getItem('usuario');
 
   paginaInicial = 1;
   paginaInicialTabelaPericias = 1;
+  paginaInicialTabelaArmas = 1;
+  paginaInicialTabelaArmaduras = 1;
+  paginaInicialTabelaEscudos = 1;
+
+
+  infoCorpoACorpo = {
+    bonusBaseAtaque: 0,
+    modificadorHabilidade: 0,
+    modificadorTamanho: 0,
+    outros: 0
+  }
 
   data = {
     id: 0,
@@ -35,6 +51,10 @@ export class PersonagemComponent implements OnInit {
 
   listaPersonagens: any;
   listaPericias: any[] = [];
+  listaArmas: any[] = [];
+  listaArmaduras: any[] = [];
+  listaEscudos: any[] = [];
+
 
   listaUsuarios: any;
   dropdownSettingsUsuarios: any;
@@ -81,16 +101,33 @@ export class PersonagemComponent implements OnInit {
   }
 
   inicilizaModais() {
+    console.log('1')
     this.modalVisualizarPersonagem = new window.bootstrap.Modal(
       document.getElementById('modalVisualizarPersonagem')
     );
-
-    this.modalUparPersonagem = new window.bootstrap.Modal(
-      document.getElementById('modalUparPersonagem')
+    console.log('2')
+    this.modalArmas = new window.bootstrap.Modal(
+      document.getElementById('modalVisualizarArmas')
     );
-
+    console.log('3')
+    this.modalUparPersonagem = new window.bootstrap.Modal(
+      document.getElementById('modalVisualizarPersonagem')
+    );
+    console.log('4')
+    this.modalArmaduras = new window.bootstrap.Modal(
+      document.getElementById('modalVisualizarArmaduras')
+    );
+    console.log('5')
+    this.modalEscudos = new window.bootstrap.Modal(
+      document.getElementById('modalVisualizarEscudos')
+    );
+    console.log('6')
+    this.modalCorpoCorpo = new window.bootstrap.Modal(
+      document.getElementById('modalVisualizarCorpo-Corpo')
+    );
+    console.log('7')
   }
-
+  
   executarPesquisaByFiltro() {
 
     const data = {
@@ -267,12 +304,21 @@ export class PersonagemComponent implements OnInit {
   excluirPersonagem(idPersonagem: any) {
 
   }
-  // MODAL EDITAR
 
+  abrirModalPersonagem() {
+    this.modalVisualizarPersonagem.show();
+  }
+
+  fecharModalPersonagem(){
+    this.modalVisualizarPersonagem.hide();
+  }
+  
+  // MODAL EDITAR
 
 
   openModalVisualizarPersonagem(personagem: any) {
     this.modalVisualizarPersonagem.show();
+    this.modalArmas.hide();
     this.listaPericias = [];
     const data = {
       descricao: "descricao",
@@ -290,6 +336,59 @@ export class PersonagemComponent implements OnInit {
 
   }
 
+  // INICIO CORPO A CORPO
+  openModalCorpoCorpo(idPersonagem: any) {
+    this.modalVisualizarPersonagem.hide();
+    this.personagemService.buscarListaInfoCorpoCorpo(idPersonagem).subscribe((response) => {
+      this.infoCorpoACorpo = response;
+    });
+
+    this.modalCorpoCorpo.show();
+  }
+  // FIM CORPO A CORPO
+
+  // INICIO ARMAS
+
+  openModalArmas(idPersonagem: any) {
+    this.modalVisualizarPersonagem.hide();
+    this.personagemService.buscarListaArmas(idPersonagem).subscribe((response) => {
+      this.listaArmas = response;
+    });
+
+    this.modalArmas.show();
+  }
+
+  // FIM ARMAS
+
+
+  // INICIO ARMADURAS
+
+  openModalArmaduras(idPersonagem: any) {
+    this.modalVisualizarPersonagem.hide();
+    this.personagemService.buscarListaArmaduras(idPersonagem).subscribe((response) => {
+      this.listaArmaduras = response;
+    });
+
+    this.modalArmaduras.show();
+  }
+
+  fecharModalArmaduras() {
+    this.modalVisualizarPersonagem.show();
+  }
+
+  // FIM ARMADURA
+  
+  // INICIO ESCUDO
+
+  openModalEscudos(idPersonagem: any) {
+    this.modalVisualizarPersonagem.hide();
+    this.personagemService.buscarListaEscudos(idPersonagem).subscribe((response) => {
+      this.listaEscudos = response;
+    });
+
+    this.modalEscudos.show();
+  }
+  // FIM ESCUDO
 
   openModalUparPersonagem(personagem: any) {
     this.modalUparPersonagem.show();

@@ -17,6 +17,7 @@ import com.baccarin.tormenta.exception.RegistroIncompletoException;
 import com.baccarin.tormenta.exception.RegistroNaoEncontradoException;
 import com.baccarin.tormenta.service.PersonagemService;
 import com.baccarin.tormenta.vo.ResponseGenerico;
+import com.baccarin.tormenta.vo.personagem.InfoCorpoCorpoResponse;
 import com.baccarin.tormenta.vo.personagem.PersonagemRequest;
 import com.baccarin.tormenta.vo.personagem.PersonagemResponse;
 import com.baccarin.tormenta.vo.usuario.UsuarioRequest;
@@ -69,24 +70,28 @@ public class PersonagemResource {
 		}
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
-	
-	
+
 	@PostMapping(path = "buscaLista/byEmail")
-	public ResponseEntity<List<PersonagemResponse>> buscarListaPersonagensByEmail(
-			@RequestBody UsuarioRequest request) throws Exception {
+	public ResponseEntity<List<PersonagemResponse>> buscarListaPersonagensByEmail(@RequestBody UsuarioRequest request)
+			throws Exception {
 		List<PersonagemResponse> personagens = service.buscarListaPersonagensByEmail(request);
 		if (Objects.nonNull(personagens) && !personagens.isEmpty()) {
 			return new ResponseEntity<List<PersonagemResponse>>(personagens, HttpStatus.OK);
 		}
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
-	
-	
+
 	@GetMapping(path = "buscaLista/sexo")
-	public ResponseEntity<List<String>> buscaListaSexo(){
+	public ResponseEntity<List<String>> buscaListaSexo() {
 		List<String> lista = Sexo.obterDescricoesSexo();
 		return new ResponseEntity<List<String>>(lista, HttpStatus.OK);
 	}
-	
+
+	//TODO
+	@PostMapping(path = "infoCorpoACorpo")
+	public ResponseEntity<InfoCorpoCorpoResponse> informacoesCorpoACorpo(@RequestBody PersonagemRequest request)
+			throws Exception {
+		return new ResponseEntity<InfoCorpoCorpoResponse>(new InfoCorpoCorpoResponse(1l, 2, 1, 3, 0), HttpStatus.OK);
+	}
 
 }

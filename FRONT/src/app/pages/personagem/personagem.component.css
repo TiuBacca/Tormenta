@@ -75,3 +75,30 @@
     height: 40px;
     margin-right: 15px;
 }
+
+
+.iconeModalArmas:hover {
+    size: 10px;
+    margin-top: -10px;
+}
+
+.iconeModalArmas:hover::after {
+    content: "Mensagem em evidência";
+    display: block;
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: black;
+    color: white;
+    padding: 15px;
+    border-radius: 5px;
+    z-index: 999;
+  }
+
+.iconeModalArmas {
+    width: 30px;
+    height: 30px;
+    margin-right: 10px;
+}
+
