@@ -136,7 +136,8 @@
     <div class="modal-content">
       <div class="modal-header">
         <h2> Visualizar Personagem </h2>
-        <a type="button" class="btn-close btn-close-custom" data-bs-dismiss="modal" aria-label="Close" (click)="fecharModalPersonagem()"></a>
+        <a type="button" class="btn-close btn-close-custom" data-bs-dismiss="modal" aria-label="Close"
+          (click)="fecharModalPersonagem()"></a>
       </div>
 
       <div class="modal-body">
@@ -196,7 +197,7 @@
               <img class="icone" src="assets/img/icone/espadas.png" alt="Ícone">
             </a>
 
-            <a title="A distância" (click)="openModalVisualizarPersonagem(personagem.id)">
+            <a title="A distância" (click)="openModalDistancia(personagem.id)">
               <img class="icone" src="assets/img/icone/arco-e-flecha.png" alt="Ícone">
             </a>
 
@@ -213,11 +214,11 @@
             </a>
 
 
-            <a title="Habilidades" (click)="openModalVisualizarPersonagem(personagem.id)">
+            <a title="Habilidades" (click)="openModalHabilidades(personagem.id)">
               <img class="icone" src="assets/img/icone/habilidade.png" alt="Ícone">
             </a>
 
-            <a title="Perícias" (click)="openModalVisualizarPersonagem(personagem.id)">
+            <a title="Perícias" (click)="openModalPericias(personagem.id)">
               <img class="icone" src="assets/img/icone/pericias.png" alt="Ícone">
             </a>
 
@@ -229,39 +230,6 @@
           </div>
         </div>
 
-
-        <div class="espaco"></div>
-
-
-        <table class="table table-bordered" id="excel-table">
-
-
-          <thead>
-
-            <tr>
-              <td colspan="9" style="text-align: center; font-weight: bold; font-size: 20px;"> Perícias </td>
-            </tr>
-
-            <tr>
-              <th scope="col" style="text-align: center">Descrição</th>
-              <th scope="col" style="text-align: center">Graduação</th>
-              <th scope="col" style="text-align: center">Modificador</th>
-              <th scope="col" style="text-align: center">Outros</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr
-              *ngFor="let pericia of listaPericias  | paginate: {itemsPerPage: 10, currentPage: paginaInicialTabelaPericias, id:'tabelaPericia' }; let i = index">
-              <td style="text-align: center">{{pericia.descricao}}</td>
-              <td style="text-align: center">{{pericia.grad}}</td>
-              <td style="text-align: center">{{pericia.modificador.descricao}}</td>
-              <td style="text-align: center">{{pericia.outros}}</td>
-            </tr>
-          </tbody>
-        </table>
-        <pagination-controls (pageChange)="paginaInicialTabelaPericias = $event" previousLabel="Anterior"
-          nextLabel="Próxima" id="tabelaPericia">
-        </pagination-controls>
       </div>
 
       <div class="modal-footer">
@@ -277,8 +245,8 @@
 <!--Modal visualizar personagem-->
 
 <!--Modal CORPO A CORPO INICIO-->
-<div class="modal fade modalCriarFundo" id="modalVisualizarCorpo-Corpo" data-bs-backdrop="static" data-bs-keyboard="false"
-  tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade modalCriarFundo" id="modalVisualizarCorpo-Corpo" data-bs-backdrop="static"
+  data-bs-keyboard="false" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-xl modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
@@ -301,14 +269,16 @@
           <div class="col-md-3">
             <div class="col" style="min-width: 250px; max-width: 1250px;">
               <label>Modificador de habilidade</label>
-              <input type="number" class="form-control" [(ngModel)]="infoCorpoACorpo.modificadorHabilidade" disabled="true">
+              <input type="number" class="form-control" [(ngModel)]="infoCorpoACorpo.modificadorHabilidade"
+                disabled="true">
             </div>
           </div>
 
           <div class="col-md-3">
             <div class="col" style="min-width: 250px; max-width: 1250px;">
               <label>Modificador de tamanho</label>
-              <input type="number" class="form-control" [(ngModel)]="infoCorpoACorpo.modificadorTamanho" disabled="true">
+              <input type="number" class="form-control" [(ngModel)]="infoCorpoACorpo.modificadorTamanho"
+                disabled="true">
             </div>
           </div>
 
@@ -337,6 +307,70 @@
   </div>
 </div>
 <!--Modal CORPO A CORPO FIM-->
+
+<!--Modal DISTANCIA INICIO-->
+<div class="modal fade modalCriarFundo" id="modalVisualizarDistancia" data-bs-backdrop="static" data-bs-keyboard="false"
+  tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2> À Distância </h2>
+
+        <a type="button" class="btn-close btn-close-custom" data-bs-dismiss="modal" aria-label="Close "
+          (click)="abrirModalPersonagem()"></a>
+      </div>
+
+      <div class="modal-body">
+
+        <form class="row g-12 needs-validation">
+          <div class="col-md-3">
+            <div class="col" style="min-width: 250px; max-width: 1250px;">
+              <label>Bônus base ataque</label>
+              <input type="number" class="form-control" [(ngModel)]="infoCorpoACorpo.bonusBaseAtaque" disabled="true">
+            </div>
+          </div>
+
+          <div class="col-md-3">
+            <div class="col" style="min-width: 250px; max-width: 1250px;">
+              <label>Modificador de habilidade</label>
+              <input type="number" class="form-control" [(ngModel)]="infoCorpoACorpo.modificadorHabilidade"
+                disabled="true">
+            </div>
+          </div>
+
+          <div class="col-md-3">
+            <div class="col" style="min-width: 250px; max-width: 1250px;">
+              <label>Modificador de tamanho</label>
+              <input type="number" class="form-control" [(ngModel)]="infoCorpoACorpo.modificadorTamanho"
+                disabled="true">
+            </div>
+          </div>
+
+          <div class="col-md-1">
+            <div class="col">
+              <label>Outros</label>
+              <input type="number" class="form-control" [(ngModel)]="infoCorpoACorpo.outros" disabled="true">
+            </div>
+          </div>
+
+          <div class="col-md-1">
+            <div class="col">
+              <label>Total</label>
+              <input type="number" class="form-control" [(ngModel)]="infoCorpoACorpo.bonusBaseAtaque" disabled="true">
+            </div>
+          </div>
+        </form>
+
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="abrirModalPersonagem()"> Sair
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<!--Modal DISTANCIA FIM-->
 
 <!--Modal ARMA INICIO-->
 <div class="modal fade modalCriarFundo" id="modalVisualizarArmas" data-bs-backdrop="static" data-bs-keyboard="false"
@@ -406,13 +440,13 @@
 <!--Modal ARMA FIM-->
 
 <!--Modal ARMADURA INICIO-->
-<div class="modal fade modalCriarFundo" id="modalVisualizarArmaduras" data-bs-backdrop="static"
-  data-bs-keyboard="false" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade modalCriarFundo" id="modalVisualizarArmaduras" data-bs-backdrop="static" data-bs-keyboard="false"
+  tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-xl modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
         <a type="button" class="btn-close btn-close-custom" data-bs-dismiss="modal" aria-label="Close "
-          (click)="fecharModalArmaduras()"></a>
+          (click)="abrirModalPersonagem()"></a>
       </div>
 
       <div class="modal-body">
@@ -457,7 +491,7 @@
       </div>
 
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="fecharModalArmaduras()"> Sair
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="abrirModalPersonagem()"> Sair
         </button>
       </div>
     </div>
@@ -467,13 +501,13 @@
 
 
 <!--Modal ESCUDO INICIO-->
-<div class="modal fade modalCriarFundo" id="modalVisualizarEscudos" data-bs-backdrop="static"
-  data-bs-keyboard="false" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade modalCriarFundo" id="modalVisualizarEscudos" data-bs-backdrop="static" data-bs-keyboard="false"
+  tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-xl modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
         <a type="button" class="btn-close btn-close-custom" data-bs-dismiss="modal" aria-label="Close "
-          (click)="fecharModalArmaduras()"></a>
+          (click)="abrirModalPersonagem()"></a>
       </div>
 
       <div class="modal-body">
@@ -525,3 +559,118 @@
   </div>
 </div>
 <!--Modal ESCUDO FIM-->
+
+
+<!--Modal HABILIDADES INICIO-->
+<div class="modal fade modalCriarFundo" id="modalVisualizarHabilidades" data-bs-backdrop="static"
+  data-bs-keyboard="false" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2> Habilidades </h2>
+
+        <a type="button" class="btn-close btn-close-custom" data-bs-dismiss="modal" aria-label="Close "
+          (click)="abrirModalPersonagem()"></a>
+      </div>
+
+      <div class="modal-body">
+
+        <table class="table table-bordered" id="excel-table">
+          <thead>
+            <tr>
+              <td colspan="9" style="text-align: center; font-weight: bold; font-size: 20px;"> Raça </td>
+            </tr>
+            <tr>
+              <th scope="col" style="text-align: center;  width: 30%;">Nome</th>
+              <th scope="col" style="text-align: center;  width: 70%;">Descrição</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              *ngFor="let habilidade of listaHabilidadesRaca  | paginate: {itemsPerPage: 10, currentPage: paginaInicialTabelaHabilidadeRaca, id:'tabelaHabilidadeRaca' }; let i = index">
+              <td style="text-align: center">{{habilidade.nome}}</td>
+              <td style="text-align: center">{{habilidade.descricao}}</td>
+            </tr>
+          </tbody>
+        </table>
+        <pagination-controls (pageChange)="paginaInicialTabelaHabilidadeRaca = $event" previousLabel="Anterior"
+          nextLabel="Próxima" id="tabelaHabilidadeRaca">
+        </pagination-controls>
+
+        <div class="espaco"></div>
+
+        <table class="table table-bordered" id="excel-table">
+          <thead>
+            <tr>
+              <td colspan="9" style="text-align: center; font-weight: bold; font-size: 20px;"> Classe </td>
+            </tr>
+            <tr>
+              <th scope="col" style="text-align: center;  width: 30%;">Nome</th>
+              <th scope="col" style="text-align: center;  width: 70%;">Descrição</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              *ngFor="let habilidade of listaHabilidadesClasse  | paginate: {itemsPerPage: 10, currentPage: paginaInicialTabelaHabilidadeClasse, id:'tabelaHabilidadeClasse' }; let i = index">
+              <td style="text-align: center">{{habilidade.nome}}</td>
+              <td style="text-align: center">{{habilidade.descricao}}</td>
+            </tr>
+          </tbody>
+        </table>
+        <pagination-controls (pageChange)="paginaInicialTabelaHabilidadeClasse = $event" previousLabel="Anterior"
+          nextLabel="Próxima" id="tabelaHabilidadeClasse">
+        </pagination-controls>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="abrirModalPersonagem()"> Sair
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<!--Modal HABILIDADES FIM-->
+
+<!--Modal PERICIAS INICIO-->
+<div class="modal fade modalCriarFundo" id="modalVisualizarPericia" data-bs-backdrop="static"
+  data-bs-keyboard="false" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2> Perícias </h2>
+
+        <a type="button" class="btn-close btn-close-custom" data-bs-dismiss="modal" aria-label="Close "
+          (click)="abrirModalPersonagem()"></a>
+      </div>
+
+      <div class="modal-body">
+
+        <table class="table table-bordered" id="excel-table">
+          <thead>
+            <tr>
+              <td colspan="9" style="text-align: center; font-weight: bold; font-size: 20px;"> Raça </td>
+            </tr>
+            <tr>
+              <th scope="col" style="text-align: center;  width: 30%;">Nome</th>
+              <th scope="col" style="text-align: center;  width: 50%;">Descrição</th>
+              <th scope="col" style="text-align: center;  width: 20%;">Modificador</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              *ngFor="let pericia of listaPericias  | paginate: {itemsPerPage: 10, currentPage: paginaInicialTabelaPericias, id:'tabelaPericia' }; let i = index">
+              <td style="text-align: center">{{pericia.nome}}</td>
+              <td style="text-align: center">{{pericia.descricao}}</td>
+              <td style="text-align: center">{{pericia.modificador}}</td>
+
+            </tr>
+          </tbody>
+        </table>
+        <pagination-controls (pageChange)="paginaInicialTabelaPericias = $event" previousLabel="Anterior"
+          nextLabel="Próxima" id="tabelaPericia">
+        </pagination-controls>
+
+    </div>
+  </div>
+</div>
+<!--Modal PERICIAS FIM-->

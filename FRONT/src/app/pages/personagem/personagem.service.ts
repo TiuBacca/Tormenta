@@ -101,6 +101,36 @@ export class PersonagemService {
     );
   }
 
+  buscarListaInfoDistancia(idPersonagem: number): Observable<any> {
+    return this.http.post<any>(`${this.baseUrl}/personagem/infoDistancia`, {}).pipe(
+      map((response) => response),
+      catchError(async (error) => this.erroHandler(error))
+    );
+  }
+
+
+  buscarListaHabilidadeClasse(idPersonagem: number): Observable<any> {
+    return this.http.post<any>(`${this.baseUrl}/habilidade/classe`, {}).pipe(
+      map((response) => response),
+      catchError(async (error) => this.erroHandler(error))
+    );
+  }
+
+
+  buscarListaHabilidadeRaca(idPersonagem: number): Observable<any> {
+    return this.http.post<any>(`${this.baseUrl}/habilidade/raca`, {}).pipe(
+      map((response) => response),
+      catchError(async (error) => this.erroHandler(error))
+    );
+  }
+
+  buscarListaPericias(idPersonagem: number): Observable<any> {
+    return this.http.post<any>(`${this.baseUrl}/pericia/buscaLista/byFiltro`, {}).pipe(
+      map((response) => response),
+      catchError(async (error) => this.erroHandler(error))
+    );
+  }
+
   erroHandler(error: any): any {
     if (error.status == 504) {
       const Toast = Swal.mixin({

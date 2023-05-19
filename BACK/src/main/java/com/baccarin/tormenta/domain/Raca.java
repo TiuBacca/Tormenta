@@ -35,6 +35,6 @@ public class Raca {
 	private String descricao;
 	
     @OneToMany(mappedBy = "raca")
-    private List<HablidadeRaca> habilidades = new ArrayList<>();
+    private List<HabilidadeRaca> habilidades = new ArrayList<>();
 	
 }

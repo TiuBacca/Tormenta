@@ -37,7 +37,7 @@ public class Classe {
 	
 
 	@OneToMany(mappedBy = "classe")
-	private List<HablidadeClasse> habilidades = new ArrayList<>();
+	private List<HabilidadeClasse> habilidades = new ArrayList<>();
 
 	public Classe(ClasseRequest request) {
 		if (Objects.nonNull(request.getNome())) {

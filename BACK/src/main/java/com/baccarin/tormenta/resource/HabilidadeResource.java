@@ -17,8 +17,11 @@ import com.baccarin.tormenta.exception.RegistroIncompletoException;
 import com.baccarin.tormenta.exception.RegistroNaoEncontradoException;
 import com.baccarin.tormenta.service.HabilidadeService;
 import com.baccarin.tormenta.vo.ResponseGenerico;
+import com.baccarin.tormenta.vo.habilidade.HabilidadeClasseResponse;
+import com.baccarin.tormenta.vo.habilidade.HabilidadeRacaResponse;
 import com.baccarin.tormenta.vo.habilidade.HabilidadeRequest;
 import com.baccarin.tormenta.vo.habilidade.HabilidadeResponse;
+import com.baccarin.tormenta.vo.personagem.PersonagemRequest;
 
 import lombok.RequiredArgsConstructor;
 
@@ -68,4 +71,27 @@ public class HabilidadeResource {
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
 
+	
+	@PostMapping(path = "classe")
+	public ResponseEntity<List<HabilidadeClasseResponse>> buscaListaHabilidadesClasse(@RequestBody PersonagemRequest request) throws Exception {
+		List<HabilidadeClasseResponse> habilidades = habilidadeService.buscaListaHabilidadesClasse(request);
+		if (Objects.nonNull(habilidades) && !habilidades.isEmpty()) {
+			return new ResponseEntity<List<HabilidadeClasseResponse>>(habilidades, HttpStatus.OK);
+		}
+		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+	}
+	
+	
+	@PostMapping(path = "raca")
+	public ResponseEntity<List<HabilidadeRacaResponse>> buscaListaHabilidadesRaca(@RequestBody PersonagemRequest request) throws Exception {
+		List<HabilidadeRacaResponse> racas = habilidadeService.buscaListaHabilidadesRaca(request);
+		if (Objects.nonNull(racas) && !racas.isEmpty()) {
+			return new ResponseEntity<List<HabilidadeRacaResponse>>(racas, HttpStatus.OK);
+		}
+		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+
+	}
+	
+	
+	
 }

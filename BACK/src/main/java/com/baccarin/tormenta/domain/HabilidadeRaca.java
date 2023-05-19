@@ -17,7 +17,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Entity
 @Table(name = "habilidade_raca", schema = "tormenta", uniqueConstraints = {})
-public class HablidadeRaca {
+public class HabilidadeRaca {
 
 	@Id
 	@GeneratedValue

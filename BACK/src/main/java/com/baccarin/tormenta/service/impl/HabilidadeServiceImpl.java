@@ -2,6 +2,7 @@ package com.baccarin.tormenta.service.impl;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
@@ -12,8 +13,12 @@ import com.baccarin.tormenta.exception.RegistrosAssociadosException;
 import com.baccarin.tormenta.repository.HabilidadeRepository;
 import com.baccarin.tormenta.repository.PersonagemRepository;
 import com.baccarin.tormenta.service.HabilidadeService;
+import com.baccarin.tormenta.vo.habilidade.HabilidadeClasseResponse;
+import com.baccarin.tormenta.vo.habilidade.HabilidadeRacaResponse;
 import com.baccarin.tormenta.vo.habilidade.HabilidadeRequest;
 import com.baccarin.tormenta.vo.habilidade.HabilidadeResponse;
+import com.baccarin.tormenta.vo.item.ArmaduraResponse;
+import com.baccarin.tormenta.vo.personagem.PersonagemRequest;
 import com.baccarin.tormenta.vo.personagem.PersonagemResponse;
 
 import jakarta.transaction.Transactional;
@@ -64,5 +69,26 @@ public class HabilidadeServiceImpl implements HabilidadeService {
 						"Impossível excluir uma habilidade com um personagem relacionado.");
 			}
 		}
+	}
+
+	@Override
+	public List<HabilidadeClasseResponse> buscaListaHabilidadesClasse(PersonagemRequest request) throws Exception {
+
+//		List<HabilidadeClasseResponse> armadurasResponse = armaduraRepository.findAll().stream().map(armadura -> {
+//			ArmaduraResponse armaduraResponse = new ArmaduraResponse();
+//			armaduraResponse.setId(armadura.getId());
+//			armaduraResponse.setNome(armadura.getNome());
+//			armaduraResponse.setDescricao(armadura.getDescricao());
+//			armaduraResponse.setTipo(armadura.getTipoArmadura().getDescricao());
+//			return armaduraResponse;
+//		}).collect(Collectors.toList());
+		
+		return null;
+	}
+
+	@Override
+	public List<HabilidadeRacaResponse> buscaListaHabilidadesRaca(PersonagemRequest request) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

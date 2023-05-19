@@ -11,21 +11,25 @@ declare var window: any;
 })
 export class PersonagemComponent implements OnInit {
 
+  usuarioLogado = sessionStorage.getItem('usuario');
+
   modalVisualizarPersonagem: any;
   modalUparPersonagem: any;
   modalArmas: any;
   modalArmaduras: any;
   modalEscudos: any;
   modalCorpoCorpo: any;
-
-
-  usuarioLogado = sessionStorage.getItem('usuario');
+  modalVisualizarDistancia: any;
+  modalVisualizarHabilidades: any;
+  modalVisualizarPericia: any;
 
   paginaInicial = 1;
   paginaInicialTabelaPericias = 1;
   paginaInicialTabelaArmas = 1;
   paginaInicialTabelaArmaduras = 1;
   paginaInicialTabelaEscudos = 1;
+  paginaInicialTabelaHabilidadeRaca = 1;
+  paginaInicialTabelaHabilidadeClasse = 1;
 
 
   infoCorpoACorpo = {
@@ -54,7 +58,8 @@ export class PersonagemComponent implements OnInit {
   listaArmas: any[] = [];
   listaArmaduras: any[] = [];
   listaEscudos: any[] = [];
-
+  listaHabilidadesRaca: any[] = [];
+  listaHabilidadesClasse: any[] = [];
 
   listaUsuarios: any;
   dropdownSettingsUsuarios: any;
@@ -101,33 +106,45 @@ export class PersonagemComponent implements OnInit {
   }
 
   inicilizaModais() {
-    console.log('1')
+
     this.modalVisualizarPersonagem = new window.bootstrap.Modal(
       document.getElementById('modalVisualizarPersonagem')
     );
-    console.log('2')
+
     this.modalArmas = new window.bootstrap.Modal(
       document.getElementById('modalVisualizarArmas')
     );
-    console.log('3')
+
     this.modalUparPersonagem = new window.bootstrap.Modal(
       document.getElementById('modalVisualizarPersonagem')
     );
-    console.log('4')
+
     this.modalArmaduras = new window.bootstrap.Modal(
       document.getElementById('modalVisualizarArmaduras')
     );
-    console.log('5')
+
     this.modalEscudos = new window.bootstrap.Modal(
       document.getElementById('modalVisualizarEscudos')
     );
-    console.log('6')
+
     this.modalCorpoCorpo = new window.bootstrap.Modal(
       document.getElementById('modalVisualizarCorpo-Corpo')
     );
-    console.log('7')
+
+    this.modalVisualizarDistancia = new window.bootstrap.Modal(
+      document.getElementById('modalVisualizarDistancia')
+    );
+
+    this.modalVisualizarHabilidades = new window.bootstrap.Modal(
+      document.getElementById('modalVisualizarHabilidades')
+    );
+
+    this.modalVisualizarPericia = new window.bootstrap.Modal(
+      document.getElementById('modalVisualizarPericia')
+    );
+    
   }
-  
+
   executarPesquisaByFiltro() {
 
     const data = {
@@ -309,10 +326,10 @@ export class PersonagemComponent implements OnInit {
     this.modalVisualizarPersonagem.show();
   }
 
-  fecharModalPersonagem(){
+  fecharModalPersonagem() {
     this.modalVisualizarPersonagem.hide();
   }
-  
+
   // MODAL EDITAR
 
 
@@ -347,6 +364,17 @@ export class PersonagemComponent implements OnInit {
   }
   // FIM CORPO A CORPO
 
+  // INICIO DISTANCIA
+  openModalDistancia(idPersonagem: any) {
+    this.modalVisualizarPersonagem.hide();
+    this.personagemService.buscarListaInfoDistancia(idPersonagem).subscribe((response) => {
+      this.infoCorpoACorpo = response;
+    });
+
+    this.modalVisualizarDistancia.show();
+  }
+  // FIM DISTANCIA
+
   // INICIO ARMAS
 
   openModalArmas(idPersonagem: any) {
@@ -372,12 +400,8 @@ export class PersonagemComponent implements OnInit {
     this.modalArmaduras.show();
   }
 
-  fecharModalArmaduras() {
-    this.modalVisualizarPersonagem.show();
-  }
-
   // FIM ARMADURA
-  
+
   // INICIO ESCUDO
 
   openModalEscudos(idPersonagem: any) {
@@ -390,9 +414,35 @@ export class PersonagemComponent implements OnInit {
   }
   // FIM ESCUDO
 
+  // INICIO HABILIDADES 
+
+  openModalHabilidades(personagem: any) {
+    this.personagemService.buscarListaHabilidadeClasse(personagem).subscribe((response) => {
+      this.listaHabilidadesClasse = response;
+    });
+
+    this.personagemService.buscarListaHabilidadeRaca(personagem).subscribe((response) => {
+      this.listaHabilidadesRaca = response;
+    });
+
+    this.modalVisualizarHabilidades.show();
+  }
+
+  // FIM HABILIDADES
+
+  openModalPericias(idPersonagem: any) {
+    this.modalVisualizarPersonagem.hide();
+    this.personagemService.buscarListaPericias(idPersonagem).subscribe((response) => {
+      this.listaPericias = response;
+    });
+
+    this.modalVisualizarPericia.show();
+  }
+  
   openModalUparPersonagem(personagem: any) {
     this.modalUparPersonagem.show();
-  }
+  }  
+
 
 
 
