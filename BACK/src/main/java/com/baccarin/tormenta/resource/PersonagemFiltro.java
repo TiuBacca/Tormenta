@@ -34,4 +34,6 @@ public class PersonagemFiltro {
 		this.tendencias = new ArrayList<>();
 	}
 
+
+	
 }

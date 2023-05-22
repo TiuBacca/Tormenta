@@ -87,7 +87,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 
 	private void validarSalvarUsuario(UsuarioRequest request) throws Exception {
 
-		if (Objects.nonNull(request.getId())) {
+		if (Objects.nonNull(request.getId()) && request.getId() != 0) {
 			usuarioRepository.findById(request.getId())
 					.orElseThrow(() -> new RegistroNaoEncontradoException("Usuário não encontrado."));
 			if (Objects.nonNull(request.getEmail())) {

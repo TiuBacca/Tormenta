@@ -35,3 +35,4 @@ public class Pericia {
 	private TipoHabilidade tipoModificador;
 
 }
+ 

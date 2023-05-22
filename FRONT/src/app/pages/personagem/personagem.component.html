@@ -53,6 +53,12 @@
     <div class="col-md-3 mt" style="white-space: nowrap;">
       <label for="floatingSelect">&nbsp;&nbsp;</label>
       <div class="mb-3">
+
+        <button type="button" id="botaoNovoPersonagem" class="btn btn-secondary" (click)="openModalNovoPersonagem()"><i
+            class="bi bi-person-plus-fill"></i>&nbsp;Novo</button>
+        <label for="floatingSelect">&nbsp;&nbsp;</label>
+
+
         <button type="button" id="botaoFiltrar" (click)="executarPesquisaByFiltro()" class="btn btn-primary"><i
             class="bi bi-search"></i>&nbsp;Filtrar</button>
 
@@ -632,8 +638,8 @@
 <!--Modal HABILIDADES FIM-->
 
 <!--Modal PERICIAS INICIO-->
-<div class="modal fade modalCriarFundo" id="modalVisualizarPericia" data-bs-backdrop="static"
-  data-bs-keyboard="false" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade modalCriarFundo" id="modalVisualizarPericia" data-bs-backdrop="static" data-bs-keyboard="false"
+  tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-xl modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
@@ -670,7 +676,50 @@
           nextLabel="Próxima" id="tabelaPericia">
         </pagination-controls>
 
+      </div>
+    </div>
+  </div>
+  <!--Modal PERICIAS FIM-->
+
+
+
+  <!--INICIO  NOVO PERSONAGEM -->
+<div class="modal fade modalCriarFundo" id="modalNovoPersonagem" data-bs-backdrop="static" data-bs-keyboard="false"
+tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal-dialog modal-xl modal-dialog-centered">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h2> Novo personagem </h2>
+
+      <a type="button" class="btn-close btn-close-custom" data-bs-dismiss="modal" aria-label="Close "
+        (click)="fecharModalNovoPersonagem()"></a>
+    </div>
+
+    <div class="modal-body">
+
+      <form class="row g-12 needs-validation">
+
+        <div class="col-md-3">
+          <div class="col" style="min-width: 250px; max-width: 1250px;">
+            <label>Nome</label>
+            <input type="text" class="form-control" [(ngModel)]="personagem.nome" disabled="true">
+          </div>
+        </div>
+
+   
+      </form>
+
+    </div>
+
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="salvarNovoPersonagem()"> Salvar
+      </button>
+
+      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="fecharModalNovoPersonagem()"> Cancelar
+      </button>
+
     </div>
   </div>
 </div>
-<!--Modal PERICIAS FIM-->
+</div>
+<!--Modal NOVO PERSONAGEM FIM-->

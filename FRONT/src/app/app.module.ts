@@ -28,6 +28,7 @@ import { NgxMaskModule } from 'ngx-mask';
 import { HomeComponent } from './pages/home/home.component';
 import { PersonagemComponent } from './pages/personagem/personagem.component';
 import { LoginComponent } from './pages/login/login.component';
+import { UsuarioComponent } from './pages/usuario/usuario.component';
 
 
 @NgModule({
@@ -42,7 +43,8 @@ import { LoginComponent } from './pages/login/login.component';
 
     LoginComponent,
     HomeComponent,
-    PersonagemComponent
+    PersonagemComponent,
+    UsuarioComponent
 
   ],
   imports: [

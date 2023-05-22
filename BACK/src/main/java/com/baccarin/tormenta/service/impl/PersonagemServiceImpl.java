@@ -79,6 +79,8 @@ public class PersonagemServiceImpl implements PersonagemService {
 			sb.append(" AND p.id = :idPersonagem ");
 		}
 
+		
+		
 		TypedQuery<PersonagemResponse> query = util.getEntityManager().createQuery(sb.toString(),
 				PersonagemResponse.class);
 
@@ -101,6 +103,9 @@ public class PersonagemServiceImpl implements PersonagemService {
 					request.getUsuarios().stream().map(UsuarioRequest::getId).collect(Collectors.toList()));
 
 		}
+		
+		
+		
 
 		return query.getResultList();
 	}

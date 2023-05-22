@@ -15,5 +15,10 @@ public class UsuarioRequest {
 	private String nome;
 	private String email;
 	private String senha;
+	
+	public UsuarioRequest(Long id) {
+		this.id = id;
+	}
 
+	
 }

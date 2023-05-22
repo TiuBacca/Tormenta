@@ -23,6 +23,9 @@ export class PersonagemComponent implements OnInit {
   modalVisualizarHabilidades: any;
   modalVisualizarPericia: any;
 
+  modalNovoPersonagem: any;
+
+
   paginaInicial = 1;
   paginaInicialTabelaPericias = 1;
   paginaInicialTabelaArmas = 1;
@@ -50,7 +53,11 @@ export class PersonagemComponent implements OnInit {
 
   personagem = {
     id: 0,
-    nome: ""
+    nome: "",
+    idRaca: 0,
+    idClasse: 0,
+    idTendencia: 0,
+    sexo: ""
   }
 
   listaPersonagens: any;
@@ -142,6 +149,12 @@ export class PersonagemComponent implements OnInit {
     this.modalVisualizarPericia = new window.bootstrap.Modal(
       document.getElementById('modalVisualizarPericia')
     );
+
+    this.modalNovoPersonagem = new window.bootstrap.Modal(
+      document.getElementById('modalNovoPersonagem')
+    );
+    
+    
     
   }
 
@@ -445,5 +458,17 @@ export class PersonagemComponent implements OnInit {
 
 
 
+  openModalNovoPersonagem(){
+    this.modalNovoPersonagem.show();
+  }
+
+  salvarNovoPersonagem(){
+
+  }
+
+  fecharModalNovoPersonagem(){
+    this.modalNovoPersonagem.hide();
+
+  }
 
 }
