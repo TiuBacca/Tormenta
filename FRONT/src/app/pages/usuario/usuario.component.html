@@ -41,6 +41,7 @@
       <thead>
         <tr>
           <th scope="col" style="text-align: center">Nome</th>
+          <th scope="col" style="text-align: center">E-mail</th>
           <th scope="col" style="text-align: center">Açoes</th>
         </tr>
       </thead>
@@ -48,15 +49,12 @@
         <tr
           *ngFor="let usuario of listaUsuarios  | paginate: {itemsPerPage: 10, currentPage: paginaInicial, id:'2' }; let i = index">
           <td style="text-align: center">{{usuario.nome}}</td>
+          <td style="text-align: center">{{usuario.email}}</td>
 
           <td
           style="min-width: 100px !important; max-width: 100px !important; text-align: center; white-space: nowrap; cursor: pointer;">
 
-          <a title="Visualizar" (click)="removerUsuario(usuario.id)">
-            <i class="bi bi-eye-fill" style="font-size: 25px; margin-right: 15px"></i>
-          </a>
-
-          <a title="Editar" (click)="removerUsuario(usuario.id)">
+          <a title="Editar" (click)="editarUsuario(usuario)">
             <i class="bi bi-pencil-fill" style="font-size: 25px;  margin-right: 15px"></i>
           </a>
 
@@ -64,7 +62,7 @@
             <i class="bi bi-person-lines-fill" style="font-size: 25px; margin-right: 15px"></i>
           </a>
 
-          <a title="Excluir" (click)="removerUsuario(usuario.id)">
+          <a title="Excluir" (click)="removerUsuario(usuario)">
             <i class="bi bi-trash-fill" style="font-size: 25px; margin-right: 15px"></i>
           </a>
 
@@ -88,7 +86,7 @@
   <div class="modal-dialog modal-xl modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
-        <h2> Novo usuário </h2>
+        <h2> Usuário </h2>
         <a type="button" class="btn-close btn-close-custom" data-bs-dismiss="modal" aria-label="Close"
           (click)="fecharModalNovoUsuario()"></a>
       </div>
@@ -100,14 +98,14 @@
           <div class="col-md-4">
             <div class="col" style="min-width: 250px; max-width: 1250px;">
               <label>Nome</label>
-              <input type="text" class="form-control" [(ngModel)]="usuario.nome" name="nome" required>
+              <input type="text" class="form-control" [(ngModel)]="usuarioEdicao.nome" name="nome" required (ngModelChange)="verificarCamposPreenchidos()">
             </div>
           </div>
         
           <div class="col-md-4">
             <div class="col" style="min-width: 250px; max-width: 1250px;">
               <label>E-mail</label>
-              <input type="text" class="form-control" [(ngModel)]="usuario.email" name="email" required>
+              <input type="text" class="form-control" [(ngModel)]="usuarioEdicao.email" name="email" required (ngModelChange)="verificarCamposPreenchidos()">
             </div>
           </div>
         
@@ -115,7 +113,7 @@
           <div class="col-md-4">
             <div class="col" style="min-width: 250px; max-width: 1250px;">
               <label>Senha</label>
-              <input type="password" class="form-control" [(ngModel)]="usuario.senha" name="senha" required>
+              <input type="password" class="form-control" [(ngModel)]="usuarioEdicao.senha" name="senha" required (ngModelChange)="verificarCamposPreenchidos()">
             </div>
           </div>
         </form>
@@ -123,7 +121,7 @@
       </div>
 
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="salvarNovoUsuario()">Salvar</button>
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="salvarNovoUsuario()" [disabled]="!camposPreenchidos">Salvar</button>
 
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="fecharModalNovoUsuario()">Cancelar</button>
 

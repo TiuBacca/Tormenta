@@ -14,6 +14,7 @@ import com.baccarin.tormenta.exception.RegistroDuplicadoException;
 import com.baccarin.tormenta.exception.RegistroIncompletoException;
 import com.baccarin.tormenta.exception.RegistroNaoEncontradoException;
 import com.baccarin.tormenta.exception.RegistrosAssociadosException;
+import com.baccarin.tormenta.exception.SenhaInvalidaException;
 import com.baccarin.tormenta.service.UsuarioService;
 import com.baccarin.tormenta.vo.ResponseGenerico;
 import com.baccarin.tormenta.vo.usuario.UsuarioRequest;
@@ -34,7 +35,7 @@ public class UsuarioResource {
 			usuarioService.salvarUsuario(request);
 			return new ResponseEntity<ResponseGenerico>(new ResponseGenerico("Usuário salvo com sucesso."),
 					HttpStatus.OK);
-		} catch (RegistroIncompletoException | RegistroDuplicadoException | RegistroNaoEncontradoException e) {
+		} catch (SenhaInvalidaException | RegistroIncompletoException | RegistroDuplicadoException | RegistroNaoEncontradoException e) {
 			return new ResponseEntity<ResponseGenerico>(new ResponseGenerico(e.getMessage()),
 					HttpStatus.INTERNAL_SERVER_ERROR);
 		} catch (Exception e) {

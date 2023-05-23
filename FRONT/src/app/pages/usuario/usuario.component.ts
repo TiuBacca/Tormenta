@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { UsuarioService } from './usuario.service';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 
 declare var window: any;
 
@@ -11,6 +12,9 @@ declare var window: any;
 })
 export class UsuarioComponent implements OnInit {
 
+  camposPreenchidos: boolean = false;
+
+  tempoNotificacao = 2000;
   usuarioLogado = sessionStorage.getItem('usuario');
 
   modalNovoUsuario: any;
@@ -21,6 +25,13 @@ export class UsuarioComponent implements OnInit {
   paginaInicialTabelaPericias = 1;
 
   usuario = {
+    id: 0,
+    nome: '',
+    email: '',
+    senha: ''
+  }
+
+  usuarioEdicao = {
     id: 0,
     nome: '',
     email: '',
@@ -54,6 +65,11 @@ export class UsuarioComponent implements OnInit {
       document.getElementById('modalVisualizarPersonagens')
     );
 
+
+  }
+
+  verificarCamposPreenchidos() {
+    this.camposPreenchidos = !!this.usuarioEdicao.nome && !!this.usuarioEdicao.email && !!this.usuarioEdicao.senha;
   }
 
   executarPesquisaByFiltro() {
@@ -78,19 +94,65 @@ export class UsuarioComponent implements OnInit {
   }
 
   removerUsuario(data: any) {
-    this.usuarioService.removerUsuario(data).subscribe((response) => {
-      this.listaPersonagens = response;
-    });
+    Swal.fire({
+      title: `Você realmente deseja excluir o usuário?`,
+      showDenyButton: false,
+      showCancelButton: true,
+      cancelButtonText: 'Cancelar',
+      confirmButtonText: 'Excluir',
+      confirmButtonColor: '#ff1100',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.usuarioService.removerUsuario(data).subscribe((response) => {
+          if (response) {
+            this.notificacaoSucesso('Usuario excluido com sucesso!');
+            this.executarPesquisaByFiltro();
+          }
+        });
+      }
+    })
+
+  }
+
+  notificacaoSucesso(mensagem: any) {
+    const Toast = Swal.mixin({
+      toast: true,
+      position: 'top-end',
+      showConfirmButton: false,
+      timer: this.tempoNotificacao,
+      timerProgressBar: true,
+      didOpen: (toast) => {
+        toast.addEventListener('mouseenter', Swal.stopTimer)
+        toast.addEventListener('mouseleave', Swal.resumeTimer)
+      }
+    })
+    Toast.fire({
+      icon: 'success',
+      title: mensagem
+    })
   }
 
   abrirModalNovoUsuario() {
+    this.alimentaModalUsuario();
     this.modalNovoUsuario.show();
+  }
+
+
+  alimentaModalUsuario(){
+    this.verificarCamposPreenchidos();
+    this.usuarioEdicao = {
+      id: this.usuario.id,
+      nome: this.usuario.nome,
+      email: this.usuario.email,
+      senha: this.usuario.senha
+    }
   }
 
   fecharModalNovoUsuario() {
     this.limparModalNovoUsuario();
     this.modalNovoUsuario.hide();
   }
+
 
   limparModalNovoUsuario() {
     this.usuario = {
@@ -102,12 +164,49 @@ export class UsuarioComponent implements OnInit {
   }
 
   salvarNovoUsuario() {
-    this.usuarioService.salvarUsuario(this.usuario).subscribe((response) => {
-      this.listaPersonagens = response;
+
+    this.usuarioEdicao.id = this.usuario.id; 
+
+    this.usuarioService.salvarUsuario(this.usuarioEdicao).subscribe((response) => {
+      if (response) {
+        this.listaPersonagens = response;
+        this.fecharModalNovoUsuario();
+        this.notificacaoSucesso("Usuário salvo com sucesso.");
+        setTimeout(() => {
+          this.executarPesquisaByFiltro();
+        }, 50);
+      } else {
+        console.log(response)
+        this.mensagemError("Erro ao salvar usuário.")
+      }
     });
-    this.fecharModalNovoUsuario();
-    this.executarPesquisaByFiltro();
+
   }
+
+  mensagemError(mensagem: any) {
+    const Toast = Swal.mixin({
+      toast: true,
+      position: 'top-end',
+      showConfirmButton: false,
+      timer: this.tempoNotificacao,
+      timerProgressBar: true,
+      didOpen: (toast) => {
+        toast.addEventListener('mouseenter', Swal.stopTimer)
+        toast.addEventListener('mouseleave', Swal.resumeTimer)
+      }
+    })
+    Toast.fire({
+      icon: 'error',
+      title: mensagem
+    })
+  }
+
+  editarUsuario(usuario: any) {
+    this.usuario = usuario;
+    this.abrirModalNovoUsuario();
+
+  }
+
 
   abrirModalVisualizarPersonagens(usuario: any) {
     var data = {
@@ -115,13 +214,13 @@ export class UsuarioComponent implements OnInit {
     }
 
     this.usuarioService.buscarListaPersonagens(data).subscribe((response) => {
-      if(response){
+      if (response) {
         this.listaPersonagens = response;
+        this.modalVisualizarPersonagens.show();
       } else {
         this.listaPersonagens = [];
       }
     });
-    this.modalVisualizarPersonagens.show();
   }
 
   fecharModalVisualizarPersonagens() {

@@ -3,6 +3,7 @@ package com.baccarin.tormenta.service.impl;
 import java.util.List;
 import java.util.Objects;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import com.baccarin.tormenta.domain.Usuario;
@@ -10,6 +11,7 @@ import com.baccarin.tormenta.exception.RegistroDuplicadoException;
 import com.baccarin.tormenta.exception.RegistroIncompletoException;
 import com.baccarin.tormenta.exception.RegistroNaoEncontradoException;
 import com.baccarin.tormenta.exception.RegistrosAssociadosException;
+import com.baccarin.tormenta.exception.SenhaInvalidaException;
 import com.baccarin.tormenta.repository.UsuarioRepository;
 import com.baccarin.tormenta.resource.PersonagemFiltro;
 import com.baccarin.tormenta.service.PersonagemService;
@@ -39,7 +41,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 
 		StringBuilder sb = new StringBuilder();
 		sb.append(
-				" select new com.baccarin.tormenta.vo.usuario.UsuarioResponse (u.id, u.nome) FROM Usuario u where u.id > 0  ");
+				" select new com.baccarin.tormenta.vo.usuario.UsuarioResponse (u.id, u.nome, u.email) FROM Usuario u where u.id > 0  ");
 
 		if (Objects.nonNull(request.getId()) && request.getId() != 0) {
 			sb.append(" AND u.id = :id ");
@@ -83,17 +85,21 @@ public class UsuarioServiceImpl implements UsuarioService {
 	public void salvarUsuario(UsuarioRequest request) throws Exception {
 		validarSalvarUsuario(request);
 		usuarioRepository.save(new Usuario(request));
-	}
+	}   
 
 	private void validarSalvarUsuario(UsuarioRequest request) throws Exception {
 
 		if (Objects.nonNull(request.getId()) && request.getId() != 0) {
-			usuarioRepository.findById(request.getId())
+			Usuario user = usuarioRepository.findById(request.getId())
 					.orElseThrow(() -> new RegistroNaoEncontradoException("Usuário não encontrado."));
-			if (Objects.nonNull(request.getEmail())) {
-				throw new RegistroIncompletoException("Impossível atualizar o e-mail do usuário.");
-			}
 
+			if(StringUtils.isNotBlank(request.getSenha())) {
+				if (!user.getSenha().equals(Util.criptografar(request.getSenha()))) {
+					throw new SenhaInvalidaException("Senha informada não corresponde com a ja cadastrada.");
+				}
+			} else {
+				throw new RegistroIncompletoException("Para editar um usário, deve ser informada a senha cadastrada.");
+			}
 		} else {
 
 			if (Objects.isNull(request.getNome()) || request.getNome().isBlank()) {

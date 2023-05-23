@@ -35,7 +35,7 @@ public class Usuario {
 	@Column(name = "nome", nullable = false, updatable = true)
 	private String nome;
 
-	@Column(name = "email", nullable = false, updatable = false, unique = true)
+	@Column(name = "email", nullable = false, unique = true)
 	private String email;
 
 	@Column(name = "senha", nullable = false, updatable = true)
@@ -55,7 +55,7 @@ public class Usuario {
 		}
 
 		if (Objects.nonNull(request.getEmail())) {
-			this.email = Util.criptografar(request.getEmail());
+			this.email = request.getEmail();
 		}
 
 		if (Objects.nonNull(request.getSenha())) {
