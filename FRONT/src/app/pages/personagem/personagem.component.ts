@@ -60,6 +60,17 @@ export class PersonagemComponent implements OnInit {
     sexo: ""
   }
 
+  personagemEditar = {
+    id: 0,
+    nome: "",
+    raca: 0,
+    classe: 0,
+    fortitude: 0,
+    reflexo: 0,
+    vontade: 0,
+    sexo: ""
+  }
+
   listaPersonagens: any;
   listaPericias: any[] = [];
   listaArmas: any[] = [];
@@ -347,22 +358,17 @@ export class PersonagemComponent implements OnInit {
 
 
   openModalVisualizarPersonagem(personagem: any) {
-    this.modalVisualizarPersonagem.show();
-    this.modalArmas.hide();
-    this.listaPericias = [];
-    const data = {
-      descricao: "descricao",
-      grad: 2,
-      modificador: {
-        descricao: "destreza"
-      },
-      outros: 1
-    };
-
-    for (let i = 0; i < 22; i++) {
-      this.listaPericias.push(data)
+    this.personagemEditar = {
+      id: personagem.id,
+      nome: personagem.nome,
+      raca: personagem.descricaoRaca,
+      classe: personagem.descricaoClasse,
+      fortitude: personagem.fortitude,
+      reflexo: personagem.reflexo,
+      vontade: personagem.vontade,
+      sexo: personagem.sexo
     }
-
+    this.modalVisualizarPersonagem.show();
 
   }
 

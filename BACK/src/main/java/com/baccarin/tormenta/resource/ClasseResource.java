@@ -5,7 +5,6 @@ import java.util.Objects;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,6 +18,7 @@ import com.baccarin.tormenta.service.ClasseService;
 import com.baccarin.tormenta.vo.ResponseGenerico;
 import com.baccarin.tormenta.vo.classe.ClasseRequest;
 import com.baccarin.tormenta.vo.classe.ClasseResponse;
+import com.baccarin.tormenta.vo.habilidade.HabilidadeClasseResponse;
 
 import lombok.RequiredArgsConstructor;
 
@@ -59,11 +59,22 @@ public class ClasseResource {
 		}
 	}
 
-	@GetMapping(path = "buscaLista")
-	public ResponseEntity<List<ClasseResponse>> buscarListaClasses() throws Exception {
-		List<ClasseResponse> classes = classeService.buscarListaClasses();
+	@PostMapping(path = "buscaLista/byFiltro")
+	public ResponseEntity<List<ClasseResponse>> buscarListaClasses(@RequestBody ClasseRequest request)
+			throws Exception {
+		List<ClasseResponse> classes = classeService.buscarListaClassesByFiltro(request);
 		if (Objects.nonNull(classes) && !classes.isEmpty()) {
 			return new ResponseEntity<List<ClasseResponse>>(classes, HttpStatus.OK);
+		}
+		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+	}
+
+	@PostMapping(path = "buscaLista/habilidades")
+	public ResponseEntity<List<HabilidadeClasseResponse>> buscaListaHabilidadesByClasse(
+			@RequestBody ClasseRequest request) throws Exception {
+		List<HabilidadeClasseResponse> classes = classeService.buscaListaHabilidadesByClasse(request);
+		if (Objects.nonNull(classes) && !classes.isEmpty()) {
+			return new ResponseEntity<List<HabilidadeClasseResponse>>(classes, HttpStatus.OK);
 		}
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}

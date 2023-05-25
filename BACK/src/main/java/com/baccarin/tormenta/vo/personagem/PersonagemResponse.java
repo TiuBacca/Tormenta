@@ -1,11 +1,13 @@
 package com.baccarin.tormenta.vo.personagem;
 
-import lombok.AllArgsConstructor;
+import java.util.Objects;
+
+import com.baccarin.tormenta.enums.Sexo;
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
 public class PersonagemResponse {
 
@@ -21,6 +23,8 @@ public class PersonagemResponse {
 
 	private Integer vidaAtual;
 	private Integer vidaTotal;
+
+	private String sexo;
 
 	public PersonagemResponse(Long id, String nome) {
 		this.id = id;
@@ -40,6 +44,35 @@ public class PersonagemResponse {
 		this.reflexo = reflexo;
 		this.vontade = vontade;
 		this.nivel = nivel;
+	}
+
+	public PersonagemResponse(Long id, String nome, String descricaoClasse, String descricaoRaca, Integer fortitude,
+			Integer reflexo, Integer vontade, Integer nivel, Integer vidaAtual, Integer vidaTotal) {
+		this.id = id;
+		this.nome = nome;
+		this.descricaoClasse = descricaoClasse;
+		this.descricaoRaca = descricaoRaca;
+		this.fortitude = fortitude;
+		this.reflexo = reflexo;
+		this.vontade = vontade;
+		this.nivel = nivel;
+		this.vidaAtual = vidaAtual;
+		this.vidaTotal = vidaTotal;
+	}
+
+	public PersonagemResponse(Long id, String nome, String descricaoClasse, String descricaoRaca, Integer fortitude,
+			Integer reflexo, Integer vontade, Integer nivel, Integer vidaAtual, Integer vidaTotal, Sexo sexo) {
+		this.id = id;
+		this.nome = nome;
+		this.descricaoClasse = descricaoClasse;
+		this.descricaoRaca = descricaoRaca;
+		this.fortitude = fortitude;
+		this.reflexo = reflexo;
+		this.vontade = vontade;
+		this.nivel = nivel;
+		this.vidaAtual = vidaAtual;
+		this.vidaTotal = vidaTotal;
+		this.sexo = Objects.isNull(sexo) ? "Indefinido" : sexo.getDescricao();
 	}
 
 }

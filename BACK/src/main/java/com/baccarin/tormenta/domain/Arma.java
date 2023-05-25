@@ -19,8 +19,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Entity
 @Table(name = "arma", schema = "item", uniqueConstraints = {})
-public class Arma {
-
+public class Arma  {
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id", nullable = false, updatable = false)
@@ -28,7 +28,7 @@ public class Arma {
 
 	@Column(name = "nome", nullable = false, updatable = true)
 	private String nome;
-	
+
 	@Column(name = "descricao", nullable = false, updatable = true)
 	private String descricao;
 	

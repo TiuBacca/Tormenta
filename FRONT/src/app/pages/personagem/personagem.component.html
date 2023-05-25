@@ -83,6 +83,7 @@
           <th scope="col" style="text-align: center">Nível</th>
           <th scope="col" style="text-align: center">Vida atual</th>
           <th scope="col" style="text-align: center">% vida atual</th>
+          <th scope="col" style="text-align: center">Sexo</th>
           <th scope="col" style="text-align: center">Ações</th>
         </tr>
       </thead>
@@ -102,11 +103,11 @@
             {{(personagem.vidaTotal ? personagem.vidaAtual / personagem.vidaTotal * 100 : personagem.vidaAtual /
             1) | number: '1.2-2' }} %
           </td>
-
+          <td style="text-align: center">{{personagem.sexo}}</td>
           <td
             style="min-width: 100px !important; max-width: 100px !important; text-align: center; white-space: nowrap; cursor: pointer;">
 
-            <a title="Visualizar" (click)="openModalVisualizarPersonagem(personagem.id)">
+            <a title="Visualizar" (click)="openModalVisualizarPersonagem(personagem)">
               <i class="bi bi-eye-fill" style="font-size: 25px; margin-right: 15px"></i>
             </a>
 
@@ -153,42 +154,49 @@
           <div class="col-md-3">
             <div class="col" style="min-width: 250px; max-width: 1250px;">
               <label>Nome</label>
-              <input type="text" class="form-control" [(ngModel)]="personagem.nome" disabled="true">
+              <input type="text" class="form-control" [(ngModel)]="personagemEditar.nome" name="nome" disabled="true">
             </div>
           </div>
 
-          <div class="col-md-3">
-            <div class="col" style="min-width: 250px; max-width: 1250px;">
+          <div class="col-md-2">
+            <div class="col" style="min-width: 100px; max-width: 1250px;">
               <label>Classe</label>
-              <input type="text" class="form-control" [(ngModel)]="personagem.nome" disabled="true">
+              <input type="text" class="form-control" [(ngModel)]="personagemEditar.classe" name="classe" disabled="true">
             </div>
           </div>
 
-          <div class="col-md-3">
-            <div class="col" style="min-width: 250px; max-width: 1250px;">
+          <div class="col-md-2">
+            <div class="col" style="min-width: 100px; max-width: 1250px;">
               <label>Raça</label>
-              <input type="text" class="form-control" [(ngModel)]="personagem.nome" disabled="true">
+              <input type="text" class="form-control" [(ngModel)]="personagemEditar.raca" name="raca" disabled="true">
             </div>
           </div>
 
           <div class="col-md-1">
             <div class="col">
               <label>Fortitude</label>
-              <input type="number" class="form-control" [(ngModel)]="personagem.nome" disabled="true">
+              <input type="number" class="form-control" [(ngModel)]="personagemEditar.fortitude" name="fortitude" disabled="true">
             </div>
           </div>
 
           <div class="col-md-1">
             <div class="col">
               <label>Reflexo</label>
-              <input type="number" class="form-control" [(ngModel)]="personagem.nome" disabled="true">
+              <input type="number" class="form-control" [(ngModel)]="personagemEditar.reflexo" name="reflexo" disabled="true">
             </div>
           </div>
 
           <div class="col-md-1">
             <div class="col">
               <label>Vontade</label>
-              <input type="number" class="form-control" [(ngModel)]="personagem.nome" disabled="true">
+              <input type="number" class="form-control" [(ngModel)]="personagemEditar.vontade" name="vontade" disabled="true">
+            </div>
+          </div>
+
+          <div class="col-md-2">
+            <div class="col">
+              <label>Sexo</label>
+              <input type="text" class="form-control" [(ngModel)]="personagemEditar.sexo" name="sexo" disabled="true">
             </div>
           </div>
 

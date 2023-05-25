@@ -13,4 +13,5 @@ public class ClasseRequest {
 
 	private Long id;
 	private String nome;
+	private String descricao;
 }

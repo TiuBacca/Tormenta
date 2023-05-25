@@ -29,6 +29,7 @@ import { HomeComponent } from './pages/home/home.component';
 import { PersonagemComponent } from './pages/personagem/personagem.component';
 import { LoginComponent } from './pages/login/login.component';
 import { UsuarioComponent } from './pages/usuario/usuario.component';
+import { ClasseComponent } from './pages/classe/classe.component';
 
 
 @NgModule({
@@ -44,7 +45,8 @@ import { UsuarioComponent } from './pages/usuario/usuario.component';
     LoginComponent,
     HomeComponent,
     PersonagemComponent,
-    UsuarioComponent
+    UsuarioComponent,
+    ClasseComponent
 
   ],
   imports: [

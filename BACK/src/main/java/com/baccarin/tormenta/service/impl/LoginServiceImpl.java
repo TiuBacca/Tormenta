@@ -24,7 +24,7 @@ public class LoginServiceImpl implements LoginService {
 
 	private final UsuarioRepository usuarioRepository;
 	private final Util util;
-		
+
 	@Override
 	public LoginResponse acessarSistema(LoginRequest request) throws Exception {
 		validarAcessarSistema(request);
@@ -38,7 +38,7 @@ public class LoginServiceImpl implements LoginService {
 			if (StringUtils.isBlank(request.getSenha())) {
 				throw new RegistroIncompletoException("Necessário informar a senha.");
 			}
-			Usuario user = usuarioRepository.findByEmail(Util.criptografar(request.getEmail()))
+			Usuario user = usuarioRepository.findByEmail(request.getEmail())
 					.orElseThrow(() -> new RegistroNaoEncontradoException("Usuário não encotrado."));
 			if (user.getSenha().equals(Util.criptografar(request.getSenha()))) {
 				return;

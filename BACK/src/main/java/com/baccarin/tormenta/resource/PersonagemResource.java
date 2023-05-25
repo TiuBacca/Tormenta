@@ -1,5 +1,6 @@
 package com.baccarin.tormenta.resource;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
@@ -18,6 +19,7 @@ import com.baccarin.tormenta.exception.RegistroNaoEncontradoException;
 import com.baccarin.tormenta.service.PersonagemService;
 import com.baccarin.tormenta.vo.ResponseGenerico;
 import com.baccarin.tormenta.vo.personagem.InfoCorpoCorpoResponse;
+import com.baccarin.tormenta.vo.personagem.PersonagemPericiaResponse;
 import com.baccarin.tormenta.vo.personagem.PersonagemRequest;
 import com.baccarin.tormenta.vo.personagem.PersonagemResponse;
 import com.baccarin.tormenta.vo.usuario.UsuarioRequest;
@@ -29,12 +31,12 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class PersonagemResource {
 
-	private final PersonagemService service;
+	private final PersonagemService personagemService;
 
 	@PostMapping(path = "salvar")
 	public ResponseEntity<ResponseGenerico> salvarPersonagem(@RequestBody PersonagemRequest request) throws Exception {
 		try {
-			service.salvarPersonagem(request);
+			personagemService.salvarPersonagem(request);
 			return new ResponseEntity<>(HttpStatus.OK);
 		} catch (RegistroNaoEncontradoException | RegistroIncompletoException e) {
 			return new ResponseEntity<ResponseGenerico>(new ResponseGenerico(e.getMessage()),
@@ -49,7 +51,7 @@ public class PersonagemResource {
 	@PostMapping(path = "excluir")
 	public ResponseEntity<ResponseGenerico> excluirPersonagem(@RequestBody PersonagemRequest request) {
 		try {
-			service.excluirPersonagem(request);
+			personagemService.excluirPersonagem(request);
 			return new ResponseEntity<ResponseGenerico>(new ResponseGenerico("Personagem excluido com sucesso."),
 					HttpStatus.OK);
 		} catch (RegistroComRelacionamentoException | RegistroNaoEncontradoException | RegistroIncompletoException e) {
@@ -64,7 +66,7 @@ public class PersonagemResource {
 	@PostMapping(path = "buscaLista/byFiltro")
 	public ResponseEntity<List<PersonagemResponse>> buscarListaPersonagensByFiltro(
 			@RequestBody PersonagemFiltro request) throws Exception {
-		List<PersonagemResponse> personagens = service.buscaListaPersonagemByFiltro(request);
+		List<PersonagemResponse> personagens = personagemService.buscaListaPersonagemByFiltro(request);
 		if (Objects.nonNull(personagens) && !personagens.isEmpty()) {
 			return new ResponseEntity<List<PersonagemResponse>>(personagens, HttpStatus.OK);
 		}
@@ -74,7 +76,7 @@ public class PersonagemResource {
 	@PostMapping(path = "buscaLista/byEmail")
 	public ResponseEntity<List<PersonagemResponse>> buscarListaPersonagensByEmail(@RequestBody UsuarioRequest request)
 			throws Exception {
-		List<PersonagemResponse> personagens = service.buscarListaPersonagensByEmail(request);
+		List<PersonagemResponse> personagens = personagemService.buscarListaPersonagensByEmail(request);
 		if (Objects.nonNull(personagens) && !personagens.isEmpty()) {
 			return new ResponseEntity<List<PersonagemResponse>>(personagens, HttpStatus.OK);
 		}
@@ -87,20 +89,24 @@ public class PersonagemResource {
 		return new ResponseEntity<List<String>>(lista, HttpStatus.OK);
 	}
 
-	//TODO
+	// TODO
 	@PostMapping(path = "infoCorpoACorpo")
 	public ResponseEntity<InfoCorpoCorpoResponse> informacoesCorpoACorpo(@RequestBody PersonagemRequest request)
 			throws Exception {
 		return new ResponseEntity<InfoCorpoCorpoResponse>(new InfoCorpoCorpoResponse(1l, 2, 1, 3, 0), HttpStatus.OK);
 	}
 
-	//TODO
+	// TODO
 	@PostMapping(path = "infoDistancia")
 	public ResponseEntity<InfoCorpoCorpoResponse> informacoesDistancia(@RequestBody PersonagemRequest request)
 			throws Exception {
 		return new ResponseEntity<InfoCorpoCorpoResponse>(new InfoCorpoCorpoResponse(1l, 1, 4, 2, 1), HttpStatus.OK);
 	}
-	
-	
-	
+
+	@PostMapping(path = "pericias")
+	public ResponseEntity<List<PersonagemPericiaResponse>> buscarListaPericias(@RequestBody PersonagemRequest request)
+			throws Exception {
+		return new ResponseEntity<List<PersonagemPericiaResponse>>(Collections.emptyList(), HttpStatus.OK);
+	}
+
 }

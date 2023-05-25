@@ -6,6 +6,7 @@ import java.util.Objects;
 
 import com.baccarin.tormenta.vo.classe.ClasseRequest;
 
+import io.micrometer.common.util.StringUtils;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -29,23 +30,27 @@ public class Classe {
 	@Column(name = "id", nullable = false, updatable = false)
 	private Long id;
 
-	@Column(name = "nome", nullable = false, updatable = true)
+	@Column(name = "nome", nullable = false)
 	private String nome;
-	
+
 	@Column(name = "descricao")
 	private String descricao;
-	
 
 	@OneToMany(mappedBy = "classe")
 	private List<HabilidadeClasse> habilidades = new ArrayList<>();
 
 	public Classe(ClasseRequest request) {
-		if (Objects.nonNull(request.getNome())) {
+		if (Objects.nonNull(request.getId()) && request.getId() != 0) {
+			this.id = request.getId();
+		}
+
+		if (StringUtils.isNotBlank(request.getNome())) {
 			this.nome = request.getNome();
 		}
 
-		if (Objects.nonNull(request.getId())) {
-			this.id = request.getId();
+		if (StringUtils.isNotBlank(request.getDescricao())) {
+			this.descricao = request.getDescricao();
 		}
+
 	}
 }

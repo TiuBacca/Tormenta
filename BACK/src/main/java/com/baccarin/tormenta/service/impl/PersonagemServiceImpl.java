@@ -60,7 +60,7 @@ public class PersonagemServiceImpl implements PersonagemService {
 
 		sb.append(" select new com.baccarin.tormenta.vo.personagem.PersonagemResponse"
 				+ " ( p.id, p.nome, classe.nome, raca.nome, p.fortitude, p.reflexo,"
-				+ " p.vontade, p.nivel , p.vidaAtual, p.vidaTotal) "
+				+ " p.vontade, p.nivel , p.vidaAtual, p.vidaTotal, p.sexo) "
 				+ " from Personagem p join p.classe classe join p.raca raca where p.id > 0 ");
 
 		if (Objects.nonNull(request.getClasses()) && !request.getClasses().isEmpty()) {
