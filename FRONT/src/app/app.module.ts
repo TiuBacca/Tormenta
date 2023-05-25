@@ -30,6 +30,8 @@ import { PersonagemComponent } from './pages/personagem/personagem.component';
 import { LoginComponent } from './pages/login/login.component';
 import { UsuarioComponent } from './pages/usuario/usuario.component';
 import { ClasseComponent } from './pages/classe/classe.component';
+import { RacaComponent } from './pages/raca/raca.component';
+
 
 
 @NgModule({
@@ -46,7 +48,9 @@ import { ClasseComponent } from './pages/classe/classe.component';
     HomeComponent,
     PersonagemComponent,
     UsuarioComponent,
-    ClasseComponent
+    ClasseComponent,
+    RacaComponent
+
 
   ],
   imports: [

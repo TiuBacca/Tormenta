@@ -5,7 +5,6 @@ import java.util.Objects;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,6 +16,7 @@ import com.baccarin.tormenta.exception.RegistroIncompletoException;
 import com.baccarin.tormenta.exception.RegistroNaoEncontradoException;
 import com.baccarin.tormenta.service.RacaService;
 import com.baccarin.tormenta.vo.ResponseGenerico;
+import com.baccarin.tormenta.vo.raca.RacaFiltro;
 import com.baccarin.tormenta.vo.raca.RacaRequest;
 import com.baccarin.tormenta.vo.raca.RacaResponse;
 
@@ -58,9 +58,9 @@ public class RacaResource {
 		}
 	}
 
-	@GetMapping(path = "buscaLista")
-	public ResponseEntity<List<RacaResponse>> buscarListaPersonagensByFiltro() throws Exception {
-		List<RacaResponse> racas = racaService.buscarListaTodasRacas();
+	@PostMapping(path = "buscaLista/byFiltro")
+	public ResponseEntity<List<RacaResponse>> buscaListaRacaByFiltro(@RequestBody RacaFiltro request) throws Exception {
+		List<RacaResponse> racas = racaService.buscaListaRacaByFiltro(request);
 		if (Objects.nonNull(racas) && !racas.isEmpty()) {
 			return new ResponseEntity<List<RacaResponse>>(racas, HttpStatus.OK);
 		}

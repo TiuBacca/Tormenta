@@ -13,10 +13,10 @@ public class RacaResponse {
 
 	private Long id;
 	private String nome;
+	private String descricao;
 
 	public RacaResponse(String nome) {
 		this.nome = nome;
 	}
 
-	
 }

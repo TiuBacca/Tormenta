@@ -5,6 +5,8 @@ import { LoginComponent } from './pages/login/login.component';
 import { PersonagemComponent } from './pages/personagem/personagem.component';
 import { UsuarioComponent } from './pages/usuario/usuario.component';
 import { ClasseComponent } from './pages/classe/classe.component';
+import { RacaComponent } from './pages/raca/raca.component';
+
 
 
 const routes: Routes = [
@@ -12,7 +14,9 @@ const routes: Routes = [
   { path: "home", component: HomeComponent},
   { path: "personagens", component: PersonagemComponent},
   { path: "usuarios", component: UsuarioComponent},
-  { path: "classes", component: ClasseComponent}
+  { path: "classes", component: ClasseComponent},
+  { path: "racas", component: RacaComponent}
+
 
 
 ];

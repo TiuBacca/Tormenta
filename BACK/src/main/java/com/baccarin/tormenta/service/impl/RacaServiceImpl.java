@@ -3,6 +3,7 @@ package com.baccarin.tormenta.service.impl;
 import java.util.List;
 import java.util.Objects;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import com.baccarin.tormenta.domain.Raca;
@@ -54,16 +55,17 @@ public class RacaServiceImpl implements RacaService {
 	public List<RacaResponse> buscaListaRacaByFiltro(RacaFiltro filtro) {
 
 		StringBuilder sb = new StringBuilder();
-		sb.append("select new com.baccarin.tormenta.vo.raca.RacaResponse(r.nome) from Raca r where r.id > 0 ");
+		sb.append("select new com.baccarin.tormenta.vo.raca.RacaResponse( r.id, r.nome, r.descricao ) from Raca r where r.id > 0 ");
 
-		if (Objects.nonNull(filtro.getNome()) && !filtro.getNome().isBlank()) {
-			sb.append(" AND r.nome ilike :nome ");
+		if (StringUtils.isNotBlank(filtro.getNome())) {
+			sb.append(" AND UPPER(r.nome) ilike UPPER(:nome) ");
 		}
 
+		sb.append(" ORDER BY r.nome ASC , r.descricao ASC ");
 		Query query = util.getEntityManager().createQuery(sb.toString());
 
-		if (Objects.nonNull(filtro.getNome()) && !filtro.getNome().isBlank()) {
-			query.setParameter("nome", "%" + filtro.getNome() + "%");
+		if (StringUtils.isNotBlank(filtro.getNome())) {
+			query.setParameter("nome", "%".concat(filtro.getNome()).concat("%").toUpperCase());
 		}
 		return query.getResultList();
 
