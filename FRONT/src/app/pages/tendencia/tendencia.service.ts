@@ -8,7 +8,7 @@ import Swal from 'sweetalert2';
   providedIn: 'root'
 })
 
-export class RacaService {
+export class TendenciaService {
 
   baseUrl = environment.baseUrl;
 
@@ -19,29 +19,22 @@ export class RacaService {
   constructor(private http: HttpClient) { }
 
   executarPesquisaByFiltro(data: any): Observable<any> {
-    return this.http.post<any>(`${this.baseUrl}/raca/buscaLista/byFiltro`, data).pipe(
+    return this.http.post<any>(`${this.baseUrl}/tendencia/buscaLista/byFiltro`, data).pipe(
       map((response) => response),
       catchError(async (error) => this.erroHandler(error))
     );
 
   }
 
-  listarHabilidades(data: any): Observable<any> {
-    return this.http.post<any>(`${this.baseUrl}/raca/buscaLista/habilidades`, data ).pipe(
+  salvarTendencia(data: any): Observable<any> {
+    return this.http.post<any>(`${this.baseUrl}/tendencia/salvar`, data ).pipe(
       map((response) => response),
       catchError(async (error) => this.erroHandler(error))
     );
   }
 
-  salvarRaca(data: any): Observable<any> {
-    return this.http.post<any>(`${this.baseUrl}/raca/salvar`, data ).pipe(
-      map((response) => response),
-      catchError(async (error) => this.erroHandler(error))
-    );
-  }
-
-  removerRaca(data: any): Observable<any> {
-    return this.http.post<any>(`${this.baseUrl}/raca/excluir`, data ).pipe(
+  removerTendencia(data: any): Observable<any> {
+    return this.http.post<any>(`${this.baseUrl}/tendencia/excluir`, data ).pipe(
       map((response) => response),
       catchError(async (error) => this.erroHandler(error))
     );

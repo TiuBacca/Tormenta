@@ -5,7 +5,6 @@ import java.util.Objects;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,7 +25,7 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping("tormenta/tendencia")
 @RequiredArgsConstructor
 public class TendenciaResource {
-	
+
 	private final TendenciaService tendenciaService;
 
 	@PostMapping(path = "salvar")
@@ -59,13 +58,14 @@ public class TendenciaResource {
 		}
 	}
 
-	@GetMapping(path = "buscaLista")
-	public ResponseEntity<List<TendenciaResponse>> buscarListaTendencias() throws Exception {
-		List<TendenciaResponse> tendencias = tendenciaService.buscarListaTendencias();
+	@PostMapping(path = "buscaLista/byFiltro")
+	public ResponseEntity<List<TendenciaResponse>> buscarListaTendenciasByFiltro(@RequestBody TendenciaRequest request)
+			throws Exception {
+		List<TendenciaResponse> tendencias = tendenciaService.buscarListaTendenciasByFiltro(request);
 		if (Objects.nonNull(tendencias) && !tendencias.isEmpty()) {
 			return new ResponseEntity<List<TendenciaResponse>>(tendencias, HttpStatus.OK);
 		}
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
-	
+
 }

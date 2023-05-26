@@ -16,5 +16,7 @@ public class RacaRequest {
 
 	private Long id;
 	private String nome;
+	private String descricao;
+	// TODO ajustar para habilidadeRaca request
 	private List<HablidadeRacaResponse> habilidades = new ArrayList<>();
 }

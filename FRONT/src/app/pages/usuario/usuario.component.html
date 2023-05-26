@@ -105,10 +105,11 @@
           <div class="col-md-4">
             <div class="col" style="min-width: 250px; max-width: 1250px;">
               <label>E-mail</label>
-              <input type="text" class="form-control" [(ngModel)]="usuarioEdicao.email" name="email" required (ngModelChange)="verificarCamposPreenchidos()">
+              <input type="text" class="form-control" [(ngModel)]="usuarioEdicao.email" name="email" required (ngModelChange)="verificarCamposPreenchidos()" >
             </div>
           </div>
         
+          <!--  mask="A*@A*.SSS" [clearIfNotMatch]="true" placeholder="example@domine.com" -->
    
           <div class="col-md-4">
             <div class="col" style="min-width: 250px; max-width: 1250px;">

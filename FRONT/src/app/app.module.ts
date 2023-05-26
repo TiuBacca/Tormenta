@@ -31,6 +31,8 @@ import { LoginComponent } from './pages/login/login.component';
 import { UsuarioComponent } from './pages/usuario/usuario.component';
 import { ClasseComponent } from './pages/classe/classe.component';
 import { RacaComponent } from './pages/raca/raca.component';
+import { TendenciaComponent } from './pages/tendencia/tendencia.component';
+
 
 
 
@@ -49,7 +51,8 @@ import { RacaComponent } from './pages/raca/raca.component';
     PersonagemComponent,
     UsuarioComponent,
     ClasseComponent,
-    RacaComponent
+    RacaComponent,
+    TendenciaComponent
 
 
   ],

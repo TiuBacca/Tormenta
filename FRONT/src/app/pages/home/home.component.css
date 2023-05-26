@@ -1,15 +1,12 @@
-.main{
+.main {
     overflow-y: scroll;
     background-image: url('src\assets\img\personagens\fundo2.png');
     background-size: cover;
     background-repeat: no-repeat;
-    height: 100vh;
+    height: 94.5vh !important;
 
 }
 
-.tamMinCard{
-    min-height: 500px !important;
-} 
 
 .custom-item {
     display: flex;
@@ -38,7 +35,7 @@
 }
 
 .cbp_tmtimeline li {
-    flex-basis: 20%; /* Ou qualquer outro valor para ajustar o tamanho de cada item */
+    flex-basis: 25%;
     list-style: none;
 }
 
@@ -47,10 +44,14 @@
     position: relative
 }
 
+.tam{
+    height: 100% !important;
+}
 
 .cbp_tmtimeline>li .cbp_tmlabel {
     margin: 0 0 15px 25%;
-    background-color: rgba(240, 241, 243, 0.6); /* Cor com transparência */
+    background-color: rgba(240, 241, 243, 0.6);
+    /* Cor com transparência */
     padding: 1.2em;
     position: relative;
     border-radius: 5px;
@@ -59,7 +60,7 @@
 .cbp_tmtimeline>li .cbp_tmlabel h2 {
     margin: 0px;
     padding: 0 0 10px 0;
-    line-height: 26px;
+    line-height: 20px;
     font-size: 20px;
     font-weight: normal
 }
@@ -87,6 +88,44 @@
     margin: 0 0 0 -25px
 }
 
-.click{
-    cursor: pointer; 
+.click {
+    cursor: pointer;
+}
+
+.custom-progress::-webkit-progress-value {
+    background-color: green;
+}
+
+.custom-progress::-webkit-progress-value[style*="35%"] {
+    background-color: yellow;
+}
+
+.custom-progress::-webkit-progress-value[style*="75%"] {
+    background-color: red;
+}
+
+.progress-wrapper {
+    position: relative;
+    width: 100%;
+    height: 20px;
+}
+
+.progress-bar-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.custom-progress {
+    width: 100%;
+    height: 100%;
+}
+
+.progress-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 14px;
+    color: white;
 }

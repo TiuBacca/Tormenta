@@ -248,7 +248,7 @@ public class PersonagemServiceImpl implements PersonagemService {
 			throw new RegistroIncompletoException("Necessário informar o e-mail do usuário.");
 		}
 
-		return personagemRepository.findByUsuarioEmail(Util.criptografar(request.getEmail()));
+		return personagemRepository.findByUsuarioEmail(request.getEmail());
 	}
 
 	private void validaSalvar(PersonagemRequest request) throws Exception {

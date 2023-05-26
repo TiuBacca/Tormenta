@@ -13,4 +13,6 @@ public interface TendenciaService {
 
 	List<TendenciaResponse> buscarListaTendencias();
 
+	List<TendenciaResponse> buscarListaTendenciasByFiltro(TendenciaRequest request)  throws Exception;
+
 }

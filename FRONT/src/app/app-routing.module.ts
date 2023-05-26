@@ -6,6 +6,8 @@ import { PersonagemComponent } from './pages/personagem/personagem.component';
 import { UsuarioComponent } from './pages/usuario/usuario.component';
 import { ClasseComponent } from './pages/classe/classe.component';
 import { RacaComponent } from './pages/raca/raca.component';
+import { TendenciaComponent } from './pages/tendencia/tendencia.component';
+
 
 
 
@@ -15,9 +17,8 @@ const routes: Routes = [
   { path: "personagens", component: PersonagemComponent},
   { path: "usuarios", component: UsuarioComponent},
   { path: "classes", component: ClasseComponent},
-  { path: "racas", component: RacaComponent}
-
-
+  { path: "racas", component: RacaComponent},
+  { path: "tendencias", component: TendenciaComponent}
 
 ];
 

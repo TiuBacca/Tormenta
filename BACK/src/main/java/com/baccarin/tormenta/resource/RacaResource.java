@@ -16,6 +16,9 @@ import com.baccarin.tormenta.exception.RegistroIncompletoException;
 import com.baccarin.tormenta.exception.RegistroNaoEncontradoException;
 import com.baccarin.tormenta.service.RacaService;
 import com.baccarin.tormenta.vo.ResponseGenerico;
+import com.baccarin.tormenta.vo.classe.ClasseRequest;
+import com.baccarin.tormenta.vo.habilidade.HabilidadeClasseResponse;
+import com.baccarin.tormenta.vo.habilidade.HabilidadeRacaResponse;
 import com.baccarin.tormenta.vo.raca.RacaFiltro;
 import com.baccarin.tormenta.vo.raca.RacaRequest;
 import com.baccarin.tormenta.vo.raca.RacaResponse;
@@ -63,6 +66,16 @@ public class RacaResource {
 		List<RacaResponse> racas = racaService.buscaListaRacaByFiltro(request);
 		if (Objects.nonNull(racas) && !racas.isEmpty()) {
 			return new ResponseEntity<List<RacaResponse>>(racas, HttpStatus.OK);
+		}
+		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+	}
+
+	@PostMapping(path = "buscaLista/habilidades")
+	public ResponseEntity<List<HabilidadeRacaResponse>> buscaListaHabilidadesByRaca(@RequestBody ClasseRequest request)
+			throws Exception {
+		List<HabilidadeRacaResponse> habilidades = racaService.buscaListaHabilidadesByRaca(request);
+		if (Objects.nonNull(habilidades) && !habilidades.isEmpty()) {
+			return new ResponseEntity<List<HabilidadeRacaResponse>>(habilidades, HttpStatus.OK);
 		}
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}

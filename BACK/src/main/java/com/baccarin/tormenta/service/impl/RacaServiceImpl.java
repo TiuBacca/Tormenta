@@ -1,21 +1,28 @@
 package com.baccarin.tormenta.service.impl;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
+import com.baccarin.tormenta.domain.HabilidadeRaca;
 import com.baccarin.tormenta.domain.Raca;
 import com.baccarin.tormenta.exception.RegistroComRelacionamentoException;
 import com.baccarin.tormenta.exception.RegistroDuplicadoException;
 import com.baccarin.tormenta.exception.RegistroIncompletoException;
 import com.baccarin.tormenta.exception.RegistroNaoEncontradoException;
+import com.baccarin.tormenta.repository.HabilidadeRacaRepository;
 import com.baccarin.tormenta.repository.RacaRepository;
 import com.baccarin.tormenta.resource.PersonagemFiltro;
 import com.baccarin.tormenta.service.PersonagemService;
 import com.baccarin.tormenta.service.RacaService;
 import com.baccarin.tormenta.util.Util;
+import com.baccarin.tormenta.vo.classe.ClasseRequest;
+import com.baccarin.tormenta.vo.habilidade.HabilidadeClasseResponse;
+import com.baccarin.tormenta.vo.habilidade.HabilidadeRacaResponse;
 import com.baccarin.tormenta.vo.personagem.PersonagemResponse;
 import com.baccarin.tormenta.vo.raca.RacaFiltro;
 import com.baccarin.tormenta.vo.raca.RacaRequest;
@@ -31,6 +38,7 @@ import lombok.RequiredArgsConstructor;
 public class RacaServiceImpl implements RacaService {
 
 	private final RacaRepository racaRepository;
+	private final HabilidadeRacaRepository habilidadeRacaRepository;
 	private final PersonagemService personagemService;
 
 	private final Util util;
@@ -38,7 +46,21 @@ public class RacaServiceImpl implements RacaService {
 	@Override
 	public void salvarRaca(RacaRequest request) throws Exception {
 		validaSalvarRaca(request);
-		racaRepository.save(Raca.builder().nome(request.getNome()).build());
+		Raca raca = new Raca();
+
+		if (Objects.nonNull(request.getId()) && request.getId() != 0) {
+			raca.setId(request.getId());
+		}
+
+		if (StringUtils.isNotBlank(request.getNome())) {
+			raca.setNome(request.getNome());
+		}
+
+		if (StringUtils.isNotBlank(request.getDescricao())) {
+			raca.setDescricao(request.getDescricao());
+		}
+
+		racaRepository.save(raca);
 	}
 
 	@Override
@@ -55,7 +77,8 @@ public class RacaServiceImpl implements RacaService {
 	public List<RacaResponse> buscaListaRacaByFiltro(RacaFiltro filtro) {
 
 		StringBuilder sb = new StringBuilder();
-		sb.append("select new com.baccarin.tormenta.vo.raca.RacaResponse( r.id, r.nome, r.descricao ) from Raca r where r.id > 0 ");
+		sb.append(
+				"select new com.baccarin.tormenta.vo.raca.RacaResponse( r.id, r.nome, r.descricao ) from Raca r where r.id > 0 ");
 
 		if (StringUtils.isNotBlank(filtro.getNome())) {
 			sb.append(" AND UPPER(r.nome) ilike UPPER(:nome) ");
@@ -72,14 +95,24 @@ public class RacaServiceImpl implements RacaService {
 	}
 
 	private void validaSalvarRaca(RacaRequest request) throws Exception {
-		if (Objects.isNull(request.getNome()) || request.getNome().isBlank()) {
-			throw new RegistroIncompletoException("Atributo nome faltando para salvar raça.");
+
+		if (Objects.nonNull(request.getId()) && request.getId() != 0) {
+			racaRepository.findById(request.getId())
+					.orElseThrow(() -> new RegistroNaoEncontradoException("Raça não encontrada."));
 		} else {
+			if (StringUtils.isBlank(request.getNome())) {
+				throw new RegistroIncompletoException("Atributo nome faltando para salvar raça.");
+			}
+			if (StringUtils.isBlank(request.getDescricao())) {
+				throw new RegistroIncompletoException("Atributo descrição faltando para salvar raça.");
+			}
+
 			List<RacaResponse> lista = buscaListaRacaByFiltro(RacaFiltro.builder().nome(request.getNome()).build());
 			if (Objects.nonNull(lista) && !lista.isEmpty()) {
 				throw new RegistroDuplicadoException("Raça ja cadastrada.");
 			}
 		}
+
 	}
 
 	private void validarExcluirRaca(RacaRequest request) throws Exception {
@@ -100,6 +133,21 @@ public class RacaServiceImpl implements RacaService {
 			throw new RegistroIncompletoException("Atributo id faltando para excluir raça.");
 		}
 
+	}
+
+	@Override
+	public List<HabilidadeRacaResponse> buscaListaHabilidadesByRaca(ClasseRequest request) throws Exception {
+		if (Objects.nonNull(request.getId()) && request.getId() != 0) {
+			Raca raca = racaRepository.findById(request.getId())
+					.orElseThrow(() -> new RegistroNaoEncontradoException("Raça não encontrada."));
+			List<HabilidadeRaca> lista = habilidadeRacaRepository.findByRaca(raca);
+			List<HabilidadeRacaResponse> habilidadesResponse = lista.stream().map(habilidade -> {
+				return new HabilidadeRacaResponse(habilidade);
+			}).collect(Collectors.toList());
+			return habilidadesResponse;
+		}
+
+		return Collections.emptyList();
 	}
 
 }

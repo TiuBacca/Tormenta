@@ -36,6 +36,13 @@ public class PersonagemResponse {
 		this.descricaoClasse = descricaoClasse;
 		this.descricaoRaca = descricaoRaca;
 	}
+	
+	public PersonagemResponse(Long id, String nome, String descricaoClasse, String descricaoRaca, Integer nivel, Integer vidaAtual, Integer vidaTotal) {
+		this(id, nome, descricaoClasse, descricaoRaca);
+		this.nivel = nivel;
+		this.vidaAtual = vidaAtual;
+		this.vidaTotal = vidaTotal;
+	}
 
 	public PersonagemResponse(Long id, String nome, String descricaoClasse, String descricaoRaca, Integer fortitude,
 			Integer reflexo, Integer vontade, Integer nivel) {
