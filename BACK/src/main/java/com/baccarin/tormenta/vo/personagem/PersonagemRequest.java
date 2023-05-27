@@ -1,7 +1,10 @@
 package com.baccarin.tormenta.vo.personagem;
 
+import com.baccarin.tormenta.vo.classe.ClasseRequest;
 import com.baccarin.tormenta.vo.classeArmadura.ClasseArmaduraRequest;
 import com.baccarin.tormenta.vo.habilidade.HabilidadeRequest;
+import com.baccarin.tormenta.vo.raca.RacaRequest;
+import com.baccarin.tormenta.vo.tendencia.TendenciaRequest;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -15,9 +18,9 @@ import lombok.NoArgsConstructor;
 public class PersonagemRequest {
 
 	private Long id;
-	private Long idRaca;
-	private Long idClasse;
-	private Long idTendencia;
+	private RacaRequest raca;
+	private ClasseRequest classe;
+	private TendenciaRequest tendencia;
 
 	private String nome;
 	private String sexo;

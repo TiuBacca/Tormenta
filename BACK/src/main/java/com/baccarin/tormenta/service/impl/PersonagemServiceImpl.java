@@ -27,6 +27,7 @@ import com.baccarin.tormenta.vo.classe.ClasseRequest;
 import com.baccarin.tormenta.vo.personagem.PersonagemRequest;
 import com.baccarin.tormenta.vo.personagem.PersonagemResponse;
 import com.baccarin.tormenta.vo.raca.RacaRequest;
+import com.baccarin.tormenta.vo.tendencia.TendenciaRequest;
 import com.baccarin.tormenta.vo.usuario.UsuarioRequest;
 
 import jakarta.persistence.TypedQuery;
@@ -59,9 +60,9 @@ public class PersonagemServiceImpl implements PersonagemService {
 		StringBuilder sb = new StringBuilder();
 
 		sb.append(" select new com.baccarin.tormenta.vo.personagem.PersonagemResponse"
-				+ " ( p.id, p.nome, classe.nome, raca.nome, p.fortitude, p.reflexo,"
+				+ " ( p.id, p.nome, classe.id, classe.nome, raca.id, raca.nome, t.id, t.descricao,  p.fortitude, p.reflexo,"
 				+ " p.vontade, p.nivel , p.vidaAtual, p.vidaTotal, p.sexo) "
-				+ " from Personagem p join p.classe classe join p.raca raca where p.id > 0 ");
+				+ " from Personagem p join p.classe classe join p.raca raca join p.tendencia t where p.id > 0 ");
 
 		if (Objects.nonNull(request.getClasses()) && !request.getClasses().isEmpty()) {
 			sb.append(" AND classe.id in ( :idsClasse ) ");
@@ -75,12 +76,14 @@ public class PersonagemServiceImpl implements PersonagemService {
 			sb.append(" AND p.usuario.id in ( :idsUsuarios )");
 		}
 
+		if (Objects.nonNull(request.getTendencias()) && !request.getTendencias().isEmpty()) {
+			sb.append(" AND p.tendencia.id in ( :idsTendencias )");
+		}
+
 		if (Objects.nonNull(request.getId()) && request.getId() != 0) {
 			sb.append(" AND p.id = :idPersonagem ");
 		}
 
-		
-		
 		TypedQuery<PersonagemResponse> query = util.getEntityManager().createQuery(sb.toString(),
 				PersonagemResponse.class);
 
@@ -103,9 +106,11 @@ public class PersonagemServiceImpl implements PersonagemService {
 					request.getUsuarios().stream().map(UsuarioRequest::getId).collect(Collectors.toList()));
 
 		}
-		
-		
-		
+
+		if (Objects.nonNull(request.getTendencias()) && !request.getTendencias().isEmpty()) {
+			query.setParameter("idsTendencias",
+					request.getTendencias().stream().map(TendenciaRequest::getId).collect(Collectors.toList()));
+		}
 
 		return query.getResultList();
 	}
@@ -136,16 +141,19 @@ public class PersonagemServiceImpl implements PersonagemService {
 			personagem.setSexo(sexo);
 		}
 
-		if (Objects.nonNull(request.getIdRaca()) && request.getIdRaca() != 0) {
-			personagem.setRaca(racaRepository.findById(request.getIdRaca()).get());
+		if (Objects.nonNull(request.getRaca()) && Objects.nonNull(request.getRaca().getId())
+				&& request.getRaca().getId() != 0) {
+			personagem.setRaca(racaRepository.findById(request.getRaca().getId()).get());
 		}
 
-		if (Objects.nonNull(request.getIdClasse()) && request.getIdClasse() != 0) {
-			personagem.setClasse(classeRepository.findById(request.getIdClasse()).get());
+		if (Objects.nonNull(request.getClasse()) && Objects.nonNull(request.getClasse().getId())
+				&& request.getClasse().getId() != 0) {
+			personagem.setClasse(classeRepository.findById(request.getClasse().getId()).get());
 		}
 
-		if (Objects.nonNull(request.getIdTendencia()) && request.getIdTendencia() != 0) {
-			personagem.setTendencia(tendenciaRepository.findById(request.getIdTendencia()).get());
+		if (Objects.nonNull(request.getTendencia()) && Objects.nonNull(request.getTendencia().getId())
+				&& request.getTendencia().getId() != 0) {
+			personagem.setTendencia(tendenciaRepository.findById(request.getTendencia().getId()).get());
 		}
 
 		if ((Objects.nonNull(request.getFortitude()) && request.getFortitude() != 0)) {
@@ -264,22 +272,25 @@ public class PersonagemServiceImpl implements PersonagemService {
 				throw new RegistroIncompletoException("Atributo sexo faltando para salvar personagem.");
 			}
 
-			if (Objects.nonNull(request.getIdRaca()) && request.getIdRaca() != 0) {
-				racaRepository.findById(request.getIdRaca())
+			if (Objects.nonNull(request.getRaca()) && Objects.nonNull(request.getRaca().getId())
+					&& request.getRaca().getId() != 0) {
+				racaRepository.findById(request.getRaca().getId())
 						.orElseThrow(() -> new RegistroNaoEncontradoException("Raça não encontrada!"));
 			} else {
 				throw new RegistroIncompletoException("Atributo raça faltando para salvar personagem.");
 			}
 
-			if (Objects.nonNull(request.getIdClasse()) && request.getIdClasse() != 0) {
-				classeRepository.findById(request.getIdClasse())
+			if (Objects.nonNull(request.getClasse()) && Objects.nonNull(request.getClasse().getId())
+					&& request.getClasse().getId() != 0) {
+				classeRepository.findById(request.getClasse().getId())
 						.orElseThrow(() -> new RegistroNaoEncontradoException("Classe não encontrada!"));
 			} else {
 				throw new RegistroIncompletoException("Atributo classe faltando para salvar personagem.");
 			}
 
-			if (Objects.nonNull(request.getIdTendencia()) && request.getIdTendencia() != 0) {
-				tendenciaRepository.findById(request.getIdTendencia())
+			if (Objects.nonNull(request.getTendencia()) && Objects.nonNull(request.getTendencia().getId())
+					&& request.getTendencia().getId() != 0) {
+				tendenciaRepository.findById(request.getTendencia().getId())
 						.orElseThrow(() -> new RegistroNaoEncontradoException("Tendencia não encontrada!"));
 			} else {
 				throw new RegistroIncompletoException("Atributo tendência faltando para salvar personagem.");

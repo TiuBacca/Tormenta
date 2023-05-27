@@ -19,4 +19,9 @@ public class RacaResponse {
 		this.nome = nome;
 	}
 
+	public RacaResponse(Long idRaca, String nome) {
+		this.id = idRaca;
+		this.nome = nome;
+	}
+
 }

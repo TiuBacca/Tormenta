@@ -133,7 +133,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 		List<PersonagemResponse> personagensAssociados = personagemService.buscaListaPersonagemByFiltro(filtro);
 		if (!personagensAssociados.isEmpty()) {
 			throw new RegistrosAssociadosException(
-					"Existem personagens associados a este usuário. Remover todos registros antes de remover o usuário.");
+					"Existem personagens associados a este usuário.	");
 		}
 	}
 }

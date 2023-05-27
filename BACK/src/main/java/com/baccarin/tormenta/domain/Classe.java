@@ -35,6 +35,9 @@ public class Classe {
 
 	@Column(name = "descricao")
 	private String descricao;
+	
+	@Column(name = "pontos_base_vida")
+	private Integer pontosBaseVida;
 
 	@OneToMany(mappedBy = "classe")
 	private List<HabilidadeClasse> habilidades = new ArrayList<>();

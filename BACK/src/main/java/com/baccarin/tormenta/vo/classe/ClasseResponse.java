@@ -15,4 +15,9 @@ public class ClasseResponse {
 	private String nome;
 	private String descricao;
 
+	public ClasseResponse(Long idClasse, String nome) {
+		this.id = idClasse;
+		this.nome = nome;
+	}
+
 }
