@@ -24,6 +24,7 @@ import com.baccarin.tormenta.resource.PersonagemFiltro;
 import com.baccarin.tormenta.service.PersonagemService;
 import com.baccarin.tormenta.util.Util;
 import com.baccarin.tormenta.vo.classe.ClasseRequest;
+import com.baccarin.tormenta.vo.personagem.PersonagemPericiaResponse;
 import com.baccarin.tormenta.vo.personagem.PersonagemRequest;
 import com.baccarin.tormenta.vo.personagem.PersonagemResponse;
 import com.baccarin.tormenta.vo.raca.RacaRequest;
@@ -60,8 +61,9 @@ public class PersonagemServiceImpl implements PersonagemService {
 		StringBuilder sb = new StringBuilder();
 
 		sb.append(" select new com.baccarin.tormenta.vo.personagem.PersonagemResponse"
-				+ " ( p.id, p.nome, classe.id, classe.nome, raca.id, raca.nome, t.id, t.descricao,  p.fortitude, p.reflexo,"
-				+ " p.vontade, p.nivel , p.vidaAtual, p.vidaTotal, p.sexo) "
+				+ " ( p.id, p.nome, classe.id, classe.nome, classe.pontosBaseVida, classe.pontosBaseAtaque, raca.id, raca.nome, t.id, t.descricao,  p.fortitude, p.reflexo,"
+				+ " p.vontade, p.nivel , p.vidaAtual, p.vidaTotal, p.sexo, p.habilidade.forca, p.habilidade.destreza, p.habilidade.constituicao,"
+				+ " p.habilidade.inteligencia, p.habilidade.sabedoria, p.habilidade.carisma) "
 				+ " from Personagem p join p.classe classe join p.raca raca join p.tendencia t where p.id > 0 ");
 
 		if (Objects.nonNull(request.getClasses()) && !request.getClasses().isEmpty()) {
@@ -315,6 +317,11 @@ public class PersonagemServiceImpl implements PersonagemService {
 			}
 		}
 
+	}
+
+	@Override
+	public List<PersonagemPericiaResponse> buscarListaPericiasByPersonagem(PersonagemRequest request) throws Exception {
+		return personagemRepository.buscaListaPersonagemPericia(request.getId());
 	}
 
 }

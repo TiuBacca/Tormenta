@@ -109,23 +109,23 @@ export class PersonagemService {
   }
 
 
-  buscarListaHabilidadeClasse(idPersonagem: number): Observable<any> {
-    return this.http.post<any>(`${this.baseUrl}/habilidade/classe`, {}).pipe(
+  buscarListaHabilidadeClasse(classe: any): Observable<any> {
+    return this.http.post<any>(`${this.baseUrl}/classe/buscaLista/habilidades`, classe).pipe(
       map((response) => response),
       catchError(async (error) => this.erroHandler(error))
     );
   }
 
 
-  buscarListaHabilidadeRaca(idPersonagem: number): Observable<any> {
-    return this.http.post<any>(`${this.baseUrl}/habilidade/raca`, {}).pipe(
+  buscarListaHabilidadeRaca(raca: any): Observable<any> {
+    return this.http.post<any>(`${this.baseUrl}/raca/buscaLista/habilidades`, raca).pipe(
       map((response) => response),
       catchError(async (error) => this.erroHandler(error))
     );
   }
 
   buscarListaPericias(idPersonagem: number): Observable<any> {
-    return this.http.post<any>(`${this.baseUrl}/pericia/buscaLista/byFiltro`, {}).pipe(
+    return this.http.post<any>(`${this.baseUrl}/personagem/buscaLista/pericias`, {}).pipe(
       map((response) => response),
       catchError(async (error) => this.erroHandler(error))
     );
@@ -133,6 +133,14 @@ export class PersonagemService {
 
   salvarPersonagem(personagem: any): Observable<any> {
     return this.http.post<any>(`${this.baseUrl}/personagem/salvar`, personagem).pipe(
+      map((response) => response),
+      catchError(async (error) => this.erroHandler(error))
+    );
+  }
+
+
+  removerPersonagem(personagem: any): Observable<any> {
+    return this.http.post<any>(`${this.baseUrl}/personagem/excluir`, personagem).pipe(
       map((response) => response),
       catchError(async (error) => this.erroHandler(error))
     );

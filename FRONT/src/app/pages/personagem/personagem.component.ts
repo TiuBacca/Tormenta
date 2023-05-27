@@ -61,7 +61,9 @@ export class PersonagemComponent implements OnInit {
     },
     classe: {
       id: 0,
-      nome: ""
+      nome: "",
+      pontosBaseVida: 0,
+      pontosBaseAtaque: 0
     },
     tendencia: {
       id: 0,
@@ -91,7 +93,9 @@ export class PersonagemComponent implements OnInit {
     },
     classe: {
       id: 0,
-      nome: ""
+      nome: "",
+      pontosBaseVida: 0,
+      pontosBaseAtaque: 0
     },
     tendencia: {
       id: 0,
@@ -337,7 +341,35 @@ export class PersonagemComponent implements OnInit {
     };
   }
 
-  excluirPersonagem(idPersonagem: any) {
+  excluirPersonagem(personagem: any) {
+
+    Swal.fire({
+      title: `Você realmente deseja excluir o personagem?`,
+      showDenyButton: false,
+      showCancelButton: true,
+      cancelButtonText: 'Cancelar',
+      confirmButtonText: 'Excluir',
+      confirmButtonColor: '#ff1100',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.personagemService.removerPersonagem(personagem).subscribe((response) => {
+          if (response) {
+            this.listaPersonagens = response;
+            this.fecharModalNovoPersonagem();
+            this.notificacaoSucesso("Personagem removido com sucesso.");
+            setTimeout(() => {
+              this.executarPesquisaByFiltro();
+            }, 50);
+          } else {
+            console.log(response)
+            this.mensagemError("Erro ao remover personagem.")
+          }
+        });
+      }
+    })
+
+
+
 
   }
 
@@ -378,24 +410,24 @@ export class PersonagemComponent implements OnInit {
   }
 
   // INICIO CORPO A CORPO
-  openModalCorpoCorpo(idPersonagem: any) {
+  openModalCorpoCorpo() {
     this.modalVisualizarPersonagem.hide();
-    this.personagemService.buscarListaInfoCorpoCorpo(idPersonagem).subscribe((response) => {
-      this.infoCorpoACorpo = response;
-    });
-
     this.modalCorpoCorpo.show();
+  }
+
+  calculaTotalCorpoCorpo(){
+    return this.personagemEditar.classe.pontosBaseAtaque + this.getModificador(this.personagemEditar.forca) + 0 + 0 ;
   }
   // FIM CORPO A CORPO
 
   // INICIO DISTANCIA
-  openModalDistancia(idPersonagem: any) {
+  openModalDistancia() {
     this.modalVisualizarPersonagem.hide();
-    this.personagemService.buscarListaInfoDistancia(idPersonagem).subscribe((response) => {
-      this.infoCorpoACorpo = response;
-    });
-
     this.modalVisualizarDistancia.show();
+  }
+
+  calculaTotalDistancia(){
+    return this.personagemEditar.classe.pontosBaseAtaque + this.getModificador(this.personagemEditar.destreza) + 0 + 0 ;
   }
   // FIM DISTANCIA
 
@@ -441,11 +473,12 @@ export class PersonagemComponent implements OnInit {
   // INICIO HABILIDADES 
 
   openModalHabilidades(personagem: any) {
-    this.personagemService.buscarListaHabilidadeClasse(personagem).subscribe((response) => {
+    console.log(personagem)
+    this.personagemService.buscarListaHabilidadeClasse(personagem.classe).subscribe((response) => {
       this.listaHabilidadesClasse = response;
     });
 
-    this.personagemService.buscarListaHabilidadeRaca(personagem).subscribe((response) => {
+    this.personagemService.buscarListaHabilidadeRaca(personagem.raca).subscribe((response) => {
       this.listaHabilidadesRaca = response;
     });
 
@@ -474,7 +507,7 @@ export class PersonagemComponent implements OnInit {
       id: 0,
       nome: '',
       raca: { id: 0, nome: '' },
-      classe: { id: 0, nome: '' },
+      classe: { id: 0, nome: "",  pontosBaseVida: 0, pontosBaseAtaque: 0  },
       tendencia: { id: 0, nome: '' },
       fortitude: 0,
       reflexo: 0,
@@ -530,6 +563,11 @@ export class PersonagemComponent implements OnInit {
     this.calcularPontosDeVidaBase();
     this.calcularResistencias();
     this.calcularClasseArmadura();
+    this.calcularAtaqueCorpoCorpo();
+  }
+
+  calcularAtaqueCorpoCorpo(){
+    const ataqueCorpoCorpo = this.personagemEditar.classe.pontosBaseAtaque +  this.getModificador(this.personagemEditar.forca) + 0 + 0;
   }
 
   calcularResistencias(){

@@ -89,24 +89,15 @@ public class PersonagemResource {
 		return new ResponseEntity<List<String>>(lista, HttpStatus.OK);
 	}
 
-	// TODO
-	@PostMapping(path = "infoCorpoACorpo")
-	public ResponseEntity<InfoCorpoCorpoResponse> informacoesCorpoACorpo(@RequestBody PersonagemRequest request)
-			throws Exception {
-		return new ResponseEntity<InfoCorpoCorpoResponse>(new InfoCorpoCorpoResponse(1l, 2, 1, 3, 0), HttpStatus.OK);
-	}
 
-	// TODO
-	@PostMapping(path = "infoDistancia")
-	public ResponseEntity<InfoCorpoCorpoResponse> informacoesDistancia(@RequestBody PersonagemRequest request)
+	@PostMapping(path = "buscaLista/pericias")
+	public ResponseEntity<List<PersonagemPericiaResponse>> buscarListaPericiasByPersonagem(@RequestBody PersonagemRequest request)
 			throws Exception {
-		return new ResponseEntity<InfoCorpoCorpoResponse>(new InfoCorpoCorpoResponse(1l, 1, 4, 2, 1), HttpStatus.OK);
-	}
-
-	@PostMapping(path = "pericias")
-	public ResponseEntity<List<PersonagemPericiaResponse>> buscarListaPericias(@RequestBody PersonagemRequest request)
-			throws Exception {
-		return new ResponseEntity<List<PersonagemPericiaResponse>>(Collections.emptyList(), HttpStatus.OK);
+		List<PersonagemPericiaResponse> pericias = personagemService.buscarListaPericiasByPersonagem(request);
+		if (Objects.nonNull(pericias) && !pericias.isEmpty()) {
+			return new ResponseEntity<List<PersonagemPericiaResponse>>(pericias, HttpStatus.OK);
+		}
+		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
 
 }

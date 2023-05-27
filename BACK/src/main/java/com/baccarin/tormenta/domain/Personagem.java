@@ -1,5 +1,7 @@
 package com.baccarin.tormenta.domain;
 
+import java.util.List;
+
 import com.baccarin.tormenta.enums.Sexo;
 
 import jakarta.persistence.CascadeType;
@@ -13,6 +15,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -81,8 +84,11 @@ public class Personagem {
 	@Column(name = "tamanho")
 	private Double tamanho;
 
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "personagem")
+	List<PericiaPersonagem> percias;
+
 	public Personagem() {
-		
+
 		this.habilidade = new Habilidade();
 		this.tendencia = new Tendencia();
 		this.raca = new Raca();

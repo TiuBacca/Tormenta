@@ -89,7 +89,7 @@ public class ClasseServiceImpl implements ClasseService {
 	public List<ClasseResponse> buscarListaClassesByFiltro(ClasseRequest request) throws Exception {
 		StringBuilder sb = new StringBuilder();
 
-		sb.append(" select new com.baccarin.tormenta.vo.classe.ClasseResponse ( c.id, c.nome , c.descricao ) "
+		sb.append(" select new com.baccarin.tormenta.vo.classe.ClasseResponse ( c.id, c.nome , c.descricao  , COALESCE( c.pontosBaseVida, 0),  COALESCE (c.pontosBaseAtaque,0) ) "
 				+ " from Classe c where c.id > 0");
 
 		if (StringUtils.isNotBlank(request.getNome())) {

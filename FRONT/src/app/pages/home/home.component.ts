@@ -37,14 +37,6 @@ export class HomeComponent implements OnInit {
 
   getProgressBarColor(retorno: any): string {
     const percentage = (retorno.vidaAtual / retorno.vidaTotal) * 100;
-    // if (percentage <= 35) {
-    //   return 'red';
-    // } else if (percentage <= 75) {
-    //   return 'yellow';
-    // } else {
-    //   return 'green';
-    // }
-  
     if (percentage <= 35) {
       return 'linear-gradient(to right, red, red)';
     } else if (percentage <= 75) {

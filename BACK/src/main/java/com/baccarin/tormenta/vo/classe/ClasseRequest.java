@@ -14,4 +14,6 @@ public class ClasseRequest {
 	private Long id;
 	private String nome;
 	private String descricao;
+	private Integer pontosBaseVida;
+	private Integer pontosBaseAtaque;
 }

@@ -26,13 +26,17 @@ export class ClasseComponent implements OnInit {
   classe = {
     id: 0,
     nome: '',
-    descricao: ''
+    descricao: '',
+    pontosBaseAtaque: 0,
+    pontosBaseVida: 0
   }
 
   classeEdicao = {
     id: 0,
     nome: '',
-    descricao: ''
+    descricao: '',
+    pontosBaseAtaque: 0,
+    pontosBaseVida: 0
   }
 
 
@@ -124,7 +128,9 @@ export class ClasseComponent implements OnInit {
     this.classeEdicao = {
       id: this.classe.id,
       nome: this.classe.nome,
-      descricao: this.classe.descricao
+      descricao: this.classe.descricao,
+      pontosBaseAtaque: this.classe.pontosBaseAtaque,
+      pontosBaseVida: this.classe.pontosBaseVida
     }
   }
 
@@ -138,7 +144,9 @@ export class ClasseComponent implements OnInit {
     this.classe = {
       id: 0,
       nome: '',
-      descricao: ''
+      descricao: '',   
+      pontosBaseAtaque: 0,
+      pontosBaseVida: 0
     }
   }
 

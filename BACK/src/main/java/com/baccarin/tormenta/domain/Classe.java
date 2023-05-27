@@ -35,9 +35,12 @@ public class Classe {
 
 	@Column(name = "descricao")
 	private String descricao;
-	
+
 	@Column(name = "pontos_base_vida")
 	private Integer pontosBaseVida;
+
+	@Column(name = "pontos_base_ataque")
+	private Integer pontosBaseAtaque;
 
 	@OneToMany(mappedBy = "classe")
 	private List<HabilidadeClasse> habilidades = new ArrayList<>();
@@ -55,5 +58,12 @@ public class Classe {
 			this.descricao = request.getDescricao();
 		}
 
+		if (Objects.nonNull(request.getPontosBaseAtaque())) {
+			this.pontosBaseAtaque = request.getPontosBaseAtaque();
+		}
+
+		if (Objects.nonNull(request.getPontosBaseVida())) {
+			this.pontosBaseVida = request.getPontosBaseVida();
+		}
 	}
 }
