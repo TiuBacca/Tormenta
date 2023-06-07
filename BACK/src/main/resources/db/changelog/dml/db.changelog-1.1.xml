@@ -1,0 +1,494 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+	xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd
+        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+	<changeSet id="tormenta-dml_1.1_01"
+		author="guilherme.baccarin">
+		<preConditions onFail="MARK_RAN" onError="MARK_RAN">
+
+			<sqlCheck expectedResult="0">SELECT COUNT(*) FROM
+			tormenta.habilidade_classe
+			</sqlCheck>
+
+		</preConditions>
+		<comment> Inserindo registros das HABILIDADES DE CLASSE  </comment>
+		<sql>
+		
+				-- Habilidades de classe do Guerreiro
+		INSERT INTO tormenta.habilidade_classe (classe_id, nome_habilidade, descricao)
+		VALUES ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Guerreiro'), 'Ataque Poderoso', 'Desfere um poderoso ataque que causa dano adicional.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Guerreiro'), 'Golpe Esmagador', 'Realiza um golpe poderoso que pode derrubar o oponente.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Guerreiro'), 'Defesa Total', 'Adota uma postura defensiva que aumenta a resistência a ataques inimigos.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Guerreiro'), 'Investida Feroz', 'Avança rapidamente em direção ao alvo, causando dano e interrompendo suas ações.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Guerreiro'), 'Bônus de Precisão', 'Aprimora a habilidade de acertar o alvo, concedendo um bônus nas jogadas de ataque.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Guerreiro'), 'Arma Especializada', 'Obtém habilidades especiais ao utilizar uma arma específica.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Guerreiro'), 'Ripostar', 'Reage rapidamente a um ataque inimigo, realizando um contra-ataque.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Guerreiro'), 'Ataque Furioso', 'Desfere uma sequência rápida de ataques, causando dano adicional.');
+		
+		-- Habilidades de classe do Mago
+		INSERT INTO tormenta.habilidade_classe (classe_id, nome_habilidade, descricao)
+		VALUES ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Mago'), 'Bola de Fogo', 'Invoca uma esfera de fogo que explode ao atingir o alvo, causando dano em uma área.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Mago'), 'Raio de Gelo', 'Dispara um raio de gelo que causa dano e pode congelar o alvo temporariamente.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Mago'), 'Escudo Arcano', 'Cria um escudo mágico que absorve parte do dano recebido.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Mago'), 'Teletransporte', 'Desaparece instantaneamente de um local e reaparece em outro.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Mago'), 'Invocação Elemental', 'Invoca um elemental para auxiliar em batalha.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Mago'), 'Leitura de Mentes', 'Obtém conhecimento sobre os pensamentos e intenções de uma criatura.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Mago'), 'Distorção da Realidade', 'Causa uma distorção no tecido da realidade, afetando o tempo e o espaço.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Mago'), 'Transformação', 'Altera sua forma física, adquirindo habilidades especiais.');
+		
+		-- Habilidades de classe do Ladrão
+		INSERT INTO tormenta.habilidade_classe (classe_id, nome_habilidade, descricao)
+		VALUES ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Ladrão'), 'Golpe Silencioso', 'Realiza um ataque furtivo que causa dano adicional e reduz a chance de detecção.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Ladrão'), 'Arrombamento', 'Habilidade de abrir fechaduras e desarmar armadilhas.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Ladrão'), 'Furtividade', 'Torna-se invisível aos olhos dos inimigos, aumentando a chance de sucesso em ações sorrateiras.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Ladrão'), 'Evasão', 'Esquiva-se habilmente dos ataques inimigos, diminuindo o dano recebido.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Ladrão'), 'Pungar', 'Realiza um rápido movimento para roubar um objeto ou pegar uma pessoa desprevenida.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Ladrão'), 'Camuflagem', 'Torna-se praticamente invisível, mesclando-se ao ambiente.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Ladrão'), 'Assassino', 'Obtém habilidades especiais para realizar ataques mortais e silenciosos.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Ladrão'), 'Esquiva Sobrenatural', 'Esquiva-se de ataques de forma quase sobrenatural, diminuindo a chance de ser atingido.');
+		       
+		       -- Habilidades de classe do Sacerdote
+		INSERT INTO tormenta.habilidade_classe (classe_id, nome_habilidade, descricao)
+		VALUES ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Sacerdote'), 'Cura', 'Recupera pontos de vida de um alvo, restaurando sua saúde.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Sacerdote'), 'Escudo Divino', 'Cria um escudo protetor que absorve dano mágico e físico.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Sacerdote'), 'Benção', 'Concede bênçãos divinas aos aliados, aumentando seus atributos temporariamente.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Sacerdote'), 'Maldição', 'Lança uma maldição sobre um inimigo, prejudicando seus atributos ou causando efeitos negativos.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Sacerdote'), 'Invocação Sagrada', 'Invoca entidades divinas para auxiliar em batalha.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Sacerdote'), 'Proteção Divina', 'Concede proteção divina aos aliados, aumentando sua resistência a ataques.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Sacerdote'), 'Círculo de Cura', 'Cria um círculo mágico de cura que restaura a saúde de todos que estiverem dentro dele.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Sacerdote'), 'Exorcismo', 'Realiza um ritual de exorcismo para banir entidades malignas ou possessões.');
+		
+		-- Habilidades de classe do Bárbaro
+		INSERT INTO tormenta.habilidade_classe (classe_id, nome_habilidade, descricao)
+		VALUES ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Bárbaro'), 'Fúria', 'Entra em um estado de fúria que aumenta seu poder de ataque e resistência, mas reduz sua defesa.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Bárbaro'), 'Investida Selvagem', 'Avança rapidamente em direção ao alvo, causando dano adicional e empurrando-o.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Bárbaro'), 'Grito de Guerra', 'Emite um poderoso grito que inspira os aliados, concedendo bônus temporários.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Bárbaro'), 'Desarmar', 'Realiza um golpe poderoso para desarmar o oponente.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Bárbaro'), 'Intimidação', 'Usa sua presença imponente para intimidar os inimigos, diminuindo sua chance de acerto.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Bárbaro'), 'Golpe Atordoante', 'Desfere um golpe poderoso que pode atordoar o alvo temporariamente.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Bárbaro'), 'Resistência Feroz', 'Aumenta a resistência a danos e efeitos negativos enquanto estiver em estado de fúria.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Bárbaro'), 'Esquiva Instintiva', 'Esquiva-se rapidamente de um ataque inimigo, diminuindo a chance de ser atingido.');
+		
+		-- Habilidades de classe do Paladino
+		INSERT INTO tormenta.habilidade_classe (classe_id, nome_habilidade, descricao)
+		VALUES ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Paladino'), 'Golpe Sagrado', 'Desfere um golpe sagrado que causa dano adicional a criaturas malignas.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Paladino'), 'Cura Abençoada', 'Recupera pontos de vida de um alvo, restaurando sua saúde com uma cura divina.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Paladino'), 'Proteção Divina', 'Invoca uma aura sagrada que concede proteção adicional contra ataques e efeitos negativos.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Paladino'), 'Bênção de Cura', 'Concede uma bênção divina que cura gradualmente os aliados próximos.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Paladino'), 'Luz Radiante', 'Emite uma luz radiante que causa dano a criaturas malignas e as cega temporariamente.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Paladino'), 'Julgamento Divino', 'Realiza um julgamento divino sobre um inimigo, causando dano sagrado e debilitando-o.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Paladino'), 'Aura de Cura', 'Emite uma aura de cura que restaura a saúde gradualmente dos aliados próximos.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Paladino'), 'Revitalização', 'Invoca uma energia divina para revitalizar e curar ferimentos graves dos aliados próximos.');
+		
+		-- Habilidades de classe do Ranger
+		INSERT INTO tormenta.habilidade_classe (classe_id, nome_habilidade, descricao)
+		VALUES ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Ranger'), 'Ataque Preciso', 'Realiza um ataque preciso que causa dano adicional e tem maior chance de acerto.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Ranger'), 'Rastreamento', 'Habilidade de rastrear criaturas e encontrar pistas no ambiente.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Ranger'), 'Flechas Especiais', 'Utiliza flechas especiais com efeitos adicionais, como veneno ou fogo.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Ranger'), 'Esquiva Sobrenatural', 'Esquiva-se de ataques de forma quase sobrenatural, diminuindo a chance de ser atingido.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Ranger'), 'Armadilhas', 'Habilidade de criar e desarmar armadilhas.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Ranger'), 'Ataque Furtivo', 'Realiza um ataque furtivo que causa dano adicional e reduz a chance de detecção.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Ranger'), 'Companheiro Animal', 'Invoca um animal de companhia que auxilia em batalha e fornece habilidades adicionais.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Ranger'), 'Emboscada', 'Surpreende o inimigo em uma emboscada, causando dano adicional e reduzindo sua chance de defesa.');
+		
+		-- Habilidades de classe do Feiticeiro
+		INSERT INTO tormenta.habilidade_classe (classe_id, nome_habilidade, descricao)
+		VALUES ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Feiticeiro'), 'Bola de Fogo', 'Invoca uma poderosa bola de fogo que causa dano em uma área.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Feiticeiro'), 'Raio Arcano', 'Dispara um raio de energia arcana que causa dano a um alvo.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Feiticeiro'), 'Invocação Elemental', 'Invoca um elemental para auxiliar em batalha.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Feiticeiro'), 'Escudo de Mana', 'Cria um escudo mágico que absorve dano mágico.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Feiticeiro'), 'Cone de Gelo', 'Lança um cone de gelo que causa dano em uma área e diminui a velocidade dos inimigos.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Feiticeiro'), 'Metamorfose', 'Transforma-se em uma criatura mágica, adquirindo habilidades especiais.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Feiticeiro'), 'Corrente Elétrica', 'Lança uma corrente elétrica que causa dano a vários inimigos.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Feiticeiro'), 'Teletransporte', 'Teletransporta-se instantaneamente para um local próximo.');
+		
+		-- Habilidades de classe do Bardo
+		INSERT INTO tormenta.habilidade_classe (classe_id, nome_habilidade, descricao)
+		VALUES ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Bardo'), 'Inspiração', 'Inspira os aliados com sua música, concedendo bônus temporários aos seus atributos.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Bardo'), 'Encantar', 'Encanta uma pessoa ou criatura, influenciando suas emoções e ações.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Bardo'), 'Desarmar Armadilhas', 'Habilidade de desarmar armadilhas com destreza e percepção.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Bardo'), 'Canção Curativa', 'Canta uma melodia de cura que restaura pontos de vida dos aliados.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Bardo'), 'Ilusão', 'Cria ilusões vívidas que enganam os sentidos dos observadores.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Bardo'), 'Ritual Arcano', 'Realiza rituais arcanos para criar efeitos mágicos variados.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Bardo'), 'Encantamento Vocal', 'Utiliza seu canto para encantar e hipnotizar os ouvintes, influenciando suas ações.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Bardo'), 'Roubo de Habilidades', 'Habilidade de roubar temporariamente habilidades e técnicas de outras pessoas.');
+		
+		-- Habilidades de classe do Patrulheiro
+		INSERT INTO tormenta.habilidade_classe (classe_id, nome_habilidade, descricao)
+		VALUES ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Patrulheiro'), 'Precisão com Arco', 'Possui uma precisão excepcional ao utilizar arcos, aumentando sua chance de acerto.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Patrulheiro'), 'Furtividade', 'Consegue se mover furtivamente e se esconder nas sombras sem ser detectado.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Patrulheiro'), 'Rastreamento Avançado', 'Habilidade aprimorada de rastrear criaturas e encontrar pistas no ambiente.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Patrulheiro'), 'Ataque em Movimento', 'Realiza ataques precisos enquanto se movimenta, diminuindo a chance de ser atingido.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Patrulheiro'), 'Flechas Envenenadas', 'Utiliza flechas com veneno letal que causa dano adicional ao acertar o alvo.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Patrulheiro'), 'Instinto de Sobrevivência', 'Possui um instinto aguçado para identificar perigos e armadilhas no ambiente.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Patrulheiro'), 'Mestre do Arco', 'Dominou o arco e possui habilidades únicas para utilizá-lo com maestria.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Patrulheiro'), 'Mira Fatal', 'Possui uma mira excepcionalmente precisa e letal ao utilizar arcos.');
+		
+		-- Habilidades de classe do Bruxo
+		INSERT INTO tormenta.habilidade_classe (classe_id, nome_habilidade, descricao)
+		VALUES ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Bruxo'), 'Invocação Infernal', 'Invoca criaturas infernais para auxiliar em batalha.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Bruxo'), 'Maldição Sombria', 'Lança uma maldição sombria sobre um inimigo, prejudicando seus atributos e causando efeitos negativos.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Bruxo'), 'Toque das Sombras', 'Utiliza o poder das sombras para causar dano e enfraquecer os inimigos.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Bruxo'), 'Escudo Demoníaco', 'Cria um escudo demoníaco que absorve dano mágico e físico.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Bruxo'), 'Chamas Profanas', 'Invoca chamas profanas que queimam os inimigos e causam dano em uma área.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Bruxo'), 'Transcendência Sombria', 'Adquire a habilidade de se transformar em uma forma sombria, aumentando seu poder e resistência.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Bruxo'), 'Drenar Vida', 'Drena a energia vital de um alvo, causando dano e restaurando sua própria saúde.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Bruxo'), 'Manto das Trevas', 'Envolve-se em um manto de trevas que concede invisibilidade temporária e aumenta sua chance de esquiva.');
+		
+		-- Habilidades de classe do Cavaleiro
+		INSERT INTO tormenta.habilidade_classe (classe_id, nome_habilidade, descricao)
+		VALUES ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Cavaleiro'), 'Investida Potente', 'Realiza uma investida poderosa que causa dano adicional e empurra o alvo.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Cavaleiro'), 'Grito de Desafio', 'Emite um grito desafiador que atrai a atenção dos inimigos e aumenta sua própria defesa.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Cavaleiro'), 'Proteção de Armadura', 'Aprimora sua armadura, aumentando sua resistência e reduzindo o dano recebido.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Cavaleiro'), 'Golpe Blindado', 'Desfere um golpe poderoso com sua arma, ignorando a armadura do inimigo e causando dano adicional.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Cavaleiro'), 'Guardião Leal', 'Torna-se um guardião leal que protege os aliados próximos, aumentando sua defesa e absorvendo parte do dano recebido.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Cavaleiro'), 'Bênção Divina', 'Recebe uma bênção divina que restaura sua saúde gradualmente e aumenta sua resistência a efeitos negativos.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Cavaleiro'), 'Ataque Selvagem', 'Executa um ataque selvagem e implacável que causa dano massivo ao alvo.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Cavaleiro'), 'Furia Indomável', 'Entra em um estado de fúria indomável, aumentando seu poder de ataque e resistência a efeitos negativos.');
+		
+		-- Habilidades de classe do Samurai
+		INSERT INTO tormenta.habilidade_classe (classe_id, nome_habilidade, descricao)
+		VALUES ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Samurai'), 'Corte Preciso', 'Realiza cortes precisos e letais com sua arma, aumentando a chance de acerto e causando dano adicional.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Samurai'), 'Katana Destruidora', 'Empunha uma katana poderosa que causa dano massivo e ignora parte da armadura do inimigo.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Samurai'), 'Espírito Indomável', 'Mantém um espírito indomável que aumenta sua resistência a efeitos negativos e reduz o dano recebido.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Samurai'), 'Concentração Perfeita', 'Desenvolve uma concentração perfeita que aumenta sua precisão e reduz as chances de ser atingido.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Samurai'), 'Golpe Circular', 'Executa um golpe circular que atinge vários inimigos ao seu redor, causando dano em área.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Samurai'), 'Perícia em Armas', 'Possui uma perícia excepcional no uso de diversas armas, aumentando sua eficiência e causando dano adicional.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Samurai'), 'Caminho da Honra', 'Segue o caminho da honra e da justiça, aumentando sua moral e a dos aliados próximos.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Samurai'), 'Ataque Ancestral', 'Realiza um ataque ancestral que invoca o poder dos antepassados, causando dano massivo ao alvo.');
+		
+		-- Habilidades de classe do Mestre das Armas
+		INSERT INTO tormenta.habilidade_classe (classe_id, nome_habilidade, descricao)
+		VALUES ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Mestre das Armas'), 'Estilo de Luta', 'Dominou um estilo de luta único que aumenta sua eficiência com determinadas armas e concede bônus adicionais.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Mestre das Armas'), 'Golpe Preciso', 'Realiza golpes precisos que aumentam sua chance de acerto e causam dano adicional.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Mestre das Armas'), 'Técnica Defensiva', 'Desenvolve uma técnica defensiva refinada que aumenta sua defesa e reduz o dano recebido.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Mestre das Armas'), 'Golpe Certeiro', 'Desfere golpes certeiros em pontos vulneráveis do corpo do inimigo, causando dano massivo e ignorando parte da armadura.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Mestre das Armas'), 'Aprimoramento de Armas', 'Aprimora suas armas com encantamentos e técnicas especiais, aumentando seu poder e adicionando efeitos adicionais aos ataques.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Mestre das Armas'), 'Reflexos Afiados', 'Possui reflexos afiados que aumentam sua esquiva e a chance de realizar ataques de oportunidade.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Mestre das Armas'), 'Técnica de Duelo', 'Dominou uma técnica de duelo única que aumenta seu poder de ataque e defesa quando enfrenta um único inimigo.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Mestre das Armas'), 'Ritmo de Batalha', 'Mantém um ritmo de batalha constante que aumenta sua velocidade de ataque e concede bônus adicionais.');
+		
+		-- Habilidades de classe do Necromante
+		INSERT INTO tormenta.habilidade_classe (classe_id, nome_habilidade, descricao)
+		VALUES ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Necromante'), 'Invocação de Esqueletos', 'Invoca esqueletos para lutar ao seu lado e servir como tropas.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Necromante'), 'Drenar Vida', 'Drena a energia vital de um alvo, causando dano e restaurando sua própria saúde.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Necromante'), 'Aura Mortal', 'Emite uma aura mortal que enfraquece os inimigos próximos, reduzindo seus atributos e causando efeitos negativos.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Necromante'), 'Invocação de Zumbis', 'Invoca zumbis para lutar ao seu lado e servir como tropas.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Necromante'), 'Maldição Sombria', 'Lança uma maldição sombria sobre um inimigo, prejudicando seus atributos e causando efeitos negativos.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Necromante'), 'Domínio dos Mortos', 'Possui o domínio sobre os mortos, podendo controlar e comandar criaturas mortas-vivas.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Necromante'), 'Explosão de Trevas', 'Cria uma explosão de trevas que causa dano em área e enfraquece os inimigos atingidos.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Necromante'), 'Proteção Necrótica', 'Envolve-se em uma proteção necrótica que absorve parte do dano recebido e concede resistência a efeitos negativos.');
+		
+		-- Habilidades de classe do Xamã
+		INSERT INTO tormenta.habilidade_classe (classe_id, nome_habilidade, descricao)
+		VALUES ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Xamã'), 'Invocação Espiritual', 'Invoca espíritos para auxiliar em batalha e fornecer orientação.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Xamã'), 'Cura Ancestral', 'Utiliza a sabedoria ancestral para curar ferimentos e restaurar a saúde dos aliados.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Xamã'), 'Fúria Elemental', 'Invoca a fúria dos elementos, aumentando seu poder de ataque e causando dano elemental adicional.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Xamã'), 'Totem de Proteção', 'Cria um totem de proteção que aumenta a defesa dos aliados próximos e concede resistência a elementos.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Xamã'), 'Caminho da Natureza', 'Segue o caminho da natureza, aumentando sua conexão com o ambiente e concedendo habilidades naturais.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Xamã'), 'Maldição Elemental', 'Lança uma maldição elemental sobre um inimigo, causando dano elemental e prejudicando seus atributos.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Xamã'), 'Transformação Animal', 'Possui o poder de se transformar em um animal, adquirindo habilidades e características animais.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Xamã'), 'Curandeiro Espiritual', 'Atua como um curandeiro espiritual, restaurando a saúde dos aliados e removendo efeitos negativos.');
+		
+		-- Habilidades de classe do Engenheiro
+		INSERT INTO tormenta.habilidade_classe (classe_id, nome_habilidade, descricao)
+		VALUES ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Engenheiro'), 'Invenção Genial', 'Cria e utiliza invenções geniais que concedem bônus adicionais e habilidades únicas.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Engenheiro'), 'Armação Protetora', 'Constrói uma armação protetora que aumenta sua defesa e absorve parte do dano recebido.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Engenheiro'), 'Disparo Preciso', 'Realiza disparos precisos com suas armas de longo alcance, aumentando a chance de acerto e causando dano adicional.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Engenheiro'), 'Gadget Ofensivo', 'Utiliza gadgets ofensivos que causam dano adicional e aplicam efeitos negativos aos inimigos.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Engenheiro'), 'Montaria Mecânica', 'Possui uma montaria mecânica que aumenta sua velocidade de movimento e concede habilidades especiais.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Engenheiro'), 'Campo de Força', 'Ativa um campo de força que reduz o dano recebido e bloqueia efeitos negativos.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Engenheiro'), 'Melhoria de Armas', 'Aprimora suas armas com tecnologia avançada, aumentando seu poder e adicionando efeitos adicionais aos ataques.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Engenheiro'), 'Armadilha Tática', 'Coloca armadilhas táticas que prejudicam os inimigos, causando dano e aplicando efeitos negativos.');
+		
+		-- Habilidades de classe do Inquisidor
+		INSERT INTO tormenta.habilidade_classe (classe_id, nome_habilidade, descricao)
+		VALUES ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Inquisidor'), 'Julgamento Divino', 'Realiza um julgamento divino que causa dano massivo aos inimigos e aplica efeitos negativos.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Inquisidor'), 'Purificação Sagrada', 'Utiliza a purificação sagrada para curar ferimentos e remover efeitos negativos dos aliados.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Inquisidor'), 'Proteção Divina', 'Invoca uma proteção divina que aumenta sua defesa e resistência a efeitos negativos.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Inquisidor'), 'Poder Exorcista', 'Possui um poder exorcista que causa dano adicional a criaturas malignas e sobrenaturais.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Inquisidor'), 'Retribuição Implacável', 'Exerce uma retribuição implacável sobre os inimigos, aumentando seu poder de ataque e causando dano adicional.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Inquisidor'), 'Bênção da Luz', 'Recebe a bênção da luz divina que aumenta sua resistência a efeitos negativos e concede habilidades sagradas.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Inquisidor'), 'Aura da Justiça', 'Emite uma aura da justiça que prejudica os inimigos próximos, reduzindo seus atributos e causando efeitos negativos.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Inquisidor'), 'Interrogatório Implacável', 'Realiza um interrogatório implacável que reduz a defesa e resistência dos inimigos e revela suas fraquezas.');
+		
+		-- Habilidades de classe do Monge
+		INSERT INTO tormenta.habilidade_classe (classe_id, nome_habilidade, descricao)
+		VALUES ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Monge'), 'Soco Preciso', 'Realiza socos precisos que aumentam sua chance de acerto e causam dano adicional.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Monge'), 'Esquiva Aperfeiçoada', 'Possui uma esquiva aperfeiçoada que aumenta sua chance de evitar ataques inimigos.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Monge'), 'Chi Energizante', 'Utiliza o chi energizante para restaurar sua própria saúde e aumentar seus atributos temporariamente.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Monge'), 'Golpe Desarmante', 'Desfere um golpe desarmante que desarma o inimigo, fazendo-o soltar sua arma.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Monge'), 'Postura Defensiva', 'Adota uma postura defensiva que aumenta sua defesa e reduz o dano recebido.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Monge'), 'Chute Giratório', 'Executa um chute giratório que atinge vários inimigos ao seu redor, causando dano em área.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Monge'), 'Foco Interno', 'Desenvolve um foco interno que aumenta seu poder de ataque e concede habilidades especiais.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Monge'), 'Caminho da Harmonia', 'Segue o caminho da harmonia e do equilíbrio, aumentando sua resistência a efeitos negativos e concedendo habilidades únicas.');
+		
+		
+		-- Habilidades de classe do Arcanista
+		INSERT INTO tormenta.habilidade_classe (classe_id, nome_habilidade, descricao)
+		VALUES ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Arcanista'), 'Bola de Fogo', 'Invoca uma poderosa bola de fogo que causa dano em área.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Arcanista'), 'Teleporte', 'Realiza um teleporte instantâneo para outra localização.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Arcanista'), 'Escudo Arcano', 'Cria um escudo arcano que absorve parte do dano recebido.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Arcanista'), 'Invocação Elemental', 'Invoca um elemental para auxiliar em batalha e causar dano adicional.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Arcanista'), 'Mente Arcana', 'Desenvolve sua mente arcano, aumentando sua resistência a efeitos mágicos negativos.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Arcanista'), 'Transmutação', 'Realiza uma transmutação que altera a própria forma e concede habilidades especiais.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Arcanista'), 'Raio Arcano', 'Dispara um raio arcano que causa dano em linha reta.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Arcanista'), 'Aura Arcana', 'Emite uma aura arcana que aumenta o poder mágico dos aliados próximos.');
+		
+		-- Habilidades de classe do Cavaleiro da Morte
+		INSERT INTO tormenta.habilidade_classe (classe_id, nome_habilidade, descricao)
+		VALUES ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Cavaleiro da Morte'), 'Toque Sombrio', 'Desfere um toque sombrio que causa dano e debilita o alvo.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Cavaleiro da Morte'), 'Invocação Profana', 'Invoca uma entidade profana para auxiliar em batalha e causar dano adicional.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Cavaleiro da Morte'), 'Aura da Morte', 'Emite uma aura da morte que prejudica os inimigos próximos, reduzindo seus atributos e causando efeitos negativos.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Cavaleiro da Morte'), 'Drenar Vida', 'Drena a energia vital de um alvo, causando dano e restaurando sua própria saúde.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Cavaleiro da Morte'), 'Transformação Sombria', 'Realiza uma transformação sombria que aumenta seu poder de ataque e concede habilidades sombrias.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Cavaleiro da Morte'), 'Maldição da Ruína', 'Lança uma maldição da ruína sobre um inimigo, causando dano e enfraquecendo seus atributos.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Cavaleiro da Morte'), 'Chicote Sombrio', 'Usa um chicote sombrio para atacar os inimigos à distância, causando dano e aplicando efeitos negativos.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Cavaleiro da Morte'), 'Ferramentas Profanas', 'Utiliza ferramentas profanas para executar habilidades especiais e causar dano adicional.');
+		
+		-- Habilidades de classe do Assassino
+		INSERT INTO tormenta.habilidade_classe (classe_id, nome_habilidade, descricao)
+		VALUES ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Assassino'), 'Ataque Furtivo', 'Realiza um ataque furtivo que causa dano massivo a um alvo desprevenido.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Assassino'), 'Veneno Mortal', 'Aplica um veneno mortal nas armas, causando dano adicional e aplicando efeitos negativos aos inimigos.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Assassino'), 'Camuflagem', 'Torna-se invisível aos olhos dos inimigos, aumentando suas chances de evasão e preparando-se para um ataque surpresa.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Assassino'), 'Agilidade Sobrenatural', 'Desenvolve uma agilidade sobrenatural, aumentando sua velocidade de movimento e sua habilidade de evasão.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Assassino'), 'Lâminas Sombrias', 'Usa lâminas sombrias para desferir golpes rápidos e precisos, causando dano em sequência.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Assassino'), 'Disfarce Mortal', 'Assume diferentes disfarces para se infiltrar em locais e obter informações valiosas.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Assassino'), 'Evasão Suprema', 'Executa movimentos evasivos supremos, tornando-se quase intocável e evitando ataques inimigos.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Assassino'), 'Ataque das Sombras', 'Ataca os inimigos a partir das sombras, causando dano surpresa e aplicando efeitos negativos.');
+		
+		-- Habilidades de classe do Cavaleiro Dragão
+		INSERT INTO tormenta.habilidade_classe (classe_id, nome_habilidade, descricao)
+		VALUES ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Cavaleiro Dragão'), 'Sopro Flamejante', 'Libera um sopro flamejante que causa dano em área e aplica efeitos de queimadura.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Cavaleiro Dragão'), 'Asas de Dragão', 'Desenvolve asas de dragão e ganha a habilidade de voar temporariamente.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Cavaleiro Dragão'), 'Pele Escamada', 'Desenvolve uma pele escamada que aumenta sua resistência a ataques físicos e mágicos.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Cavaleiro Dragão'), 'Fúria Draconiana', 'Entra em um estado de fúria draconiana, aumentando seu poder de ataque e causando dano adicional.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Cavaleiro Dragão'), 'Garras Afiadas', 'Afiadas garras de dragão causam dano cortante e perfurante aos inimigos.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Cavaleiro Dragão'), 'Resistência Elemental', 'Desenvolve uma resistência elemental, reduzindo o dano de elementos específicos.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Cavaleiro Dragão'), 'Bênção Draconiana', 'Recebe a bênção dos dragões, aumentando sua força e concedendo habilidades draconianas.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Cavaleiro Dragão'), 'Rugido Aterrorizante', 'Emite um rugido aterrorizante que assusta os inimigos, reduzindo seus atributos e causando medo.');
+		
+		-- Habilidades de classe do Médico
+		INSERT INTO tormenta.habilidade_classe (classe_id, nome_habilidade, descricao)
+		VALUES ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Médico'), 'Cura Rápida', 'Realiza uma cura rápida que restaura a saúde do alvo.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Médico'), 'Antídoto', 'Produz um antídoto eficaz contra venenos e doenças, curando o alvo e removendo efeitos negativos.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Médico'), 'Regeneração', 'Estimula a regeneração natural do corpo, acelerando a cicatrização de ferimentos e recuperando a saúde ao longo do tempo.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Médico'), 'Anestesia', 'Administra uma anestesia que reduz a dor e diminui os efeitos negativos dos ferimentos.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Médico'), 'Manipulação Vital', 'Manipula a energia vital do alvo, concedendo benefícios temporários aos atributos e restaurando a saúde.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Médico'), 'Cirurgia de Emergência', 'Realiza uma cirurgia de emergência para salvar a vida do alvo, restaurando uma grande quantidade de saúde.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Médico'), 'Poção Curativa', 'Prepara uma poção curativa que pode ser consumida para restaurar a saúde instantaneamente.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Médico'), 'Cura em Massa', 'Realiza uma cura em massa que restaura a saúde de vários alvos ao mesmo tempo.');
+		
+		-- Habilidades de classe do Psionista
+		INSERT INTO tormenta.habilidade_classe (classe_id, nome_habilidade, descricao)
+		VALUES ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Psionista'), 'Explosão Psíquica', 'Causa uma explosão psíquica que causa dano em área e afeta a mente dos inimigos.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Psionista'), 'Telecinese', 'Manipula objetos com a mente, movendo-os à distância e lançando-os contra os inimigos.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Psionista'), 'Escudo Mental', 'Cria um escudo mental que protege contra ataques físicos e mágicos.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Psionista'), 'Leitura de Mentes', 'Lê a mente dos outros, obtendo informações valiosas e identificando suas intenções.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Psionista'), 'Sobrecarga Psíquica', 'Sobrecarrega a mente com poder psíquico, aumentando temporariamente os atributos e habilidades.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Psionista'), 'Ilusão Psíquica', 'Cria ilusões psíquicas para enganar os sentidos dos inimigos e distraí-los em combate.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Psionista'), 'Controle Mental', 'Controla a mente de um alvo, forçando-o a realizar ações desejadas.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Psionista'), 'Projeção Astral', 'Realiza uma projeção astral, permitindo-se explorar áreas e interagir com o mundo espiritual.');
+		
+		-- Habilidades de classe do Xerife
+		INSERT INTO tormenta.habilidade_classe (classe_id, nome_habilidade, descricao)
+		VALUES ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Xerife'), 'Tiroteio Rápido', 'Realiza disparos rápidos e precisos com armas de fogo, causando dano aos inimigos.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Xerife'), 'Julgamento Final', 'Executa um julgamento final sobre um criminoso, causando dano massivo e aplicando efeitos negativos.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Xerife'), 'Marca da Lei', 'Marca um alvo como foragido da lei, aumentando o dano causado por ataques subsequentes.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Xerife'), 'Rastreamento', 'Rastreia pistas e segue rastros, encontrando alvos e obtendo informações valiosas.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Xerife'), 'Bala de Prata', 'Prepara uma bala de prata que causa dano adicional contra seres sobrenaturais.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Xerife'), 'Inspiração Heroica', 'Inspira coragem e determinação nos aliados, concedendo bônus temporários aos atributos.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Xerife'), 'Armadilha Mortal', 'Prepara uma armadilha mortal que causa dano e impede a movimentação do alvo.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Xerife'), 'Justiça Divina', 'Invoca a justiça divina para punir os criminosos, causando dano divino e aplicando efeitos negativos.');
+		
+		-- Habilidades de classe do Lutador
+		INSERT INTO tormenta.habilidade_classe (classe_id, nome_habilidade, descricao)
+		VALUES ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Lutador'), 'Golpe Poderoso', 'Desfere um golpe poderoso que causa dano massivo ao alvo.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Lutador'), 'Bloqueio Perfeito', 'Realiza um bloqueio perfeito, reduzindo o dano recebido e contra-atacando o inimigo.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Lutador'), 'Fúria Descontrolada', 'Entra em um estado de fúria descontrolada, aumentando seu poder de ataque e velocidade de movimento.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Lutador'), 'Agarrão Poderoso', 'Agarra o inimigo e desfere golpes poderosos, causando dano e impedindo sua movimentação.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Lutador'), 'Resiliência', 'Desenvolve uma resiliência incrível, aumentando sua resistência a dano e efeitos negativos.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Lutador'), 'Golpes Especiais', 'Executa uma série de golpes especiais, causando dano em sequência e aplicando efeitos negativos aos inimigos.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Lutador'), 'Esquiva Perfeita', 'Realiza uma esquiva perfeita, evitando completamente um ataque inimigo e ganhando a oportunidade de contra-atacar.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Lutador'), 'Determinação Inabalável', 'Demonstra uma determinação inabalável, resistindo a efeitos negativos e restaurando sua própria saúde ao longo do tempo.');
+		
+		-- Habilidades de classe do Alquimista
+		INSERT INTO tormenta.habilidade_classe (classe_id, nome_habilidade, descricao)
+		VALUES ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Alquimista'), 'Poção Explosiva', 'Prepara uma poção explosiva que causa dano em área aos inimigos.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Alquimista'), 'Poção de Cura', 'Prepara uma poção de cura que restaura a saúde do alvo.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Alquimista'), 'Bomba de Fumaça', 'Lança uma bomba de fumaça que causa cegueira aos inimigos e cria uma área de visibilidade reduzida.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Alquimista'), 'Poção de Resistência', 'Prepara uma poção de resistência que aumenta temporariamente a resistência a elementos específicos.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Alquimista'), 'Transmutação', 'Realiza transmutações alquímicas, transformando materiais e substâncias em outras formas ou propriedades.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Alquimista'), 'Veneno Paralisante', 'Prepara um veneno paralisante que paralisa temporariamente o alvo, impedindo sua movimentação e ações.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Alquimista'), 'Munição Especial', 'Prepara munições especiais com efeitos adicionais, causando dano e aplicando efeitos negativos aos inimigos.'),
+		       ((SELECT id FROM tormenta.classe WHERE nome_classe = 'Alquimista'), 'Elixir Potencializador', 'Prepara um elixir potencializador que aumenta temporariamente os atributos do alvo.');
+
+		</sql>
+		<rollback>DELETE FROM  tormenta.habilidade_classe </rollback>
+	</changeSet>
+
+
+
+	
+	
+		<changeSet id="tormenta-dml_1.1_02"
+		author="guilherme.baccarin">
+		<preConditions onFail="MARK_RAN" onError="MARK_RAN">
+
+			<sqlCheck expectedResult="0">SELECT COUNT(*) FROM
+			tormenta.habilidade_raca
+			</sqlCheck>
+			
+			
+		</preConditions>
+								
+		<comment> Inserindo registros das HABILIDADES DE RAÇA  </comment>
+		<sql>
+	
+			INSERT INTO tormenta.habilidade_raca (raca_id, nome, descricao)
+			VALUES ((SELECT id FROM tormenta.raca WHERE nome_raca = 'Anões'), 'Resistência Anã', 'Possui uma resistência natural a venenos e doenças.'),
+			       ((SELECT id FROM tormenta.raca WHERE nome_raca = 'Anões'), 'Visão no Escuro', 'Pode enxergar no escuro com clareza, mesmo em completa ausência de luz.'),
+			       ((SELECT id FROM tormenta.raca WHERE nome_raca = 'Anões'), 'Força Anã', 'Possui uma força impressionante para seu tamanho, sendo capaz de levantar e carregar mais peso do que outras raças.'),
+			       ((SELECT id FROM tormenta.raca WHERE nome_raca = 'Anões'), 'Resistência a Dano', 'Tem uma resistência natural a determinados tipos de dano, como cortante e perfurante.'),
+			       ((SELECT id FROM tormenta.raca WHERE nome_raca = 'Anões'), 'Artesão Nato', 'Possui habilidades aprimoradas em trabalhos manuais, especialmente na arte da metalurgia e da escultura.');
+			
+			-- Habilidades de raça dos Elfos
+			INSERT INTO tormenta.habilidade_raca (raca_id, nome, descricao)
+			VALUES ((SELECT id FROM tormenta.raca WHERE nome_raca = 'Elfos'), 'Agilidade Élfica', 'Possui uma agilidade excepcional, sendo capaz de se mover rapidamente e desviar de ataques com facilidade.'),
+			       ((SELECT id FROM tormenta.raca WHERE nome_raca = 'Elfos'), 'Visão Noturna', 'Pode enxergar claramente no escuro, permitindo uma visão precisa mesmo em condições de pouca luz.'),
+			       ((SELECT id FROM tormenta.raca WHERE nome_raca = 'Elfos'), 'Ligação com a Natureza', 'Possui uma afinidade natural com a natureza, podendo se comunicar e interagir com plantas e animais.'),
+			       ((SELECT id FROM tormenta.raca WHERE nome_raca = 'Elfos'), 'Percepção Élfica', 'Possui uma percepção aguçada, sendo capaz de detectar ameaças e armadilhas com mais facilidade.'),
+			       ((SELECT id FROM tormenta.raca WHERE nome_raca = 'Elfos'), 'Magia Élfica', 'Possui uma afinidade inata com a magia, sendo capaz de aprender e lançar feitiços com facilidade e graça.');
+			
+			-- Habilidades de raça dos Goblins
+			INSERT INTO tormenta.habilidade_raca (raca_id, nome, descricao)
+			VALUES ((SELECT id FROM tormenta.raca WHERE nome_raca = 'Goblins'), 'Esquiva Excepcional', 'Possui uma agilidade surpreendente, sendo capaz de se esquivar de ataques com extrema destreza.'),
+			       ((SELECT id FROM tormenta.raca WHERE nome_raca = 'Goblins'), 'Visão no Escuro', 'Pode enxergar no escuro com clareza, mesmo em completa ausência de luz.'),
+			       ((SELECT id FROM tormenta.raca WHERE nome_raca = 'Goblins'), 'Pequenos e Furtivos', 'Devido ao seu tamanho reduzido e habilidades furtivas, é capaz de se esconder facilmente e passar despercebido pelos inimigos.'),
+			       ((SELECT id FROM tormenta.raca WHERE nome_raca = 'Goblins'), 'Astúcia Goblin', 'Possui uma astúcia natural, sendo capaz de pensar rápido e encontrar soluções criativas para problemas.'),
+			       ((SELECT id FROM tormenta.raca WHERE nome_raca = 'Goblins'), 'Armadilhas Goblin', 'É especializado em construir e desarmar armadilhas, usando sua engenhosidade e conhecimento em explosivos e dispositivos trapaceiros.');
+			       
+			-- Habilidades de raça dos Anões
+			INSERT INTO tormenta.habilidade_raca (raca_id, nome, descricao)
+			VALUES ((SELECT id FROM tormenta.raca WHERE nome_raca = 'Anões'), 'Resistência Anã', 'Possui uma resistência natural a venenos e doenças.'),
+			       ((SELECT id FROM tormenta.raca WHERE nome_raca = 'Anões'), 'Visão no Escuro', 'Pode enxergar no escuro com clareza, mesmo em completa ausência de luz.'),
+			       ((SELECT id FROM tormenta.raca WHERE nome_raca = 'Anões'), 'Força Anã', 'Possui uma força impressionante para seu tamanho, sendo capaz de levantar e carregar mais peso do que outras raças.'),
+			       ((SELECT id FROM tormenta.raca WHERE nome_raca = 'Anões'), 'Resistência a Dano', 'Tem uma resistência natural a determinados tipos de dano, como cortante e perfurante.'),
+			       ((SELECT id FROM tormenta.raca WHERE nome_raca = 'Anões'), 'Artesão Nato', 'Possui habilidades aprimoradas em trabalhos manuais, especialmente na arte da metalurgia e da escultura.');
+			
+			-- Habilidades de raça dos Elfos
+			INSERT INTO tormenta.habilidade_raca (raca_id, nome, descricao)
+			VALUES ((SELECT id FROM tormenta.raca WHERE nome_raca = 'Elfos'), 'Agilidade Élfica', 'Possui uma agilidade excepcional, sendo capaz de se mover rapidamente e desviar de ataques com facilidade.'),
+			       ((SELECT id FROM tormenta.raca WHERE nome_raca = 'Elfos'), 'Visão Noturna', 'Pode enxergar claramente no escuro, permitindo uma visão precisa mesmo em condições de pouca luz.'),
+			       ((SELECT id FROM tormenta.raca WHERE nome_raca = 'Elfos'), 'Ligação com a Natureza', 'Possui uma afinidade natural com a natureza, podendo se comunicar e interagir com plantas e animais.'),
+			       ((SELECT id FROM tormenta.raca WHERE nome_raca = 'Elfos'), 'Percepção Élfica', 'Possui uma percepção aguçada, sendo capaz de detectar ameaças e armadilhas com mais facilidade.'),
+			       ((SELECT id FROM tormenta.raca WHERE nome_raca = 'Elfos'), 'Magia Élfica', 'Possui uma afinidade inata com a magia, sendo capaz de aprender e lançar feitiços com facilidade e graça.');
+			
+			-- Habilidades de raça dos Goblins
+			INSERT INTO tormenta.habilidade_raca (raca_id, nome, descricao)
+			VALUES ((SELECT id FROM tormenta.raca WHERE nome_raca = 'Goblins'), 'Esquiva Excepcional', 'Possui uma agilidade surpreendente, sendo capaz de se esquivar de ataques com extrema destreza.'),
+			       ((SELECT id FROM tormenta.raca WHERE nome_raca = 'Goblins'), 'Visão no Escuro', 'Pode enxergar no escuro com clareza, mesmo em completa ausência de luz.'),
+			       ((SELECT id FROM tormenta.raca WHERE nome_raca = 'Goblins'), 'Pequenos e Furtivos', 'Devido ao seu tamanho reduzido e habilidades furtivas, é capaz de se esconder facilmente e passar despercebido pelos inimigos.'),
+			       ((SELECT id FROM tormenta.raca WHERE nome_raca = 'Goblins'), 'Astúcia Goblin', 'Possui uma astúcia natural, sendo capaz de pensar rápido e encontrar soluções criativas para problemas.'),
+			       ((SELECT id FROM tormenta.raca WHERE nome_raca = 'Goblins'), 'Armadilhas Goblin', 'É especializado em construir e desarmar armadilhas, usando sua engenhosidade e conhecimento em explosivos e dispositivos trapaceiros.');
+			
+			-- Habilidades de raça dos Humanos
+			INSERT INTO tormenta.habilidade_raca (raca_id, nome, descricao)
+			VALUES ((SELECT id FROM tormenta.raca WHERE nome_raca = 'Humanos'), 'Versatilidade Humana', 'Possui uma natureza versátil e adaptável, podendo se especializar em diversas áreas de conhecimento e habilidades.'),
+			       ((SELECT id FROM tormenta.raca WHERE nome_raca = 'Humanos'), 'Determinação', 'Possui uma força de vontade excepcional, sendo capaz de resistir a efeitos mentais e persistir em situações adversas.'),
+			       ((SELECT id FROM tormenta.raca WHERE nome_raca = 'Humanos'), 'Adaptação Rápida', 'É capaz de aprender e se adaptar rapidamente a novas situações, permitindo uma curva de aprendizado acelerada.'),
+			       ((SELECT id FROM tormenta.raca WHERE nome_raca = 'Humanos'), 'Caminhos Diversos', 'Pode escolher entre diferentes caminhos e especializações, possibilitando uma ampla variedade de opções em termos de habilidades e talentos.'),
+			       ((SELECT id FROM tormenta.raca WHERE nome_raca = 'Humanos'), 'Habilidade Extra', 'Possui uma habilidade adicional, podendo escolher entre uma gama de opções de acordo com seu interesse e necessidade.');
+			
+			-- Habilidades de raça dos Orcs
+			INSERT INTO tormenta.habilidade_raca (raca_id, nome, descricao)
+			VALUES ((SELECT id FROM tormenta.raca WHERE nome_raca = 'Orcs'), 'Força Brutal', 'Possui uma força física extraordinária, sendo capaz de causar um dano significativo em combate.'),
+			       ((SELECT id FROM tormenta.raca WHERE nome_raca = 'Orcs'), 'Resistência Feroz', 'Possui uma resistência incrível, sendo capaz de suportar ferimentos graves e continuar lutando.'),
+			       ((SELECT id FROM tormenta.raca WHERE nome_raca = 'Orcs'), 'Fúria Orc', 'Pode entrar em um estado de fúria intensa durante o combate, aumentando sua força e resistência temporariamente.'),
+			       ((SELECT id FROM tormenta.raca WHERE nome_raca = 'Orcs'), 'Sentidos Aguçados', 'Possui sentidos aguçados, sendo capaz de perceber ameaças e rastrear presas com facilidade.'),
+			       ((SELECT id FROM tormenta.raca WHERE nome_raca = 'Orcs'), 'Instinto de Batalha', 'Possui um instinto de batalha afiado, sendo capaz de tomar decisões rápidas e estratégicas durante o combate.');
+			
+			-- Habilidades de raça dos Gnomos
+			INSERT INTO tormenta.habilidade_raca (raca_id, nome, descricao)
+			VALUES ((SELECT id FROM tormenta.raca WHERE nome_raca = 'Gnomos'), 'Habilidade com Máquinas', 'Possui uma habilidade inata em lidar com máquinas e mecanismos complexos, podendo reparar, melhorar e operar esses dispositivos com facilidade.'),
+			       ((SELECT id FROM tormenta.raca WHERE nome_raca = 'Gnomos'), 'Conhecimento Arcano', 'Possui um vasto conhecimento sobre a magia e suas aplicações, podendo lançar feitiços e utilizar itens mágicos com maior eficiência.'),
+			       ((SELECT id FROM tormenta.raca WHERE nome_raca = 'Gnomos'), 'Ilusionista Nato', 'Possui habilidades ilusionistas excepcionais, sendo capaz de criar ilusões convincentes e enganar os sentidos dos outros.'),
+			       ((SELECT id FROM tormenta.raca WHERE nome_raca = 'Gnomos'), 'Sorte do Gnomo', 'É abençoado com uma dose extra de sorte, o que o ajuda a evitar desastres e situações perigosas com mais frequência do que outras raças.'),
+			       ((SELECT id FROM tormenta.raca WHERE nome_raca = 'Gnomos'), 'Agilidade Gnômica', 'Possui uma agilidade surpreendente, sendo capaz de se esquivar de ataques e se mover rapidamente mesmo em espaços apertados.');
+			
+			-- Habilidades de raça dos Meio-Orcs
+			INSERT INTO tormenta.habilidade_raca (raca_id, nome, descricao)
+			VALUES ((SELECT id FROM tormenta.raca WHERE nome_raca = 'Meio-Orcs'), 'Força Brutal', 'Possui uma força física extraordinária, sendo capaz de causar um dano significativo em combate.'),
+			       ((SELECT id FROM tormenta.raca WHERE nome_raca = 'Meio-Orcs'), 'Resistência Feroz', 'Possui uma resistência incrível, sendo capaz de suportar ferimentos graves e continuar lutando.'),
+			       ((SELECT id FROM tormenta.raca WHERE nome_raca = 'Meio-Orcs'), 'Fúria Selvagem', 'Pode entrar em um estado de fúria intensa durante o combate, aumentando sua força e resistência temporariamente.'),
+			       ((SELECT id FROM tormenta.raca WHERE nome_raca = 'Meio-Orcs'), 'Sentidos Aguçados', 'Possui sentidos aguçados, sendo capaz de perceber ameaças e rastrear presas com facilidade.'),
+			       ((SELECT id FROM tormenta.raca WHERE nome_raca = 'Meio-Orcs'), 'Resistência a Dano', 'Tem uma resistência natural a determinados tipos de dano, como cortante e perfurante.');
+			
+			-- Habilidades de raça dos Halflings
+			INSERT INTO tormenta.habilidade_raca (raca_id, nome, descricao)
+			VALUES ((SELECT id FROM tormenta.raca WHERE nome_raca = 'Halflings'), 'Sorte do Halfling', 'É abençoado com uma dose extra de sorte, o que o ajuda a evitar desastres e situações perigosas com mais frequência do que outras raças.'),
+			       ((SELECT id FROM tormenta.raca WHERE nome_raca = 'Halflings'), 'Agilidade Surpreendente', 'Possui uma agilidade excepcional, sendo capaz de se mover rapidamente e desviar de ataques com facilidade.'),
+			       ((SELECT id FROM tormenta.raca WHERE nome_raca = 'Halflings'), 'Sorte dos Inocentes', 'É capaz de se safar de situações complicadas com sua inocência e charme, persuadindo outros a ajudá-lo ou perdoá-lo.'),
+			       ((SELECT id FROM tormenta.raca WHERE nome_raca = 'Halflings'), 'Pequeno e Furtivo', 'Devido ao seu tamanho reduzido, é capaz de se esconder facilmente e passar despercebido pelos inimigos.'),
+			       ((SELECT id FROM tormenta.raca WHERE nome_raca = 'Halflings'), 'Agilidade Gnômica', 'Possui uma agilidade surpreendente, sendo capaz de se esquivar de ataques e se mover rapidamente mesmo em espaços apertados.');
+			
+			-- Habilidades de raça dos Tieflings
+			INSERT INTO tormenta.habilidade_raca (raca_id, nome, descricao)
+			VALUES ((SELECT id FROM tormenta.raca WHERE nome_raca = 'Tieflings'), 'Resistência Infernal', 'Possui uma resistência natural a danos de fogo, sendo capaz de suportar temperaturas extremas e ataques flamejantes com mais facilidade.'),
+			       ((SELECT id FROM tormenta.raca WHERE nome_raca = 'Tieflings'), 'Visão no Escuro', 'Pode enxergar no escuro com clareza, mesmo em completa ausência de luz.'),
+			       ((SELECT id FROM tormenta.raca WHERE nome_raca = 'Tieflings'), 'Herança Infernal', 'Possui traços infernais em sua aparência e personalidade, como chifres, cauda, olhos ardentes e uma aura intimidadora.'),
+			       ((SELECT id FROM tormenta.raca WHERE nome_raca = 'Tieflings'), 'Magia Infernal', 'Possui uma afinidade natural com a magia infernal, sendo capaz de aprender e lançar feitiços sombrios com facilidade.'),
+			       ((SELECT id FROM tormenta.raca WHERE nome_raca = 'Tieflings'), 'Resistência a Dano', 'Tem uma resistência natural a determinados tipos de dano, como ácido e veneno.');
+			       
+			-- Habilidades de raça dos Lobisomens
+			INSERT INTO tormenta.habilidade_raca (raca_id, nome, descricao)
+			VALUES ((SELECT id FROM tormenta.raca WHERE nome_raca = 'Lobisomens'), 'Transformação Lunar', 'Pode se transformar em uma forma lupina durante as noites de lua cheia, ganhando força e habilidades sobrenaturais.'),
+			       ((SELECT id FROM tormenta.raca WHERE nome_raca = 'Lobisomens'), 'Sentidos Aguçados', 'Possui sentidos aguçados, sendo capaz de perceber ameaças e rastrear presas com facilidade.'),
+			       ((SELECT id FROM tormenta.raca WHERE nome_raca = 'Lobisomens'), 'Regeneração', 'Possui a capacidade de se regenerar rapidamente de ferimentos, cicatrizando e curando lesões com maior velocidade.'),
+			       ((SELECT id FROM tormenta.raca WHERE nome_raca = 'Lobisomens'), 'Faro Afiado', 'Possui um olfato aguçado, sendo capaz de identificar odores, rastrear presas e detectar inimigos escondidos.'),
+			       ((SELECT id FROM tormenta.raca WHERE nome_raca = 'Lobisomens'), 'Força Sobre-Humana', 'Possui uma força física sobre-humana, permitindo realizar proezas de força que superam em muito as capacidades de outras raças.');
+			
+			-- Habilidades de raça dos Minotauros
+			INSERT INTO tormenta.habilidade_raca (raca_id, nome, descricao)
+			VALUES ((SELECT id FROM tormenta.raca WHERE nome_raca = 'Minotauros'), 'Chifres Poderosos', 'Possui chifres poderosos em sua cabeça, que podem ser usados como armas naturais em combate corpo a corpo.'),
+			       ((SELECT id FROM tormenta.raca WHERE nome_raca = 'Minotauros'), 'Visão no Escuro', 'Pode enxergar no escuro com clareza, mesmo em completa ausência de luz.'),
+			       ((SELECT id FROM tormenta.raca WHERE nome_raca = 'Minotauros'), 'Instinto de Labirinto', 'Possui um senso de direção apurado, sendo capaz de se orientar facilmente em labirintos e encontrar rotas de fuga.'),
+			       ((SELECT id FROM tormenta.raca WHERE nome_raca = 'Minotauros'), 'Força Brutal', 'Possui uma força física extraordinária, sendo capaz de causar um dano significativo em combate.'),
+			       ((SELECT id FROM tormenta.raca WHERE nome_raca = 'Minotauros'), 'Couro Resistente', 'Possui uma pele grossa e resistente, fornecendo uma proteção natural contra ataques físicos.');
+			
+			-- Habilidades de raça dos Dracônicos
+			INSERT INTO tormenta.habilidade_raca (raca_id, nome, descricao)
+			VALUES ((SELECT id FROM tormenta.raca WHERE nome_raca = 'Dracônicos'), 'Sopro Dracônico', 'Possui a habilidade de expelir um sopro poderoso que causa dano elemental, como fogo, gelo ou ácido.'),
+			       ((SELECT id FROM tormenta.raca WHERE nome_raca = 'Dracônicos'), 'Asas Dracônicas', 'Possui asas membranosas em suas costas, permitindo que voe por curtas distâncias.'),
+			       ((SELECT id FROM tormenta.raca WHERE nome_raca = 'Dracônicos'), 'Escamas Resistentes', 'Possui uma pele escamosa que fornece uma proteção adicional contra ataques físicos e elementos.'),
+			       ((SELECT id FROM tormenta.raca WHERE nome_raca = 'Dracônicos'), 'Sentidos Aguçados', 'Possui sentidos aguçados, sendo capaz de perceber ameaças e rastrear presas com facilidade.'),
+			       ((SELECT id FROM tormenta.raca WHERE nome_raca = 'Dracônicos'), 'Resistência Elemental', 'Possui uma resistência natural a danos elementais, como fogo, gelo, eletricidade, entre outros.');
+			
+			-- Habilidades de raça dos Hengeyokais
+			INSERT INTO tormenta.habilidade_raca (raca_id, nome, descricao)
+			VALUES ((SELECT id FROM tormenta.raca WHERE nome_raca = 'Hengeyokais'), 'Transformação Animal', 'Possui a habilidade de se transformar em um animal específico, ganhando características e habilidades dessa forma.'),
+			       ((SELECT id FROM tormenta.raca WHERE nome_raca = 'Hengeyokais'), 'Adaptação Elemental', 'Pode se adaptar a diferentes elementos, ganhando resistência e habilidades associadas a esses elementos.'),
+			       ((SELECT id FROM tormenta.raca WHERE nome_raca = 'Hengeyokais'), 'Conexão com a Natureza', 'Possui uma afinidade natural com a natureza, sendo capaz de se comunicar e interagir com animais e espíritos da natureza.'),
+			       ((SELECT id FROM tormenta.raca WHERE nome_raca = 'Hengeyokais'), 'Agilidade Felina', 'Possui uma agilidade e destreza excepcionais, permitindo movimentos ágeis e evasivos em combate.'),
+			       ((SELECT id FROM tormenta.raca WHERE nome_raca = 'Hengeyokais'), 'Sentidos Aguçados', 'Possui sentidos aguçados, sendo capaz de perceber ameaças e rastrear presas com facilidade.');
+			
+			-- Habilidades de raça dos Aasimares
+			INSERT INTO tormenta.habilidade_raca (raca_id, nome, descricao)
+			VALUES ((SELECT id FROM tormenta.raca WHERE nome_raca = 'Aasimares'), 'Aura Celestial', 'Possui uma aura celestial que emana bondade e proteção, afetando positivamente aqueles ao seu redor.'),
+			       ((SELECT id FROM tormenta.raca WHERE nome_raca = 'Aasimares'), 'Herança Divina', 'Possui traços divinos em sua aparência e personalidade, como asas angelicais, olhos luminosos e uma presença majestosa.'),
+			       ((SELECT id FROM tormenta.raca WHERE nome_raca = 'Aasimares'), 'Curador Nato', 'Possui habilidades de cura natural aprimoradas, podendo curar ferimentos e doenças com mais facilidade do que outras raças.'),
+			       ((SELECT id FROM tormenta.raca WHERE nome_raca = 'Aasimares'), 'Resistência a Dano', 'Tem uma resistência natural a determinados tipos de dano, como necrótico e radiante.'),
+			       ((SELECT id FROM tormenta.raca WHERE nome_raca = 'Aasimares'), 'Visão no Escuro', 'Pode enxergar no escuro com clareza, mesmo em completa ausência de luz.');
+
+
+			</sql>
+		<rollback>DELETE FROM  tormenta.habilidade_raca </rollback>
+	</changeSet>
+	
+	
+	
+</databaseChangeLog>

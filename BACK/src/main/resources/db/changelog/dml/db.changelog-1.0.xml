@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+	xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd
+        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+	<changeSet id="tormenta-dml_1.0_01"
+		author="guilherme.baccarin">
+		<preConditions onFail="MARK_RAN" onError="MARK_RAN">
+
+			<sqlCheck expectedResult="0">SELECT COUNT(*) FROM
+				 tormenta.raca
+			</sqlCheck>
+
+		</preConditions>
+		<comment> Inserindo registros dos tipo de raça </comment>
+		<sql>
+				INSERT INTO tormenta.raca  (nome, descricao)
+				VALUES
+				    ('Anões', 'Raça resistente e habilidosa na arte da guerra, conhecida por sua força e resistência.'),
+				    ('Elfos', 'Raça grácil e imortal, dotada de grande beleza e afinidade com a magia e a natureza.'),
+				    ('Goblins', 'Raça pequena e astuta, conhecida por sua furtividade e habilidades trapaceiras.'),
+				    ('Humanos', 'Raça versátil e adaptável, capaz de se destacar em diversas áreas e se adaptar a diferentes culturas.'),
+				    ('Orcs', 'Raça bruta e selvagem, conhecida por sua ferocidade em combate e sua força descomunal.'),
+				    ('Gnomos', 'Raça pequena e engenhosa, conhecida por sua curiosidade e habilidades mágicas.'),
+				    ('Meio-Elfos', 'Descendentes de humanos e elfos, possuem características de ambas as raças e são conhecidos por sua versatilidade.'),
+				    ('Meio-Orcs', 'Descendentes de humanos e orcs, possuem força bruta e adaptabilidade.'),
+				    ('Halflings', 'Raça pequena e ágil, conhecida por sua sorte e habilidades como ladinos.'),
+				    ('Tieflings', 'Raça com traços demoníacos, dotada de habilidades infernais e magia sombria.'),
+				    ('Aasimares', 'Descendentes de humanos e seres celestiais, possuem características divinas e poderes sagrados.'),
+				    ('Lobisomens', 'Raça com a capacidade de se transformar em lobos, possuindo força e sentidos aguçados.'),
+				    ('Minotauros', 'Raça com características de touro, conhecida por sua força física e senso de honra.'),
+				    ('Dracônicos', 'Descendentes de dragões, possuem escamas e habilidades dracônicas.'),
+				    ('Hengeyokais', 'Raça de seres metamórficos, capazes de assumir a forma de animais e possuir habilidades relacionadas.'),
+				    ('Kitsunes', 'Raça com características de raposa, dotada de astúcia, magia e capacidade de mudar de forma.'),
+				    ('Nagas', 'Raça com a parte superior de mulher e parte inferior de serpente, possuindo poderes místicos e manipulação da magia.'),
+				    ('Valkarianos', 'Raça guerreira e nobre, com asas de águia e habilidades de voo.'),
+				    ('Sereianos', 'Raça aquática com características de peixe, capaz de viver embaixo d''água e possuir habilidades marinhas.'),
+				    ('Mortos-Vivos', 'Raça composta por seres mortos-vivos, como zumbis e esqueletos, possuindo resistência e habilidades necromânticas.');
+
+		</sql>
+		<rollback>DELETE FROM  tormenta.raca </rollback>
+	</changeSet>
+
+
+
+	<changeSet id="tormenta-dml_1.0_02"
+		author="guilherme.baccarin">
+		<preConditions onFail="MARK_RAN" onError="MARK_RAN">
+
+			<sqlCheck expectedResult="0">SELECT COUNT(*) FROM
+				 tormenta.classe
+			</sqlCheck>
+
+		</preConditions>
+		<comment> Inserindo registros dos tipo de classe </comment>
+		<sql>
+				INSERT INTO tormenta.classe (nome, descricao, pontos_base_vida, pontos_base_ataque)
+				VALUES
+				    ('Guerreiro', 'Combatente habilidoso, especializado em combate corpo a corpo e no uso de armaduras e armas.', 10, 6),
+				    ('Mago', 'Usuário de magia arcana, capaz de conjurar feitiços poderosos e manipular a essência mágica do mundo.', 6, 1),
+				    ('Ladrão', 'Habilidoso em atividades furtivas, especializado em furtos, desarmar armadilhas e abrir fechaduras.', 8, 1),
+				    ('Sacerdote', 'Seguidor de uma divindade, capaz de realizar milagres e conjurar magias divinas em benefício de seu deus.', 8, 1),
+				    ('Druida', 'Guardião da natureza, capaz de se transformar em animais e conjurar magias druídicas.', 8, 1),
+				    ('Bárbaro', 'Guerreiro feroz e selvagem, que canaliza sua fúria para aumentar sua força e resistência em combate.', 12, 3),
+				    ('Paladino', 'Cavaleiro divino, detentor de grande poder sagrado, capaz de curar e proteger seus aliados.', 10, 3),
+				    ('Ranger', 'Hábil em combate a distância e na exploração de terrenos selvagens, dotado de habilidades de rastreamento e conhecimento da natureza.', 8, 2),
+				    ('Feiticeiro', 'Usuário de magia inata, com poderes mágicos provenientes de seu sangue ou linhagem ancestral.', 6, 1),
+				    ('Bardo', 'Artista e contador de histórias, capaz de usar sua música e poesia para inspirar e influenciar outros.', 6, 1),
+				    ('Patrulheiro', 'Protetor das fronteiras, especializado em combate contra criaturas sobrenaturais e perigos selvagens.', 8, 2),
+				    ('Bruxo', 'Conjurador de magia pactual, obtendo poderes de um pacto feito com entidades sobrenaturais.', 6, 1),
+				    ('Cavaleiro', 'Guerreiro montado, especializado em combate a cavalo e em formações táticas.', 10, 3),
+				    ('Samurai', 'Guerreiro honrado e disciplinado, com habilidades marciais e um código de conduta rígido.', 10, 3),
+				    ('Mestre das Armas', 'Especialista em combate com armas, capaz de usar diferentes estilos de luta e dominar diversas armas.', 8, 4),
+				    ('Necromante', 'Usuário de magia necromântica, capaz de controlar mortos-vivos e manipular as energias da morte.', 6, 1),
+				    ('Xamã', 'Conjurador e curandeiro ligado aos espíritos da natureza, capaz de invocar e se comunicar', 8, 1),
+				    ('Engenheiro', 'Especialista em criação de dispositivos e engenhocas, com habilidades técnicas avançadas e conhecimentos científicos.', 8, NULL),
+				    ('Inquisidor', 'Caçador de hereges e seres malignos, capaz de usar magia divina e habilidades de combate para eliminar ameaças.', 8, 2),
+				    ('Monge', 'Mestre das artes marciais, capaz de usar sua mente e corpo para atingir um estado de perfeição.', 10, 3),
+				    ('Arcanista', 'Estudioso e manipulador da magia arcana, capaz de desvendar os segredos do universo.', 6, 1),
+				    ('Cavaleiro da Morte', 'Guerreiro das sombras, dotado de poderes necromânticos e ligado à morte.', 10, 3),
+				    ('Alquimista', 'Criador de poções, explosivos e elixires mágicos, capaz de usar a ciência alquímica para benefício próprio.', 6, NULL),
+				    ('Assassino', 'Mestre do combate furtivo e das técnicas letais, especializado em eliminar alvos de forma rápida e eficiente.', 8, 2),
+				    ('Cavaleiro Dragão', 'Guerreiro montado em dragão, capaz de usar magia e lutar com grande destreza.', 10, 3),
+				    ('Médico', 'Curandeiro e médico especializado em tratar ferimentos e doenças, capaz de salvar vidas.', 6, 1),
+				    ('Psionista', 'Usuário de poderes psíquicos, capaz de manipular mentes e realizar proezas além das habilidades normais.', 8, NULL),
+				    ('Xerife', 'Protetor da lei e da ordem, capaz de fazer cumprir a justiça com habilidades de combate e autoridade.', 8, 2),
+				    ('Lutador', 'Combatente especializado em artes marciais, capaz de desferir golpes poderosos e ágeis.', 10, 4);
+
+		</sql>
+		<rollback>DELETE FROM  tormenta.classe </rollback>
+	</changeSet>
+	
+
+	
+	
+	
+			<changeSet id="tormenta-dml_1.0_03"
+		author="guilherme.baccarin">
+		<preConditions onFail="MARK_RAN" onError="MARK_RAN">
+
+			<sqlCheck expectedResult="0">SELECT COUNT(*) FROM
+				 tormenta.pericia
+			</sqlCheck>
+
+		</preConditions>
+		<comment> Inserindo registros dos tipo de pericia </comment>
+		<sql>
+				INSERT INTO tormenta.pericia (nome, descricao, tipo_modificador)
+			VALUES
+			    ('Acrobacia', 'Usado para equilibrar, escalar, pular e realizar acrobacias. Também é usado para evitar quedas e se mover em terrenos difíceis.', 'DESTREZA'),
+			    ('Adestramento', 'Usado para treinar e controlar animais.', 'CARISMA'),
+			    ('Alquimia', 'Usado para criar poções e realizar experimentos alquímicos.', 'INTELIGENCIA'),
+			    ('Atletismo', 'Usado para atividades físicas intensas, como levantar objetos pesados, nadar e correr.', 'FORCA'),
+			    ('Cavalgar', 'Usado para montar e controlar cavalos e outras montarias.', 'DESTREZA'),
+			    ('Concentracao', 'Usado para se concentrar em meio a distracoes e resistir a efeitos que possam afetar a mente.', 'CONSTITUICAO'),
+			    ('Conhecimento (Arcano)', 'Fornece conhecimento sobre magia e seus efeitos.', 'INTELIGENCIA'),
+			    ('Conhecimento (Historia)', 'Fornece conhecimento sobre eventos historicos e culturas antigas.', 'INTELIGENCIA'),
+			    ('Conhecimento (Natureza)', 'Fornece conhecimento sobre a fauna, flora e elementos naturais.', 'INTELIGENCIA'),
+			    ('Diplomacia', 'Usado para influenciar e persuadir os outros por meio de palavras.', 'CARISMA'),
+			    ('Esconderse', 'Usado para se esconder e permanecer despercebido.', 'DESTREZA'),
+			    ('Falsificacao', 'Usado para criar documentos falsos e disfarces.', 'INTELIGENCIA'),
+			    ('Furtividade', 'Usado para se mover silenciosamente e evitar ser notado.', 'DESTREZA'),
+			    ('Identificar Magia', 'Usado para identificar magias e seus efeitos.', 'INTELIGENCIA'),
+			    ('Iniciativa', 'Usado para determinar a ordem de acao em combate.', 'DESTREZA'),
+			    ('Intimidacao', 'Usado para amedrontar e intimidar os outros.', 'CARISMA'),
+			    ('Ladinagem', 'Usado para abrir fechaduras, desarmar armadilhas e realizar atividades criminosas.', 'DESTREZA'),
+			    ('Medicina', 'Usado para tratar ferimentos e doencas.', 'SABEDORIA'),
+			    ('Oficio (Artesanato)', 'Permite a criacao de itens e trabalhos manuais.', 'INTELIGENCIA'),
+			    ('Oficio (Engenharia)', 'Permite a criacao e conserto de dispositivos e maquinas.', 'INTELIGENCIA'),
+			    ('Percepcao', 'Usado para detectar armadilhas, perceber detalhes ocultos e notar ameacas.', 'SABEDORIA'),
+			    ('Pilotagem', 'Usado para controlar veiculos e embarcacoes.', 'DESTREZA'),
+			    ('Sobrevivencia', 'Usado para encontrar alimentos, evitar perigos naturais e se orientar em terrenos desconhecidos.', 'SABEDORIA');
+
+		</sql>
+		<rollback>DELETE FROM tormenta.pericia </rollback>
+	</changeSet>
+	
+	
+	
+	
+	<changeSet id="tormenta-dml_1.0_04"
+		author="guilherme.baccarin">
+		<preConditions onFail="MARK_RAN" onError="MARK_RAN">
+
+			<sqlCheck expectedResult="0">SELECT COUNT(*) FROM
+				 tormenta.tendencia
+			</sqlCheck>
+
+		</preConditions>
+		<comment> Inserindo registros dos tipo de tendencia </comment>
+		<sql>
+	
+			INSERT INTO tormenta.tendencia (descricao )
+			VALUES ('Caótico/Bom'), ('Caótico/Leal'), ('Caótico/Neutro'), ('Leal/Bom'),
+			('Leal/Neutro'), ('Mau/Bom'), ('Neutro/Bom'), ('Neutro/Leal'), 
+			('Caótico/Caótico'), ('Neutro/Neutro');
+
+		</sql>
+		<rollback>DELETE FROM tormenta.tendencia </rollback>
+	</changeSet>
+	
+	
+	
+
+	
+	
+	
+</databaseChangeLog>

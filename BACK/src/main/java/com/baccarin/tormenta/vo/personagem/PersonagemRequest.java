@@ -26,7 +26,6 @@ public class PersonagemRequest {
 	private String sexo;
 
 	private HabilidadeRequest habilidade;
-	private ClasseArmaduraRequest classeArmadura;
 
 	private Integer fortitude;
 	private Integer reflexo;

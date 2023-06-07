@@ -1,7 +1,5 @@
 package com.baccarin.tormenta.domain;
 
-import java.util.List;
-
 import com.baccarin.tormenta.enums.Sexo;
 
 import jakarta.persistence.CascadeType;
@@ -15,7 +13,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -65,10 +62,6 @@ public class Personagem {
 	@JoinColumn(name = "habilidade_id", referencedColumnName = "id", nullable = true, unique = true)
 	private Habilidade habilidade;
 
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "id_classe_armadura", referencedColumnName = "id", nullable = true, unique = true)
-	private ClasseArmadura classeArmadura;
-
 	@Column(name = "fortitude")
 	private Integer fortitude;
 
@@ -84,8 +77,8 @@ public class Personagem {
 	@Column(name = "tamanho")
 	private Double tamanho;
 
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "personagem")
-	List<PericiaPersonagem> percias;
+//	@OneToMany(cascade = CascadeType.ALL, mappedBy = "personagem")
+//	List<PericiaPersonagem> percias;
 
 	public Personagem() {
 
@@ -98,12 +91,6 @@ public class Personagem {
 		this.vontade = Habilidade.getModificador(habilidade.getSabedoria());
 		this.reflexo = Habilidade.getModificador(habilidade.getDestreza());
 		this.fortitude = Habilidade.getModificador(habilidade.getConstituicao());
-
-		ClasseArmadura classeArmadura = new ClasseArmadura();
-		classeArmadura.setTotal(
-				classeArmadura.getTotal() + this.nivel % 2 + Habilidade.getModificador(getHabilidade().getDestreza()));
-
-		this.classeArmadura = classeArmadura;
 	}
 
 }

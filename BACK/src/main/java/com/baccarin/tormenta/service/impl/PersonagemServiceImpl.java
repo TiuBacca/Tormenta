@@ -1,5 +1,6 @@
 package com.baccarin.tormenta.service.impl;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -7,13 +8,11 @@ import java.util.stream.Collectors;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
-import com.baccarin.tormenta.domain.ClasseArmadura;
 import com.baccarin.tormenta.domain.Habilidade;
 import com.baccarin.tormenta.domain.Personagem;
 import com.baccarin.tormenta.enums.Sexo;
 import com.baccarin.tormenta.exception.RegistroIncompletoException;
 import com.baccarin.tormenta.exception.RegistroNaoEncontradoException;
-import com.baccarin.tormenta.repository.ClasseArmaduraRepository;
 import com.baccarin.tormenta.repository.ClasseRepository;
 import com.baccarin.tormenta.repository.HabilidadeRepository;
 import com.baccarin.tormenta.repository.PersonagemRepository;
@@ -45,7 +44,6 @@ public class PersonagemServiceImpl implements PersonagemService {
 	private final ClasseRepository classeRepository;
 	private final TendenciaRepository tendenciaRepository;
 	private final HabilidadeRepository habilidadeRepository;
-	private final ClasseArmaduraRepository classeArmaduraRepository;
 	private final UsuarioRepository usuarioRepository;
 
 	private final Util util;
@@ -214,36 +212,6 @@ public class PersonagemServiceImpl implements PersonagemService {
 			personagem.setHabilidade(habilidade);
 		}
 
-		if (Objects.nonNull(request.getClasseArmadura())) {
-
-			ClasseArmadura classeArmadura = new ClasseArmadura();
-
-			if (Objects.nonNull(request.getClasseArmadura().getId())) {
-				classeArmadura = classeArmaduraRepository.findById(request.getClasseArmadura().getId())
-						.orElseThrow(() -> new RegistroNaoEncontradoException("Classe Armadura não encontrada."));
-			}
-
-			if (Objects.nonNull(request.getClasseArmadura().getBonusArmadura())
-					&& request.getClasseArmadura().getBonusArmadura() != 0) {
-				classeArmadura.setBonusArmadura(request.getClasseArmadura().getBonusArmadura());
-			}
-
-			if (Objects.nonNull(request.getClasseArmadura().getBonusEscudo())
-					&& request.getClasseArmadura().getBonusEscudo() != 0) {
-				classeArmadura.setBonusEscudo(request.getClasseArmadura().getBonusEscudo());
-			}
-
-			if (Objects.nonNull(request.getClasseArmadura().getOutros())
-					&& request.getClasseArmadura().getOutros() != 0) {
-				classeArmadura.setOutros(request.getClasseArmadura().getOutros());
-			}
-
-			if (Objects.nonNull(request.getClasseArmadura().getTotal())
-					&& request.getClasseArmadura().getTotal() != 0) {
-				classeArmadura.setTotal(request.getClasseArmadura().getTotal());
-			}
-			personagem.setClasseArmadura(classeArmadura);
-		}
 
 		personagem.setUsuario(usuarioRepository.findById(request.getIdUsuario()).get());
 
@@ -303,12 +271,6 @@ public class PersonagemServiceImpl implements PersonagemService {
 						.orElseThrow(() -> new RegistroNaoEncontradoException("Habilidade não encontrada."));
 			}
 
-			if (Objects.nonNull(request.getClasseArmadura()) && Objects.nonNull(request.getClasseArmadura().getId())) {
-				classeArmaduraRepository.findById(request.getClasseArmadura().getId())
-						.orElseThrow(() -> new RegistroNaoEncontradoException("Classe Armadura não encontrada."));
-
-			}
-
 			if (Objects.nonNull(request.getIdUsuario())) {
 				usuarioRepository.findById(request.getIdUsuario())
 						.orElseThrow(() -> new RegistroNaoEncontradoException("Usuário não encontrado."));
@@ -321,7 +283,8 @@ public class PersonagemServiceImpl implements PersonagemService {
 
 	@Override
 	public List<PersonagemPericiaResponse> buscarListaPericiasByPersonagem(PersonagemRequest request) throws Exception {
-		return personagemRepository.buscaListaPersonagemPericia(request.getId());
+		// return personagemRepository.buscaListaPersonagemPericia(request.getId());
+		return Collections.emptyList();
 	}
 
 }

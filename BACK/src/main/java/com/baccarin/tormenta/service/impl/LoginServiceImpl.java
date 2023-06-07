@@ -39,7 +39,7 @@ public class LoginServiceImpl implements LoginService {
 				throw new RegistroIncompletoException("Necessário informar a senha.");
 			}
 			Usuario user = usuarioRepository.findByEmail(request.getEmail())
-					.orElseThrow(() -> new RegistroNaoEncontradoException("Usuário não encotrado."));
+					.orElseThrow(() -> new RegistroNaoEncontradoException("Usuário não encontrado."));
 			if (user.getSenha().equals(Util.criptografar(request.getSenha()))) {
 				return;
 			}

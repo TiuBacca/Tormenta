@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+	xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd
+        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+	<changeSet id="tormenta-dml_0.0_01"
+		author="guilherme.baccarin">
+		<preConditions onFail="MARK_RAN" onError="MARK_RAN">
+
+			<sqlCheck expectedResult="0">
+				SELECT count(*)
+				FROM information_schema.schemata
+				WHERE schema_name = 'tormenta';
+			</sqlCheck>
+
+		</preConditions>
+		<comment> Criando schema TORMENTA </comment>
+		<sql>
+			create schema tormenta;
+
+		</sql>
+		<rollback> DROP schema tormenta </rollback>
+	</changeSet>
+
+
+
+	<changeSet id="tormenta-dml_0.0_02"
+		author="guilherme.baccarin">
+		<preConditions onFail="MARK_RAN" onError="MARK_RAN">
+
+			<sqlCheck expectedResult="0">
+				SELECT count(*)
+				FROM information_schema.schemata
+				WHERE schema_name = 'administracao';
+			</sqlCheck>
+
+		</preConditions>
+		<comment> Criando schema ADMINISTRACAO </comment>
+		<sql>
+			create schema administracao;
+
+		</sql>
+		<rollback> DROP schema administracao </rollback>
+	</changeSet>
+	
+
+	<changeSet id="tormenta-dml_0.0_03"
+		author="guilherme.baccarin">
+		<preConditions onFail="MARK_RAN" onError="MARK_RAN">
+
+			<sqlCheck expectedResult="0">
+				SELECT count(*)
+				FROM information_schema.schemata
+				WHERE schema_name = 'item';
+			</sqlCheck>
+
+		</preConditions>
+		<comment> Criando schema ITEM </comment>
+		<sql>
+			create schema item;
+
+		</sql>
+		<rollback> DROP schema item </rollback>
+	</changeSet>
+	
+	
+</databaseChangeLog>

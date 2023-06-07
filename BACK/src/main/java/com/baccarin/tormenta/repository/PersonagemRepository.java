@@ -21,11 +21,11 @@ public interface PersonagemRepository extends JpaRepository<Personagem, Long> {
 			+ "	 from Personagem p join p.classe classe join p.raca raca " + " where p.usuario.email like :email ")
 	List<PersonagemResponse> findByUsuarioEmail(@Param("email") String email);
 
-	@Query(" SELECT new com.baccarin.tormenta.vo.personagem.PersonagemPericiaResponse"
-			+ "(p.id, p.nome , p.descricao , p.tipoModificador , coalesce (pp.outros,0), coalesce (pp.graduacao,0)) \n"
-			+ "FROM Pericia p "
-			+ "LEFT JOIN PericiaPersonagem pp ON p.id = pp.pericia.id AND pp.personagem.id = :idPersonagem; ")
-	List<PersonagemPericiaResponse> buscaListaPersonagemPericia(@Param("idPersonagem") Long idPersonagem);
+//	@Query(" SELECT new com.baccarin.tormenta.vo.personagem.PersonagemPericiaResponse"
+//			+ "(p.id, p.nome , p.descricao , p.tipoModificador , coalesce (pp.outros,0), coalesce (pp.graduacao,0)) \n"
+//			+ "FROM Pericia p "
+//			+ "LEFT JOIN PericiaPersonagem pp ON p.id = pp.pericia.id AND pp.personagem.id = :idPersonagem; ")
+//	List<PersonagemPericiaResponse> buscaListaPersonagemPericia(@Param("idPersonagem") Long idPersonagem);
 	
 	
 	

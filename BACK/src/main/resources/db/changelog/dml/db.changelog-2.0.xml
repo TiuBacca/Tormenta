@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+	xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd
+        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+	<changeSet id="tormenta-dml_2.0_01"
+		author="guilherme.baccarin">
+		<preConditions onFail="MARK_RAN" onError="MARK_RAN">
+
+			<sqlCheck expectedResult="0">SELECT COUNT(*) FROM
+				 item.arma
+			</sqlCheck>
+
+		</preConditions>
+		<comment> Inserindo registros dos itens ARMA </comment>
+		<sql>
+				INSERT INTO item.arma (nome, descricao, dano, critico, tipo)
+				VALUES
+				    ('Espada Longa', 'Uma espada de lâmina longa e afiada.', '1d8', '19-20/x2', 'CORTE'),
+				    ('Machado de Batalha', 'Um machado de guerra pesado e mortal.', '1d10', 'x3', 'CORTE'),
+				    ('Machado Duplo', 'Dois machados em uma única arma, permitindo ataques rápidos e poderosos.', '1d8/1d8', 'x3', 'CORTE'),
+				    ('Sabre', 'Uma espada curva e afiada, com lâmina única.', '1d6', '18-20/x2', 'CORTE'),
+				    ('Espada Curta', 'Uma espada de lâmina curta e versátil.', '1d6', '19-20/x2', 'CORTE'),
+				    ('Arco Longo', 'Um arco de grande alcance e precisão.', '1d8', 'x3', 'PERFURACAO'),
+				    ('Adaga', 'Uma arma de lâmina curta e afiada, ideal para ataques furtivos.', '1d4', '19-20/x2', 'PERFURACAO'),
+				    ('Flechas', 'Projéteis para arcos, capazes de atingir alvos a distância.', '1d6', 'x3', 'PERFURACAO'),
+				    ('Lança', 'Uma arma de haste com ponta afiada, ideal para ataques à distância e corpo a corpo.', '1d8', 'x3', 'PERFURACAO'),
+				    ('Lança de Cavalaria', 'Uma lança especializada para uso por cavaleiros em combate montado.', '1d8', 'x3', 'PERFURACAO'),
+				    ('Maça', 'Uma arma de impacto contundente, capaz de causar danos por esmagamento.', '1d8', 'x2', 'ESMAGAMENTO'),
+				    ('Martelo de Guerra', 'Um martelo pesado e contundente, capaz de causar danos poderosos.', '1d8', 'x3', 'ESMAGAMENTO'),
+				    ('Besta', 'Uma arma de longo alcance que dispara projéteis com força e precisão.', '1d8', '19-20/x2', 'PERFURACAO'),
+				    ('Clava', 'Uma arma simples e eficaz, feita de madeira ou metal.', '1d6', 'x2', 'ESMAGAMENTO'),
+				    ('Arco Curto', 'Um arco menor, porém mais ágil e fácil de manusear.', '1d6', 'x3', 'PERFURACAO'),
+				    ('Espada Bastarda', 'Uma espada de lâmina longa e versátil, capaz de ser empunhada com uma ou duas mãos.', '1d10', '19-20/x2', 'CORTE');
+
+		</sql>
+		<rollback>DELETE FROM  item.arma </rollback>
+	</changeSet>
+
+
+
+	<changeSet id="tormenta-dml_2.0_02"
+		author="guilherme.baccarin">
+		<preConditions onFail="MARK_RAN" onError="MARK_RAN">
+
+			<sqlCheck expectedResult="0">SELECT COUNT(*) FROM
+				item.armadura
+			</sqlCheck>
+
+		</preConditions>
+		<comment> Inserindo registros itens ARMADURA</comment>
+		<sql>
+			INSERT INTO item.armadura  (nome, descricao, tipo, caracteristica, beneficios)
+			VALUES
+			    ('Cota de Malha', 'Uma armadura composta por anéis de metal entrelaçados.', 'MEDIA', 'Flexível e resistente', 'Fornece uma boa proteção contra ataques físicos.'),
+			    ('Peitoral de Placas', 'Uma armadura robusta feita de placas metálicas.', 'PESADA', 'Rígida e resistente', 'Oferece uma excelente defesa contra ataques físicos, mas pode restringir a mobilidade.'),
+			    ('Armadura de Couro Batido', 'Uma armadura feita de couro reforçado e tratado.', 'MEDIA', 'Flexível e leve', 'Proporciona uma proteção moderada sem comprometer a agilidade.'),
+			    ('Couraça Élfica', 'Uma armadura fina e elegante feita de materiais élficos.', 'LEVE', 'Leve e flexível', 'Combina uma boa proteção com grande liberdade de movimento.'),
+			    ('Armadura de Escamas', 'Uma armadura construída a partir de escamas de criaturas.', 'MEDIA', 'Rígida e resistente', 'Oferece uma proteção sólida contra ataques físicos e resistência a danos específicos.'),
+			    ('Armadura de Couro', 'Uma armadura simples feita de couro.', 'LEVE', 'Flexível e leve', 'Fornece uma proteção básica sem comprometer a mobilidade.'),
+			    ('Armadura de Placas Completa', 'Uma armadura pesada e completa, cobrindo todo o corpo.', 'PESADA', 'Rígida e pesada', 'Oferece uma defesa excepcional contra ataques físicos, mas limita significativamente a agilidade.'),
+			    ('Cota de Talas', 'Uma armadura composta por placas de metal presas em uma base de couro.', 'MEDIA', 'Flexível e reforçada', 'Combina uma boa proteção com um equilíbrio entre mobilidade e resistência.'),
+			    ('Armadura de Placas', 'Uma armadura resistente feita de placas de metal.', 'PESADA', 'Rígida e durável', 'Proporciona uma proteção sólida contra ataques físicos, mas pode restringir a agilidade.'),
+			    ('Armadura de Malha', 'Uma armadura feita de anéis de metal interligados.', 'MEDIA', 'Flexível e resistente', 'Oferece uma proteção confiável contra ataques físicos.'),
+			    ('Armadura de Peles', 'Uma armadura feita de peles de criaturas.', 'LEVE', 'Flexível e furtiva', 'Fornece uma proteção básica e permite maior furtividade e agilidade.'),
+			    ('Armadura de Couro Reforçado', 'Uma armadura de couro reforçada com metal ou placas.', 'MEDIA', 'Flexível e resistente', 'Combina a flexibilidade do couro com a resistência adicional do metal.'),
+			    ('Peitoral de Placas Completo', 'Uma armadura pesada com peitoral e placas que cobrem o corpo.', 'PESADA', 'Rígida e robusta', 'Oferece uma defesa excepcional contra ataques físicos, mas pode reduzir a mobilidade.'),
+			    ('Armadura de Couro de Dragão', 'Uma armadura feita de couro de dragão, resistente e exótica.', 'MEDIA', 'Flexível e resistente', 'Combina uma proteção sólida com a aura mística do dragão.'),
+			    ('Armadura de Couro Leve', 'Uma armadura de couro leve e fácil de usar.', 'LEVE', 'Flexível e ágil', 'Fornece uma proteção básica sem comprometer a agilidade.'),
+			    ('Armadura de Escamas de Dragão', 'Uma armadura feita de escamas de dragão, resistente e imponente.', 'PESADA', 'Rígida e poderosa', 'Oferece uma proteção excepcional e confere uma presença imponente no campo de batalha.');
+
+		</sql>
+		<rollback>DELETE FROM  item.armadura </rollback>
+	</changeSet>
+	
+
+	
+	
+	
+			<changeSet id="tormenta-dml_2.0_03"
+		author="guilherme.baccarin">
+		<preConditions onFail="MARK_RAN" onError="MARK_RAN">
+
+			<sqlCheck expectedResult="0">SELECT COUNT(*) FROM
+				item.escudo
+			</sqlCheck>
+
+		</preConditions>
+		<comment> Inserindo registros dos itens ESCUDO </comment>
+		<sql>
+				INSERT INTO item.escudo  (nome, descricao, tipo, caracteristica, beneficios)
+				VALUES
+				    ('Escudo Pequeno', 'Um escudo de tamanho pequeno e fácil manuseio.', 'PEQUENO', 'Leve e ágil', 'Oferece uma defesa básica contra ataques físicos.'),
+				    ('Escudo Médio', 'Um escudo de tamanho médio e versátil.', 'MÉDIO', 'Balanceado e eficiente', 'Proporciona uma boa proteção e é adequado para a maioria das situações.'),
+				    ('Escudo Grande', 'Um escudo de tamanho grande e imponente.', 'GRANDE', 'Robusto e intimidante', 'Oferece uma defesa sólida e pode assustar adversários.'),
+				    ('Escudo de Madeira', 'Um escudo feito de madeira resistente.', 'MÉDIO', 'Leve e resistente', 'Fornece uma proteção básica e é relativamente leve.'),
+				    ('Escudo de Ferro', 'Um escudo feito de ferro resistente.', 'MÉDIO', 'Robusto e durável', 'Oferece uma proteção confiável contra ataques físicos.'),
+				    ('Escudo de Aço', 'Um escudo feito de aço de alta qualidade.', 'MÉDIO', 'Fortificado e sólido', 'Proporciona uma defesa sólida e é altamente durável.'),
+				    ('Escudo Élfico', 'Um escudo fabricado pelos elfos, elegante e eficaz.', 'MÉDIO', 'Leve e ágil', 'Combina uma boa proteção com leveza e graciosidade.'),
+				    ('Escudo Anão', 'Um escudo feito pelos anões, resistente e robusto.', 'MÉDIO', 'Rígido e resistente', 'Oferece uma proteção sólida e é conhecido por sua durabilidade.'),
+				    ('Escudo de Dragão', 'Um escudo feito a partir de escamas de dragão, poderoso e exótico.', 'GRANDE', 'Impenetrável e majestoso', 'Oferece uma defesa excepcional e é uma peça impressionante de armadura.'),
+				    ('Escudo Sagrado', 'Um escudo abençoado por forças divinas.', 'MÉDIO', 'Radiante e protetor', 'Fornece uma proteção sólida e tem a capacidade de repelir criaturas malignas.');
+
+
+		</sql>
+		<rollback>DELETE FROM item.escudo </rollback>
+	</changeSet>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+</databaseChangeLog>

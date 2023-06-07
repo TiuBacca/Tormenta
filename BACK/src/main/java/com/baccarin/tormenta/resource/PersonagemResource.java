@@ -93,10 +93,10 @@ public class PersonagemResource {
 	@PostMapping(path = "buscaLista/pericias")
 	public ResponseEntity<List<PersonagemPericiaResponse>> buscarListaPericiasByPersonagem(@RequestBody PersonagemRequest request)
 			throws Exception {
-		List<PersonagemPericiaResponse> pericias = personagemService.buscarListaPericiasByPersonagem(request);
-		if (Objects.nonNull(pericias) && !pericias.isEmpty()) {
-			return new ResponseEntity<List<PersonagemPericiaResponse>>(pericias, HttpStatus.OK);
-		}
+//		List<PersonagemPericiaResponse> pericias = personagemService.buscarListaPericiasByPersonagem(request);
+//		if (Objects.nonNull(pericias) && !pericias.isEmpty()) {
+//			return new ResponseEntity<List<PersonagemPericiaResponse>>(pericias, HttpStatus.OK);
+//		}
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
 
